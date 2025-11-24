@@ -1,0 +1,32 @@
+{
+  "name": "web-backend",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "node ./dist/index.js",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js}\"",
+    "migrate": "npx prisma migrate dev",
+    "dbclient": "npx prisma generate"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/BatoiBhai-Camping/web-backend.git",
+  "author": "Bibek-batoibhai <bibek.samal@batiobhai.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
+    "prettier": "3.6.2",
+    "prisma": "^7.0.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.0.0",
+    "@prisma/client": "^7.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "zod": "^4.1.13"
+  }
+}

@@ -1,0 +1,428 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  TRAVELER
+  AGENT
+}
+
+enum AddressType {
+  PERMANENT
+  CURRENT
+  TRAVEL
+}
+
+enum AgentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum BookingStatus {
+  PENDING
+  HOLD
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  REFUND_PENDING
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum PaymentType {
+  ADVANCE
+  FINAL
+  REFUND
+}
+
+enum ProviderType {
+  STRIP
+  RAZORPAY
+  OTHER
+}
+
+enum NotificationType {
+  BOOKING_UPDATE
+  PAYMENT_UPDATE
+  SYSTEM_MESSAGE
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+}
+
+enum CancelledBy {
+  USER
+  AGENT
+  PLATFORM
+}
+
+enum DocumentType {
+  AADHAR
+  PAN
+}
+
+enum TransportMode {
+  BUS
+  TRAIN
+  CAR
+  FLIGHT
+  BOAT
+  WALK
+  OTHER
+}
+
+enum ReviewType {
+  AGENT
+  PACKAGE
+  PLATFORM
+}
+
+model User {
+  id        String   @id @default(cuid())
+  fullName  String
+  email     String   @unique
+  password  String? // null if Google OAuth only
+  verified  Boolean  @default(false)
+  role      UserRole @default(TRAVELER)
+  phone     String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+
+  profileImageId String? @unique
+  profileImage   Image?  @relation("User_profileImage", fields: [profileImageId], references: [id])
+
+  optionalPhone OptionalPhone[]
+
+  address Address[] @relation("UserAddressRelation")
+
+  agentProfile AgentProfile?
+  bookings     Booking[]
+
+  platformReviews PlatformReview[] // ← ADD THIS
+  agentReviews    AgentReview[] // optional future relation
+  packageReviews  PackageReview[] // optional future relation
+  notifications   Notification[]
+}
+
+model OptionalPhone {
+  id               String  @id @default(cuid())
+  phoneNumber      String  @unique
+  isVerifyedNumber Boolean @default(false)
+  userId           String
+  user             User    @relation(fields: [userId], references: [id])
+}
+
+model AgentProfile {
+  id          String      @id @default(cuid())
+  userId      String      @unique
+  companyName String
+  description String?
+  status      AgentStatus @default(PENDING)
+  gstNumber   String?
+
+  //gvt id for verification
+  aadharNumber String
+  panNumber    String?
+
+  //relation to the docuent 
+  documents Document[]
+
+  profileImageId String? @unique
+  bannerImageId  String? @unique
+
+  profileImage Image?        @relation("AgentProfileImage", fields: [profileImageId], references: [id])
+  bannerImage  Image?        @relation("AgentBannerImage", fields: [bannerImageId], references: [id])
+  user         User          @relation(fields: [userId], references: [id])
+  reviews      AgentReview[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Document {
+  id             String       @id @default(cuid())
+  documentType   DocumentType
+  documentUrl    String
+  documentFileId String?
+
+  agentId String
+  agent   AgentProfile @relation(fields: [agentId], references: [id])
+}
+
+model Address {
+  id          String      @id @default(cuid())
+  addressType AddressType @default(PERMANENT)
+  country     String?
+  state       String?
+  district    String?
+  pin         String?
+  city        String?
+  longitude   String?
+  latitude    String?
+
+  userId String?
+  user   User?   @relation("UserAddressRelation", fields: [userId], references: [id])
+
+  travelPackageId String?
+  travelPackage   TravelPackage? @relation("PackageAddressRelation", fields: [travelPackageId], references: [id])
+}
+
+model TravelPackage {
+  id                String @id @default(cuid())
+  agentId           String
+  title             String
+  description       String
+  pricePerPerson    Float
+  advancedPerPerson Float
+
+  discountAmount     Int? @default(0)
+  discountPercentage Int? @default(0)
+
+  withTax       Boolean? @default(false)
+  taxPercentage Int?     @default(0)
+
+  destination          String
+  durationDays         Int
+  startDate            DateTime?
+  endDate              DateTime?
+  bookingActiveFrom    DateTime
+  bookingEndAt         DateTime
+  packagePolicies      String    @default("NA")
+  cancellationPolicies String    @default("NA")
+  packageBannerImageId String?   @unique
+  PackageBannerImage   Image?    @relation("PackageBannerImage", fields: [packageBannerImageId], references: [id])
+  isBookingActive      Boolean   @default(true)
+  isDeleted            Boolean   @default(false)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  tags                 String[]
+
+  address Address[] @relation("PackageAddressRelation")
+
+  reviews        PackageReview[]
+  itinerary      ItineraryDay[]
+  bookings       Booking[]
+  packagesImages Image[]
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  fileId    String?
+  isDeleted Boolean? @default(false)
+  createdAt DateTime @default(now())
+
+  userProfile     User?          @relation("User_profileImage")
+  agentProfile    AgentProfile?  @relation("AgentProfileImage")
+  agentBanner     AgentProfile?  @relation("AgentBannerImage")
+  packageBanner   TravelPackage? @relation("PackageBannerImage")
+  travelPackage   TravelPackage? @relation(fields: [travelPackageId], references: [id])
+  travelPackageId String?
+  userId          String?
+}
+
+model ItineraryDay {
+  id          String  @id @default(cuid())
+  dayNumber   Int
+  title       String
+  description String?
+  packageId   String
+
+  package    TravelPackage @relation(fields: [packageId], references: [id])
+  hotelStay  HotelStay?
+  meals      MealPlan?
+  transports Transport[]
+  visits     VisitPlace[]
+
+  createdAt DateTime @default(now())
+
+  @@unique([packageId, dayNumber])
+}
+
+model HotelStay {
+  id             String       @id @default(cuid())
+  hotelName      String
+  checkIn        DateTime?
+  checkOut       DateTime?
+  address        String?
+  wifi           Boolean?
+  tv             Boolean?
+  attachWashroom Boolean?
+  acRoom         Boolean?
+  kitchen        Boolean?
+  itineraryDayId String       @unique
+  itineraryDay   ItineraryDay @relation(fields: [itineraryDayId], references: [id])
+}
+
+model MealPlan {
+  id             String @id @default(cuid())
+  itineraryDayId String @unique
+
+  meals Meal[] // 3 meals: breakfast, lunch, dinner
+
+  itineraryDay ItineraryDay @relation(fields: [itineraryDayId], references: [id])
+}
+
+model Meal {
+  id              String   @id @default(cuid())
+  type            MealType
+  mealPlanId      String
+  mealDescription String?
+  mealPlan        MealPlan @relation(fields: [mealPlanId], references: [id])
+
+  @@unique([mealPlanId, type])
+}
+
+model Transport {
+  id           String        @id @default(cuid())
+  fromLocation String
+  toLocation   String
+  mode         TransportMode // e.g., BUS, TRAIN, CAR
+  startTime    DateTime
+  endTime      DateTime
+
+  itineraryDayId String
+  itineraryDay   ItineraryDay @relation(fields: [itineraryDayId], references: [id])
+}
+
+model VisitPlace {
+  id             String  @id @default(cuid())
+  name           String
+  address        String?
+  description    String?
+  visitTime      String?
+  itineraryDayId String
+
+  itineraryDay ItineraryDay @relation(fields: [itineraryDayId], references: [id])
+}
+
+model Booking {
+  id          String @id @default(cuid())
+  bookingCode String @unique
+
+  userId    String
+  packageId String
+
+  numberOfTravelers Int @default(1)
+
+  status        BookingStatus @default(PENDING)
+  paymentStatus PaymentStatus @default(PENDING)
+
+  baseAmount     Float //travel package per person amount      
+  taxAmount      Float @default(0) //if tax is provided by the agent apply
+  discountAmount Float @default(0) //if discount is provided by the agent apply
+
+  totalAmount Float
+
+  amountPaid Float @default(0)
+  balanceDue Float
+
+  fullPaymentDueAt DateTime? // alias for holdExpiresAt or explicit field
+
+  // cancellation refund fields
+  refundableAmount   Float? // computed at cancellation time
+  cancellationReason String?
+  cancelledAt        DateTime?
+  cancelledBy        CancelledBy
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user          User          @relation(fields: [userId], references: [id])
+  travelPackage TravelPackage @relation(fields: [packageId], references: [id])
+
+  payments Payment[] // one-to-many
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  bookingId   String
+  type        PaymentType
+  status      PaymentStatus @default(PENDING)
+  amount      Float
+  currency    String        @default("INR")
+  provider    ProviderType? @default(OTHER)
+  providerRef String?
+  isRefund    Boolean?      @default(false)
+  refundForId String? // optional link to original payment id if this is a refund
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  booking Booking @relation(fields: [bookingId], references: [id])
+}
+
+model PackageReview {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  packageId     String
+  travelPackage TravelPackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([packageId, userId])
+}
+
+model AgentReview {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  agentId String
+  agent   AgentProfile @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([agentId, userId])
+}
+
+model PlatformReview {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  message   String
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
