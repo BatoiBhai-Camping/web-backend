@@ -7,7 +7,10 @@
 import type { Request, Response } from "express";
 
 import { asyncHandler } from "../uitls/asyncHandler.js";
-import { userRegisterValidator } from "../validator/user.validator.js";
+import {
+  userRegisterValidator,
+  userLoginValidator,
+} from "../validator/user.validator.js";
 import { ApiError } from "../uitls/apiError.js";
 import { db } from "../db/db.js";
 import bcrypt from "bcryptjs";
@@ -103,4 +106,78 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
-export { userRegister };
+const userLogIn = asyncHandler(async (req: Request, res: Response) => {
+  const userData = req.body;
+  const validRes = userLoginValidator.safeParse(userData);
+  if (!validRes.success) {
+    throw new ApiError(
+      400,
+      validRes.error.message || "Provided data field are invalid",
+    );
+  }
+  // check the user is exist or not
+  const user = await db.user.findUnique({
+    where: {
+      email: validRes.data.email,
+    },
+    select: {
+      id: true,
+      email: true,
+      password: true,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(
+      400,
+      "Provided email is not found kindly register or try with another email",
+    );
+  }
+
+  // check the pass
+  const passCheck: boolean = await bcrypt.compare(
+    validRes.data.password,
+    user.password as string,
+  );
+
+  if (!passCheck) {
+    throw new ApiError(400, "Provided password is not match");
+  }
+
+  // create and set the new access and refresh token in the cookie and db
+  const accessToken = await createAccessToken({
+    userId: user.id,
+    email: user.email,
+  });
+  const refreshToken = await createRefreshToken(user.id);
+
+  res.cookie("accesstoken", `Bearer ${accessToken}`, {
+    httpOnly: true,
+    sameSite: validENV.NODE_ENV === "production" ? "none" : "lax",
+    secure: validENV.NODE_ENV === "production" ? true : false,
+    maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
+    path: "/",
+  });
+  res.cookie("refreshtoken", `Bearer ${refreshToken}`, {
+    httpOnly: true,
+    sameSite: validENV.NODE_ENV === "production" ? "none" : "lax",
+    secure: validENV.NODE_ENV === "production" ? true : false,
+    maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days
+    path: "/",
+  });
+
+  await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      refreshToken: refreshToken,
+    },
+  });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, null, "User loggedin successfully"));
+});
+
+export { userRegister, userLogIn };
