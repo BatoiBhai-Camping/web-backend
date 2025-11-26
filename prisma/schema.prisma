@@ -114,6 +114,7 @@ model User {
   profileImageId String? @unique
   profileImage   Image?  @relation("User_profileImage", fields: [profileImageId], references: [id])
 
+  refreshToken String?
   optionalPhone OptionalPhone[]
 
   address Address[] @relation("UserAddressRelation")
