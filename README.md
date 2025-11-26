@@ -105,7 +105,7 @@ http://localhost:3001/api/v1/health-status
 	```bash
 	yar install or npm install
 	```
-3. Create `.env` with `DATABASE_URL`, `NODE_ENV` and optional `PORT`
+3. Create `.env` with Reqired fields
 4. Run migrations
 	```bash
 	yarn migrate or npm run migrate
