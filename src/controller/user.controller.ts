@@ -4,12 +4,19 @@
 // 3. user account verification
 // 4. user account update
 // 5. user account delete
+import type { Request, Response } from "express";
 
 import { asyncHandler } from "../uitls/asyncHandler.js";
 import { userRegisterValidator } from "../validator/user.validator.js";
-import type { userRegisterValidatorType } from "../validator/user.validator.js";
 import { ApiError } from "../uitls/apiError.js";
 import { db } from "../db/db.js";
+import bcrypt from "bcryptjs";
+import {
+  createAccessToken,
+  createRefreshToken,
+} from "../helper/createAccessAndRefreshToken.js";
+import { validENV } from "../validator/env.validator.js";
+import { ApiResponse } from "../uitls/apiResponse.js";
 
 const userRegister = asyncHandler(async (req: Request, res: Response) => {
   const userData = req.body;
@@ -17,19 +24,83 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
   // validate the data
   const validRes = userRegisterValidator.safeParse(userData);
   if (!validRes.success) {
-    throw new ApiError(400, validRes.error.message || "Provided data are invalid");
+    throw new ApiError(
+      400,
+      validRes.error.message || "Provided data are invalid",
+    );
   }
 
   // check email exist or not
   const userExists = await db.user.findFirst({
-    where:{
-        email: validRes.data.email
-    }
+    where: {
+      email: validRes.data.email,
+    },
   });
 
-  if(userExists){
-    throw new ApiError(400,"User email already exist, try another email or loging");
+  if (userExists) {
+    throw new ApiError(
+      400,
+      "User email already exist, try another email or loging",
+    );
   }
+  //hash the password
+  const hashedPass = await bcrypt.hash(validRes.data.password, 10);
+  //create the user
+  const user = await db.user.create({
+    data: {
+      fullName: validRes.data.fullName,
+      email: validRes.data.email,
+      password: hashedPass,
+    },
+    select: {
+      id: true,
+      email: true,
+    },
+  });
+
   // create the access and refresh token
-  
+  const accessToken = await createAccessToken({
+    userId: user.id,
+    email: user.email,
+  });
+  const refreshToken = await createRefreshToken(user.id);
+
+  // set the access and refresh token in the client side cookie
+  res.cookie("accesstoken", `Bearer ${accessToken}`, {
+    httpOnly: true,
+    sameSite: validENV.NODE_ENV === "production" ? "none" : "lax",
+    secure: validENV.NODE_ENV === "production" ? true : false,
+    maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
+    path: "/",
+  });
+  res.cookie("refreshtoken", `Bearer ${refreshToken}`, {
+    httpOnly: true,
+    sameSite: validENV.NODE_ENV === "production" ? "none" : "lax",
+    secure: validENV.NODE_ENV === "production" ? true : false,
+    maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days
+    path: "/",
+  });
+
+  // add the refreshToken in the db
+  await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      refreshToken: refreshToken,
+    },
+  });
+
+  //return the success response that user is registerd successfully, email verification required
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        null,
+        "User registerd success fully email verification required",
+      ),
+    );
 });
+
+export { userRegister };
