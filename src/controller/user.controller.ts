@@ -20,6 +20,7 @@ import {
 } from "../helper/createAccessAndRefreshToken.js";
 import { validENV } from "../validator/env.validator.js";
 import { ApiResponse } from "../uitls/apiResponse.js";
+import { sendAccountVerificationMail } from "../helper/sendMail.js";
 
 const userRegister = asyncHandler(async (req: Request, res: Response) => {
   const userData = req.body;
@@ -58,50 +59,24 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
     select: {
       id: true,
       email: true,
+      fullName: true,
     },
   });
 
-  // create the access and refresh token
-  const accessToken = await createAccessToken({
-    userId: user.id,
-    email: user.email,
-  });
-  const refreshToken = await createRefreshToken(user.id);
-
-  // set the access and refresh token in the client side cookie
-  res.cookie("accesstoken", `Bearer ${accessToken}`, {
-    httpOnly: true,
-    sameSite: validENV.NODE_ENV === "production" ? "none" : "lax",
-    secure: validENV.NODE_ENV === "production" ? true : false,
-    maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
-    path: "/",
-  });
-  res.cookie("refreshtoken", `Bearer ${refreshToken}`, {
-    httpOnly: true,
-    sameSite: validENV.NODE_ENV === "production" ? "none" : "lax",
-    secure: validENV.NODE_ENV === "production" ? true : false,
-    maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days
-    path: "/",
+  // send the verification code to the user for account verificaton 
+  await sendAccountVerificationMail({
+    reciverGamil: user.email,
+    reciverName: user.fullName,
+    verificationLink: "link",
   });
 
-  // add the refreshToken in the db
-  await db.user.update({
-    where: {
-      id: user.id,
-    },
-    data: {
-      refreshToken: refreshToken,
-    },
-  });
-
-  //return the success response that user is registerd successfully, email verification required
   return res
     .status(200)
     .json(
       new ApiResponse(
         200,
         null,
-        "User registerd success fully email verification required",
+        "User registerd success fully kindly verify your email",
       ),
     );
 });
