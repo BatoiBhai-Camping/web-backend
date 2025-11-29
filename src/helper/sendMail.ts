@@ -27,7 +27,6 @@ const sendAccountVerificationMail = async ({
       html: htmlcontent,
     };
     const mailres = await transporter.sendMail(mailOptions);
-    
   } catch (error: any) {
     throw new ApiError(
       500,

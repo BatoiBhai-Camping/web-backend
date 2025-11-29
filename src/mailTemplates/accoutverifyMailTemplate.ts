@@ -1,7 +1,7 @@
 // @ts-ignore
 import mjml2html from "mjml";
 
-const accountVerificationTemplate = (userName:string, link:string) => {
+const accountVerificationTemplate = (userName: string, link: string) => {
   const mjml = `<mjml>
   <mj-head>
     <mj-preview>Verify your account to get started</mj-preview>
@@ -122,10 +122,10 @@ const accountVerificationTemplate = (userName:string, link:string) => {
     </mj-section>
   </mj-body>
 </mjml>
-  `
+  `;
 
-  const {html} = mjml2html(mjml);
+  const { html } = mjml2html(mjml);
   return html;
-}
+};
 
-export {accountVerificationTemplate}
+export { accountVerificationTemplate };

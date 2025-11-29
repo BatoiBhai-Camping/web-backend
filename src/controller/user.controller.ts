@@ -63,7 +63,7 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
     },
   });
 
-  // send the verification code to the user for account verificaton 
+  // send the verification code to the user for account verificaton
   await sendAccountVerificationMail({
     reciverGamil: user.email,
     reciverName: user.fullName,

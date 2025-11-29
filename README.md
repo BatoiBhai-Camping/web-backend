@@ -25,9 +25,18 @@ Optional (for faster developer feedback):
 Create a `.env` file in the project root (same level as `package.json`) with at least the following variable:
 
 ```
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public"
-PORT=3001
-NODE_ENV=development
+
+DATABASE_URL="postgresql://<your user name>:<your password>>@localhost:5432/batoibhai?schema=public"
+PORT=3000
+ACCESS_TOKEN_SECRET=bibek
+ACCESS_TOKEN_EXPIRY=3
+
+REFRESH_TOKEN_SECRET=bibek
+REFRESH_TOKEN_EXPIRY=10
+
+
+GMAIL=<use official batoibhai email for sending verificaton mail>
+APP_PASSWORD=< use offical batiobhai app password for sending verification mail>
 ```
 
 - Replace `USER`, `PASSWORD`, `HOST`, `PORT`, and `DATABASE` with your database values.

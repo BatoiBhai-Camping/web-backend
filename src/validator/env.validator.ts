@@ -10,8 +10,10 @@ const envSchema = z.object({
   ACCESS_TOKEN_EXPIRY: z.coerce.number("Access token expire is required"),
   REFRESH_TOKEN_SECRET: z.string("Refresh token secreate is required."),
   REFRESH_TOKEN_EXPIRY: z.coerce.number("Refresh token expire is required"),
-  GMAIL: z.string("An gmail is required for send mail through smtp").email("This is not a valid gamil"),
-  APP_PASSWORD: z.string("An app passoword required for sending the email")
+  GMAIL: z
+    .string("An gmail is required for send mail through smtp")
+    .email("This is not a valid gamil"),
+  APP_PASSWORD: z.string("An app passoword required for sending the email"),
 });
 
 export const validENV = envSchema.parse(process.env);
