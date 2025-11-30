@@ -5,7 +5,7 @@ const asyncHandler =
     try {
       await fn(req, res, next);
     } catch (error: any) {
-      if(validENV.NODE_ENV === "development"){
+      if (validENV.NODE_ENV === "development") {
         console.log(error);
       }
       next(error);

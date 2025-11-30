@@ -19,7 +19,7 @@ const authMiddleware = asyncHandler(
         },
       ]);
     }
-    
+
     // check the token is in right format or not
     if (!token.startsWith("Bearer")) {
       throw new ApiError(400, "Access denied, authenication required", [
@@ -66,23 +66,21 @@ const authMiddleware = asyncHandler(
       },
     });
 
-    if(!dbUser){
-        throw new ApiError(400,"Access denied, authenication required",[
-            {
-                field:"Invalid user token",
-                message: "Provided token data is not found in db"
-            }
-        ])
+    if (!dbUser) {
+      throw new ApiError(400, "Access denied, authenication required", [
+        {
+          field: "Invalid user token",
+          message: "Provided token data is not found in db",
+        },
+      ]);
     }
 
     // set the user id and email to the request object in order to use it further reoutes which need authentication
     req.userId = dbUser.id;
-    req.userEmail = dbUser.email
+    req.userEmail = dbUser.email;
 
     next();
-
   },
 );
 
-export {authMiddleware}
-
+export { authMiddleware };

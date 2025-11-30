@@ -47,9 +47,9 @@ const createVerificationToken = async (email: string) => {
         expiresIn: `${validENV.ACCESS_TOKEN_EXPIRY}d`,
       },
     );
-    return verificationToken
+    return verificationToken;
   } catch (error: any) {
-    if(validENV.NODE_ENV === "development"){
+    if (validENV.NODE_ENV === "development") {
       console.log(error);
     }
     throw new ApiError(
