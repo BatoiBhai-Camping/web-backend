@@ -34,14 +34,13 @@ ACCESS_TOKEN_EXPIRY=3
 REFRESH_TOKEN_SECRET=bibek
 REFRESH_TOKEN_EXPIRY=10
 
+VERIFICATION_TOKEN_SECRET=bibek
+VERIFICATION_TOKEN_EXPIRY=1
 
 GMAIL=<use official batoibhai email for sending verificaton mail>
 APP_PASSWORD=< use offical batiobhai app password for sending verification mail>
 ```
 
-- Replace `USER`, `PASSWORD`, `HOST`, `PORT`, and `DATABASE` with your database values.
-- ex, "postgresql://postgres:755049@localhost:5432/batoibhai?schema=public"
-- Example for a local Postgres: `postgresql://postgres:password@localhost:5432/batoibhai_db?schema=public`
 
 ## Install dependencies
 
