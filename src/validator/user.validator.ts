@@ -18,4 +18,8 @@ const userLoginValidator = z.object({
     .min(6, { message: "Password is too short" }),
 });
 
-export { userRegisterValidator, userLoginValidator };
+
+const verifyAccountValidator = z.object({
+  veriryToken: z.string("Verify token is required")
+})
+export { userRegisterValidator, userLoginValidator,verifyAccountValidator };

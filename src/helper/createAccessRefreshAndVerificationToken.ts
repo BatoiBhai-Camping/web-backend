@@ -38,4 +38,26 @@ const createRefreshToken = async (userId: string) => {
   }
 };
 
-export { createAccessToken, createRefreshToken };
+const createVerificationToken = async (email: string) => {
+  try {
+    const verificationToken = jwt.sign(
+      { email: email },
+      validENV.VERIFICATION_TOKEN_SECRET,
+      {
+        expiresIn: `${validENV.ACCESS_TOKEN_EXPIRY}d`,
+      },
+    );
+    return verificationToken
+  } catch (error: any) {
+    if(validENV.NODE_ENV === "development"){
+      console.log(error);
+    }
+    throw new ApiError(
+      500,
+      error?.message ||
+        "Something went wrong while generating the verification token",
+    );
+  }
+};
+
+export { createAccessToken, createRefreshToken, createVerificationToken };

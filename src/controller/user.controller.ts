@@ -10,6 +10,7 @@ import { asyncHandler } from "../uitls/asyncHandler.js";
 import {
   userRegisterValidator,
   userLoginValidator,
+  verifyAccountValidator,
 } from "../validator/user.validator.js";
 import { ApiError } from "../uitls/apiError.js";
 import { db } from "../db/db.js";
@@ -17,10 +18,16 @@ import bcrypt from "bcryptjs";
 import {
   createAccessToken,
   createRefreshToken,
-} from "../helper/createAccessAndRefreshToken.js";
+  createVerificationToken,
+} from "../helper/createAccessRefreshAndVerificationToken.js";
 import { validENV } from "../validator/env.validator.js";
 import { ApiResponse } from "../uitls/apiResponse.js";
 import { sendAccountVerificationMail } from "../helper/sendMail.js";
+import jwt, { type JwtPayload } from "jsonwebtoken";
+
+interface VerificationPayload extends JwtPayload {
+  email: string;
+}
 
 const userRegister = asyncHandler(async (req: Request, res: Response) => {
   const userData = req.body;
@@ -63,11 +70,53 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
     },
   });
 
+  // create an verification token and store it with the user db
+  const verificationToken = await createVerificationToken(user.email);
+  await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      verifyToken: verificationToken,
+    },
+  });
+
   // send the verification code to the user for account verificaton
-  await sendAccountVerificationMail({
+  sendAccountVerificationMail({
     reciverGamil: user.email,
     reciverName: user.fullName,
-    verificationLink: "link",
+    verificationLink: verificationToken, //the verification link is a frontend url which contain the verification token
+  });
+
+  // create and set the new access and refresh token in the cookie and db
+  const accessToken = await createAccessToken({
+    userId: user.id,
+    email: user.email,
+  });
+  const refreshToken = await createRefreshToken(user.id);
+
+  res.cookie("accesstoken", `Bearer ${accessToken}`, {
+    httpOnly: true,
+    sameSite: validENV.NODE_ENV === "production" ? "none" : "lax",
+    secure: validENV.NODE_ENV === "production" ? true : false,
+    maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
+    path: "/",
+  });
+  res.cookie("refreshtoken", `Bearer ${refreshToken}`, {
+    httpOnly: true,
+    sameSite: validENV.NODE_ENV === "production" ? "none" : "lax",
+    secure: validENV.NODE_ENV === "production" ? true : false,
+    maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days
+    path: "/",
+  });
+
+  await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      refreshToken: refreshToken,
+    },
   });
 
   return res
@@ -80,6 +129,57 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
       ),
     );
 });
+
+const userAccountVerification = asyncHandler(
+  async (req: Request, res: Response) => {
+    // check user is verifyed or not
+
+    const isVerifyedUser = await db.user.findFirst({
+      where: {
+        id: req.userId as string,
+        verified: true,
+      },
+    });
+
+    if (isVerifyedUser) {
+      throw new ApiError(400, "User is already verifyed");
+    }
+    const validateRes = verifyAccountValidator.safeParse(req.body);
+    if (!validateRes.success) {
+      throw new ApiError(400, "No verifify token is provided");
+    }
+    const verifyToken = validateRes.data.veriryToken;
+    // verify the token
+    const tokenData = jwt.verify(
+      verifyToken,
+      validENV.VERIFICATION_TOKEN_SECRET,
+    ) as VerificationPayload;
+    const email = req.userEmail;
+
+    if (!(email === tokenData.email)) {
+      throw new ApiError(
+        400,
+        "Invalid verification token, token payload doesnot match",
+      );
+    }
+
+    //update the db
+
+    const updateUser = await db.user.update({
+      where: {
+        id: req.userId as string,
+      },
+      data: {
+        verified: true,
+        verifyToken: null,
+      },
+    });
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, "User account verifyed successfully"));
+  },
+);
 
 const userLogIn = asyncHandler(async (req: Request, res: Response) => {
   const userData = req.body;
@@ -155,4 +255,4 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
     .json(new ApiResponse(200, null, "User loggedin successfully"));
 });
 
-export { userRegister, userLogIn };
+export { userRegister, userLogIn, userAccountVerification };

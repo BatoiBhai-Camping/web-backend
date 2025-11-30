@@ -14,6 +14,7 @@
       "node",
       "express"
     ],
+    "typeRoots": ["./src/types", "./node_modules/@types"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -45,5 +46,6 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
+  "include": ["src","src/types"],
   "exclude": ["node_modules", "dist", "prisma", "prisma.config.ts"]
 }
