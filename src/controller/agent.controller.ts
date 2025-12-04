@@ -21,16 +21,18 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
   const data = valid.data;
 
   // Check if email exists
-  const existing = await db.bb_user.findUnique({
+  const userExists = await db.bb_user.findUnique({
     where: { email: data.email },
   });
-  if (existing) throw new ApiError(400, "Email already registered");
+  if (userExists) {
+    throw new ApiError(400, "Email already registered");
+  }
 
   const hashedPass = await bcrypt.hash(data.password, 10);
 
   //start the transaction
   const agentAccountRes = await db.$transaction(async (tx) => {
-    // 1. Create user
+    // Create user with type agent
     const user = await tx.bb_user.create({
       data: {
         fullName: data.fullName,
@@ -41,7 +43,7 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
       },
     });
 
-    // 2. Create address
+    // Create address using the user id
     await tx.bb_address.create({
       data: {
         userId: user.id,
@@ -56,7 +58,7 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
       },
     });
 
-    // 3. Create profile image
+    // Create profile image usin user id
     const profileImage = await tx.bb_image.create({
       data: {
         imageUrl: data.profileImageUrl,
@@ -64,13 +66,13 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
       },
     });
 
-    // 4. Attach profile image to user
+    //Attach profile image to the user
     await tx.bb_user.update({
       where: { id: user.id },
       data: { profileImageId: profileImage.id },
     });
 
-    // 5. Create agent profile (no banner yet)
+    // 5. Create agent profile using user id
     const agent = await tx.bb_agentProfile.create({
       data: {
         userId: user.id,
@@ -82,7 +84,7 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
       },
     });
 
-    // 6. Create banner image
+    // create banner image
     const banner = await tx.bb_image.create({
       data: {
         imageUrl: data.bannerImageUrl,
@@ -90,13 +92,13 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
       },
     });
 
-    // Attach banner to agent
+    // Attach banner image to the  agent
     await tx.bb_agentProfile.update({
       where: { id: agent.id },
       data: { bannerImageId: banner.id },
     });
 
-    // 7. Create AADHAR document
+    // Create aadhar document entry using agent id
     await tx.bb_document.create({
       data: {
         documentType: "AADHAR",
@@ -106,7 +108,7 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
       },
     });
 
-    // 8. Create PAN document (optional)
+    // Create PAN document entry using agent id
     if (data.panDocumentUrl) {
       await tx.bb_document.create({
         data: {
@@ -129,13 +131,15 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
 
   const refreshToken = await createRefreshToken(agentAccountRes.user.id);
 
+  // add the refresh token to the database
   await db.bb_user.update({
     where: { id: agentAccountRes.user.id },
     data: { refreshToken },
   });
 
+  // create the verification token
   const verifyToken = await createVerificationToken(agentAccountRes.user.email);
-
+  // stroe the verification token in the db
   await db.bb_user.update({
     where: { id: agentAccountRes.user.id },
     data: { verifyToken },

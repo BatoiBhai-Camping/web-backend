@@ -209,7 +209,6 @@ const userAccountVerification = asyncHandler(
       validENV.VERIFICATION_TOKEN_SECRET,
     ) as VerificationPayload;
     const email = req.userEmail;
-
     if (!(email === tokenData.email)) {
       throw new ApiError(
         400,
