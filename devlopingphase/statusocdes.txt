@@ -1,0 +1,117 @@
+1xx — Informational (Rarely used in REST APIs)
+
+Most APIs do not use these, but included for completeness.
+
+Status	Name	When to Use	Recommended Message
+
+100	Continue	Client should continue request (usually internal)	"Continue"
+
+101	Switching Protocols	WebSockets upgrade	"Protocol switched"
+
+102	Processing	Long operations (WebDAV)	"Processing request"
+
+🟢 2xx — Success Responses
+
+Status	Name	When to Use	Recommended API Message
+
+200	OK	Operation succeeded	"Success"
+
+201	Created	Resource successfully created (register, create booking, upload image)	"Resource created successfully"
+
+202	Accepted	Request queued for async processing (email sending, background jobs)	"Request accepted and being processed"
+
+203	Non-Authoritative Info	Rare — proxy-modified response	"Partial information"
+
+204	No Content	Operation succeeded but no response body (delete)	"No content"
+
+205	Reset Content	Ask client to reset form	"Reset content"
+
+206	Partial Content	Used for file chunk downloads	"Partial content"
+
+🟡 3xx — Redirection
+
+(Most APIs don’t use these directly except 301/302)
+
+Status	Name	When to Use	Recommended Message
+
+301	Moved Permanently	Old API route changed forever	"Resource moved permanently"
+
+302	Found	Temporary redirect	"Resource temporarily moved"
+
+304	Not Modified	Caching: No change since last fetch	"Not modified"
+
+🔴 4xx — Client Errors (VERY IMPORTANT IN APIs)
+
+These are the most used in production.
+
+Status	Name	When to Use	Recommended API Message
+
+400	Bad Request	Invalid input / missing fields / bad data	"Invalid request data"
+
+401	Unauthorized	Missing or invalid auth token	"Unauthorized access"
+
+402	Payment Required	Payment failure (Stripe error, booking payment issues)	"Payment required"
+
+403	Forbidden	Authenticated but not allowed (role-based access)	"Forbidden: You don’t have permission"
+
+404	Not Found	User/package/booking not found	"Resource not found"
+
+405	Method Not Allowed	Wrong HTTP method used	"Method not allowed"
+
+406	Not Acceptable	Unsupported format requested	"Not acceptable"
+
+408	Request Timeout	Slow client; server ended connection	"Request timeout"
+
+409	Conflict	Duplicate email, booking already exists, version conflict	"Resource conflict"
+
+410	Gone	Resource permanently removed	"Resource no longer available"
+
+411	Length Required	Missing content-length header	"Content length required"
+
+412	Precondition Failed	Conditional headers failed	"Precondition failed"
+
+413	Payload Too Large	File upload too big	"Payload too large"
+
+415	Unsupported Media Type	Wrong content-type (uploading wrong file type)	"Unsupported media type"
+
+418	I'm a Teapot	Fun / test	"I'm a teapot 😂"
+
+422	Unprocessable Entity	Validation error	"Unprocessable entity / validation failed"
+
+426	Upgrade Required	Need to update TLS or version	"Upgrade required"
+
+429	Too Many Requests	Rate limit exceeded	"Too many requests, slow down"
+
+🔥 Most Common 4xx for Real-World APIs
+
+Code	Meaning	Used For
+
+400	Bad Request	Input/validation errors
+
+401	Unauthorized	Expired or missing JWT
+
+403	Forbidden	AGENT trying USER routes, etc.
+
+404	Not Found	Package, user, booking missing
+
+409	Conflict	Duplicate email, already booked
+
+422	Validation error	Zod/Joi error
+
+429	Rate limit	Too many OTP requests
+
+🔵 5xx — Server Errors (Backend Failure)
+
+Status	Name	When to Use	Recommended Message
+
+500	Internal Server Error	Unexpected server crash	"Internal server error"
+
+501	Not Implemented	API endpoint exists but not implemented	"Feature not implemented"
+
+502	Bad Gateway	External API failure (Stripe, Razorpay)	"Bad gateway — upstream service error"
+
+503	Service Unavailable	Server overloaded, down for maintenance	"Service temporarily unavailable"
+
+504	Gateway Timeout	External API timeout	"Gateway timeout"
+
+505	HTTP Version Not Supported	Rare	"HTTP version not supported"
