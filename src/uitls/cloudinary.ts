@@ -56,3 +56,5 @@ const deleteFromCloudinary = async (fileId: string) => {
     return false;
   }
 };
+
+export { uploadToCloudinary, deleteFromCloudinary };

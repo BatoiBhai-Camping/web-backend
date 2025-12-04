@@ -13,7 +13,9 @@ agentRouter.route("/register").post(agentRegister);
 // as we use the same email and pass for login we use the same user login here
 agentRouter.route("/login").post(userLogIn);
 // we use the same user account verification as both have same workflow
-agentRouter.route("/verify-account").post(authMiddleware,userAccountVerification);
+agentRouter
+  .route("/verify-account")
+  .post(authMiddleware, userAccountVerification);
 // we use the same user account verificaton mail sending function as agent and user are same
 agentRouter
   .route("/send-verification-link")
