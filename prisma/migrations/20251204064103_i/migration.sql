@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "Bb_address" ALTER COLUMN "country" DROP NOT NULL,
+ALTER COLUMN "state" DROP NOT NULL,
+ALTER COLUMN "district" DROP NOT NULL,
+ALTER COLUMN "pin" DROP NOT NULL,
+ALTER COLUMN "city" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Bb_image" ADD COLUMN     "agentId" TEXT;

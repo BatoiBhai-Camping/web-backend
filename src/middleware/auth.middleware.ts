@@ -55,7 +55,7 @@ const authMiddleware = asyncHandler(
     }
 
     // find the user in db
-    const dbUser = await db.user.findFirst({
+    const dbUser = await db.bb_user.findFirst({
       where: {
         id: verifyAccessToken.userId,
         email: verifyAccessToken.email,

@@ -40,11 +40,11 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
       validRes.error.message || "Provided data are invalid",
     );
   }
-
+  const data = validRes.data;
   // check email exist or not
-  const userExists = await db.user.findFirst({
+  const userExists = await db.bb_user.findFirst({
     where: {
-      email: validRes.data.email,
+      email: data.email,
     },
   });
 
@@ -55,12 +55,12 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
     );
   }
   //hash the password
-  const hashedPass = await bcrypt.hash(validRes.data.password, 10);
+  const hashedPass = await bcrypt.hash(data.password, 10);
   //create the user
-  const user = await db.user.create({
+  const user = await db.bb_user.create({
     data: {
-      fullName: validRes.data.fullName,
-      email: validRes.data.email,
+      fullName: data.fullName,
+      email: data.email,
       password: hashedPass,
     },
     select: {
@@ -72,7 +72,7 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
 
   // create an verification token and store it with the user db
   const verificationToken = await createVerificationToken(user.email);
-  await db.user.update({
+  await db.bb_user.update({
     where: {
       id: user.id,
     },
@@ -95,6 +95,14 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
   });
   const refreshToken = await createRefreshToken(user.id);
 
+  await db.bb_user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      refreshToken: refreshToken,
+    },
+  });
   res.cookie("accesstoken", `Bearer ${accessToken}`, {
     httpOnly: true,
     sameSite: validENV.NODE_ENV === "production" ? "none" : "lax",
@@ -110,15 +118,6 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
     path: "/",
   });
 
-  await db.user.update({
-    where: {
-      id: user.id,
-    },
-    data: {
-      refreshToken: refreshToken,
-    },
-  });
-
   return res
     .status(200)
     .json(
@@ -130,65 +129,66 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
-const sendAccountVerificationLink = asyncHandler(async (req:Request,res:Response)=>{
-   // check user is verifyed or not
-  // if not then create a vifify token store it in the db and send the mail alogn with it
-  // // send the response that user is verifyed
-  const user = await db.user.findFirst({
-    where:{
-      id: req.userId as string,
-      verified: true
+const sendAccountVerificationLink = asyncHandler(
+  async (req: Request, res: Response) => {
+    // check user is verifyed or not
+    // if not then create a vifify token store it in the db and send the mail alogn with it
+    // // send the response that user is verifyed
+    const user = await db.bb_user.findFirst({
+      where: {
+        id: req.userId as string,
+        verified: true,
+      },
+    });
+
+    if (user) {
+      throw new ApiError(400, "User account is already verifyed");
     }
-  })
+    // create an verification token and store it with the user db
 
-  if(user){
-    throw new ApiError(400,"User account is already verifyed")
-  }
- // create an verification token and store it with the user db
- 
- // get the user for the db
- const dbuser = await db.user.findFirst({
-  where:{
-    id: req.userId as string,
+    // get the user for the db
+    const dbuser = await db.bb_user.findFirst({
+      where: {
+        id: req.userId as string,
+      },
+      select: {
+        fullName: true,
+        id: true,
+        email: true,
+      },
+    });
+    if (!dbuser) {
+      throw new ApiError(400, "No user is found kindly register");
+    }
+    const verificationToken = await createVerificationToken(dbuser.email);
+    await db.bb_user.update({
+      where: {
+        id: dbuser.id,
+      },
+      data: {
+        verifyToken: verificationToken,
+      },
+    });
+
+    // send the verification code to the user for account verificaton
+    sendAccountVerificationMail({
+      reciverGamil: dbuser.email,
+      reciverName: dbuser.fullName,
+      verificationLink: verificationToken, //the verification link is a frontend url which contain the verification token
+    });
+
+    // send the response that mail is send
+    return res
+      .status(200)
+      .json(new ApiResponse(200, "verification mail is send successfully"));
   },
-  select:{
-    fullName: true,
-    id: true,
-    email: true,
-  }
- }) 
- if(!dbuser){
-  throw new ApiError(400,"No user is found kindly register")
- }
-  const verificationToken = await createVerificationToken(dbuser.email);
-  await db.user.update({
-    where: {
-      id: dbuser.id
-    },
-    data: {
-      verifyToken: verificationToken,
-    },
-  });
-
-  // send the verification code to the user for account verificaton
-  sendAccountVerificationMail({
-    reciverGamil: dbuser.email,
-    reciverName: dbuser.fullName,
-    verificationLink: verificationToken, //the verification link is a frontend url which contain the verification token
-  });
-
-  // send the response that mail is send
-  return res.status(200).json(
-    new ApiResponse(200,"verification mail is send successfully")
-  )
-
-})
+);
 
 const userAccountVerification = asyncHandler(
   async (req: Request, res: Response) => {
     // check user is verifyed or not
 
-    const isVerifyedUser = await db.user.findFirst({
+    const isVerifyedUser = await db.bb_user.findFirst({
       where: {
         id: req.userId as string,
         verified: true,
@@ -219,7 +219,7 @@ const userAccountVerification = asyncHandler(
 
     //update the db
 
-    const updateUser = await db.user.update({
+    const updateUser = await db.bb_user.update({
       where: {
         id: req.userId as string,
       },
@@ -244,10 +244,11 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
       validRes.error.message || "Provided data field are invalid",
     );
   }
+  const data = validRes.data;
   // check the user is exist or not
-  const user = await db.user.findUnique({
+  const user = await db.bb_user.findUnique({
     where: {
-      email: validRes.data.email,
+      email: data.email,
     },
     select: {
       id: true,
@@ -265,7 +266,7 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
 
   // check the pass
   const passCheck: boolean = await bcrypt.compare(
-    validRes.data.password,
+    data.password,
     user.password as string,
   );
 
@@ -295,7 +296,7 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
     path: "/",
   });
 
-  await db.user.update({
+  await db.bb_user.update({
     where: {
       id: user.id,
     },
@@ -309,4 +310,11 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
     .json(new ApiResponse(200, null, "User loggedin successfully"));
 });
 
-export { userRegister, userLogIn, userAccountVerification, sendAccountVerificationLink };
+const userAccountUpdate = asyncHandler(async () => {});
+
+export {
+  userRegister,
+  userLogIn,
+  userAccountVerification,
+  sendAccountVerificationLink,
+};

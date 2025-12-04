@@ -1,6 +1,7 @@
 import express from "express";
 import { healthRoute } from "./routes/health.route.js";
 import { userRouter } from "./routes/user.route.js";
+import { agentRouter } from "./routes/agent.route.js";
 import { globalErrorHandler } from "./uitls/globalErrorHandeller.js";
 import cookieParser from "cookie-parser";
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", healthRoute);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/agent", agentRouter);
 
 //global error handler
 app.use(globalErrorHandler);
