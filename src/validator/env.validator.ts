@@ -18,6 +18,9 @@ const envSchema = z.object({
     .string("An gmail is required for send mail through smtp")
     .email("This is not a valid gamil"),
   APP_PASSWORD: z.string("An app passoword required for sending the email"),
+  CLOUDINARY_CLOUD_NAME: z.string("Cloudinary cloud name is required for store the assets"),
+  CLOUDINARY_API_KEY: z.string("cloudinary api key is reqired for strore assets"),
+CLOUDINARY_API_SECRET: z.string("cloudinary api secret is required for the store assets")
 });
 
 export const validENV = envSchema.parse(process.env);

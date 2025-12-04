@@ -8,13 +8,13 @@ This repository contains the backend for the BatoiBhai  platform (TypeScript + E
 - npm (bundled with Node.js) or a compatible package manager(yarn recomended)
 - PostgreSQL (local installation) or a hosted Postgres-compatible database (Neon, Supabase, RDS, etc.)
 - Git (to clone the repo)
-
+- yarn (package manager)
 Optional (for faster developer feedback):
 - `npx` (comes with npm) for running CLI tools without installing globally
 
 ## Quick overview of important files
 
-- `package.json` — npm scripts (build, start, migrate, dbclient)
+- `package.json` — npm scripts (build, start, migrate, dbclient,dev,studio)
 - `prisma/schema.prisma` — Prisma schema and models
 - `prisma.config.ts` — Prisma config (reads `DATABASE_URL` from env)
 - `src/` — TypeScript source. Entry point: `src/index.ts`
@@ -88,18 +88,22 @@ yarn start or npm start
 The server prints the health route URL on startup, for example:
 
 ```
+http://localhost:3000/api/v1/health-status
+or
 http://localhost:3001/api/v1/health-status
+
 ```
 
 
 
 ## Useful scripts
 
-- `yarn build or npm run build` — compile TypeScript
-- `yarn start or npm run start` — run compiled app
-- `yarn dbclient or npm run dbclient` — `npx prisma generate` (generate Prisma client)
-- `yarn migrate or npm run migrate` — `npx prisma migrate dev` (apply migrations)
-- `yarn format or npm run format` — format source with `prettier`
+- `yarn build or npm run build` -  compile TypeScript
+- `yarn start or npm run start` -  run compiled app
+- `yarn dbclient or npm run dbclient` -  `npx prisma generate` (generate Prisma client)
+- `yarn migrate or npm run migrate` -  `npx prisma migrate dev` (apply migrations)
+- `yarn format or npm run format` - format source with `prettier`
+- `yarn studio or npm run studio` - serve the db table for data visualization on the brower
 
 
 ## Quick start (summary)
