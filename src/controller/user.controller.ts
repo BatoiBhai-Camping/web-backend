@@ -137,7 +137,7 @@ const sendAccountVerificationLink = asyncHandler(
     const user = await db.bb_user.findFirst({
       where: {
         id: req.userId as string,
-        verified: true,
+        emailVerified: true,
       },
     });
 
@@ -191,7 +191,7 @@ const userAccountVerification = asyncHandler(
     const isVerifyedUser = await db.bb_user.findFirst({
       where: {
         id: req.userId as string,
-        verified: true,
+        emailVerified: true,
       },
     });
 
@@ -223,7 +223,7 @@ const userAccountVerification = asyncHandler(
         id: req.userId as string,
       },
       data: {
-        verified: true,
+        emailVerified: true,
         verifyToken: null,
       },
     });

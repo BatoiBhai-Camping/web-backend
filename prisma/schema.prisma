@@ -14,6 +14,7 @@ datasource db {
 }
 
 enum UserRole {
+  ROOTADMIN
   ADMIN
   AGENT
   TRAVELER
@@ -104,8 +105,9 @@ model Bb_user {
   fullName  String
   email     String   @unique
   password  String? // null if Google OAuth only
-  verified  Boolean  @default(false)
+  emailVerified  Boolean  @default(false)
   role      UserRole @default(TRAVELER)
+  roleStatus AgentStatus?
   phone     String?  @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

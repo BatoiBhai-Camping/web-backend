@@ -5,6 +5,7 @@ import { agentRouter } from "./routes/agent.route.js";
 import { globalErrorHandler } from "./uitls/globalErrorHandeller.js";
 import cookieParser from "cookie-parser";
 import { assetsRouter } from "./routes/assets.route.js";
+import { rootAdminRouter } from "./routes/rootAdmin.route.js";
 const app = express();
 
 // app.set("trust proxy", 1); //enebale only in production
@@ -17,11 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 // for serve the file form the public folder
 app.use(express.static("public"));
 
-app.use("/api/v1", healthRoute);
-app.use("/api/v1/user", userRouter);
-app.use("/api/v1/agent", agentRouter);
-app.use("/api/v1/assets", assetsRouter);
+const apiVersion = "/api/v1";
 
+app.use(`${apiVersion}`, healthRoute);
+app.use(`${apiVersion}/user`, userRouter);
+app.use(`${apiVersion}/agent`, agentRouter);
+app.use(`${apiVersion}/assets`, assetsRouter);
+app.use(`${apiVersion}/root-admin`, rootAdminRouter);
 //global error handler
 app.use(globalErrorHandler);
 
