@@ -26,16 +26,12 @@ const adminMiddleware = asyncHandler(
 
     // check the token is in right format or not
     if (!token.startsWith("Bearer")) {
-      throw new ApiError(
-        400,
-        "Access denied, authenication requiredas admin",
-        [
-          {
-            field: "Invalid token format",
-            message: "Invalid token type, expecting an Bearer token",
-          },
-        ],
-      );
+      throw new ApiError(400, "Access denied, authenication requiredas admin", [
+        {
+          field: "Invalid token format",
+          message: "Invalid token type, expecting an Bearer token",
+        },
+      ]);
     }
     // extract the verification token
     const accessToken = token.split(" ")[1];

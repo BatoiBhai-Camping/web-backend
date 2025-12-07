@@ -175,6 +175,16 @@ const approveAgent = asyncHandler(async (req: Request, res: Response) => {
     },
   });
   if (!mailVerifyRes) {
+    // creat the notification for the user
+    const notificationEntry = await db.bb_notification.create({
+      data: {
+        title: "Verify the email",
+        message:
+          "Kindly verify the account email in order to approve the user acount",
+        type: "SYSTEM_MESSAGE",
+        userId: data.id,
+      },
+    });
     throw new ApiError(
       400,
       "Agent email is not verifyed, notify the user to verify the email",
