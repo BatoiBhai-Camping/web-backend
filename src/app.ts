@@ -2,6 +2,7 @@ import express from "express";
 import { healthRoute } from "./routes/health.route.js";
 import { userRouter } from "./routes/user.route.js";
 import { agentRouter } from "./routes/agent.route.js";
+import { adminRouter } from "./routes/admin.route.js";
 import { globalErrorHandler } from "./uitls/globalErrorHandeller.js";
 import cookieParser from "cookie-parser";
 import { assetsRouter } from "./routes/assets.route.js";
@@ -25,6 +26,8 @@ app.use(`${apiVersion}/user`, userRouter);
 app.use(`${apiVersion}/agent`, agentRouter);
 app.use(`${apiVersion}/assets`, assetsRouter);
 app.use(`${apiVersion}/root-admin`, rootAdminRouter);
+app.use(`${apiVersion}/admin`, adminRouter);
+
 //global error handler
 app.use(globalErrorHandler);
 

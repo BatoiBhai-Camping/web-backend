@@ -26,7 +26,7 @@ enum AddressType {
   TRAVEL
 }
 
-enum AgentStatus {
+enum RoleStatus {
   PENDING
   APPROVED
   REJECTED
@@ -107,7 +107,7 @@ model Bb_user {
   password  String? // null if Google OAuth only
   emailVerified  Boolean  @default(false)
   role      UserRole @default(TRAVELER)
-  roleStatus AgentStatus?
+  roleStatus RoleStatus?
   phone     String?  @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -144,7 +144,7 @@ model Bb_agentProfile {
   userId      String      @unique
   companyName String
   description String?
-  status      AgentStatus @default(PENDING)
+  
 
   //gvt id for verification
   aadharNumber String

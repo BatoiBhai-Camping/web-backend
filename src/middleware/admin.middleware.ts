@@ -8,13 +8,13 @@ interface accessTokenPayload extends JwtPayload {
   userId: string;
   email: string;
 }
-const rootAdminMiddleware = asyncHandler(
+const adminMiddleware = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies?.accesstoken;
     if (!token) {
       throw new ApiError(
         400,
-        "Access denied, authenication required as root admin",
+        "Access denied, authenication required as admin",
         [
           {
             field: "token",
@@ -28,7 +28,7 @@ const rootAdminMiddleware = asyncHandler(
     if (!token.startsWith("Bearer")) {
       throw new ApiError(
         400,
-        "Access denied, authenication requiredas root admin",
+        "Access denied, authenication requiredas admin",
         [
           {
             field: "Invalid token format",
@@ -42,7 +42,7 @@ const rootAdminMiddleware = asyncHandler(
     if (!accessToken) {
       throw new ApiError(
         400,
-        "Access denied, authenication required as root admin",
+        "Access denied, authenication required as  admin",
         [
           {
             field: "access token",
@@ -60,7 +60,7 @@ const rootAdminMiddleware = asyncHandler(
     if (!verifyAccessToken.userId || !verifyAccessToken.email) {
       throw new ApiError(
         400,
-        "Access denied, authenication required as root admin",
+        "Access denied, authenication required as  admin",
         [
           {
             field: "token payload",
@@ -76,7 +76,7 @@ const rootAdminMiddleware = asyncHandler(
         id: verifyAccessToken.userId,
         email: verifyAccessToken.email,
         emailVerified: true,
-        role: "ROOTADMIN",
+        role: "ADMIN",
         roleStatus: "APPROVED",
       },
       select: {
@@ -88,28 +88,12 @@ const rootAdminMiddleware = asyncHandler(
     if (!dbUser) {
       throw new ApiError(
         400,
-        "Access denied, authenication required as root admin",
+        "Access denied, authenication required as  admin",
         [
           {
             field: "Invalid user token",
             message:
               "Provided token data is not found in db with the constrains, id, email , emailVerified, role, rolestatus",
-          },
-        ],
-      );
-    }
-
-    // check the admin email match to the environment email or not for root admin access
-    if (dbUser.email != validENV.ROOT_ADMIN_GMAIL) {
-      throw new ApiError(
-        400,
-        "Access denied, authentication required as root admin",
-        [
-          {
-            field:
-              "user email doens not match with the environment root admin mail",
-            message:
-              "update the environment root admin gmail or login with the correct root admin mail",
           },
         ],
       );
@@ -123,4 +107,4 @@ const rootAdminMiddleware = asyncHandler(
   },
 );
 
-export { rootAdminMiddleware };
+export { adminMiddleware };

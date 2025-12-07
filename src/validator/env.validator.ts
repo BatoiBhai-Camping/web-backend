@@ -27,7 +27,9 @@ const envSchema = z.object({
   CLOUDINARY_API_SECRET: z.string(
     "cloudinary api secret is required for the store assets",
   ),
-  ROOT_ADMIN_GMAIL: z.string("Root admin gmail is required for access the admin access")
+  ROOT_ADMIN_GMAIL: z.string(
+    "Root admin gmail is required for access the admin access",
+  ),
 });
 
 export const validENV = envSchema.parse(process.env);
