@@ -10,6 +10,10 @@ The Admin Router handles administrative operations including admin registration,
 
 **Role Status:** `PENDING` (awaiting RootAdmin approval)
 
+**Route File:** `/src/routes/admin.routes.ts`
+
+**Controller File:** `/src/controllers/admin.controller.ts`
+
 ---
 
 ## Table of Contents
@@ -160,6 +164,10 @@ Content-Type: application/json
 ### Database Operations
 
 **Primary Table:** `Bb_user`
+
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
 
 #### Create Admin User
 
@@ -359,6 +367,10 @@ Content-Type: application/json
 
 **Primary Table:** `Bb_user`
 
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
+
 #### Find Admin by Email
 
 ```sql
@@ -519,6 +531,10 @@ Cookie: accesstoken=<token>
 ### Database Operations
 
 **Primary Table:** `Bb_agentProfile`
+
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
 
 #### Find Agent Profile
 

@@ -10,6 +10,12 @@ The Agent Router handles all agent-related operations including registration, lo
 
 **Status:** `PENDING` (awaiting approval from admin/root admin)
 
+**Route File:** `/src/routes/agent.routes.ts`
+
+**Controller File:** `/src/controllers/agent.controller.ts`
+
+**Middleware:** `/src/middlewares/auth.middleware.ts`
+
 ---
 
 ## Table of Contents
@@ -274,6 +280,12 @@ Content-Type: application/json
 ### Database Operations - Transaction
 
 **Primary Tables:** `Bb_user`, `Bb_agentProfile`, `Bb_address`, `Bb_image`, `Bb_document`
+
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
+
+**Transaction Handler:** `/src/utils/transaction.helper.ts`
 
 #### Step 1: Create User
 

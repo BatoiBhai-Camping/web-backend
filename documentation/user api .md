@@ -8,6 +8,14 @@ The User Router handles all user-related operations including registration, logi
 
 **User Role:** `TRAVELER` (default)
 
+**Route File:** `/src/routes/user.routes.ts`
+
+**Controller File:** `/src/controllers/user.controller.ts`
+
+**Middleware:** `/src/middlewares/auth.middleware.ts`
+
+**Validation:** `/src/validators/user.validator.ts`
+
 ---
 
 ## Table of Contents
@@ -176,6 +184,14 @@ Content-Type: application/json
 
 **Primary Table:** `Bb_user`
 
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
+
+**Email Service:** `/src/services/email.service.ts`
+
+**Token Service:** `/src/utils/token.helper.ts`
+
 #### Create User Record
 
 ```sql
@@ -263,6 +279,12 @@ Body:
   "email": "test@example.com",
   "password": "password123"
 }
+
+Expected Files Structure:
+- /src/routes/user.routes.ts (handles routing)
+- /src/controllers/user.controller.ts (handles logic)
+- /src/services/user.service.ts (handles business logic)
+- /src/validators/user.validator.ts (Zod schemas)
 ```
 
 ---

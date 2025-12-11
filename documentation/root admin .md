@@ -10,6 +10,12 @@ The RootAdmin Router handles platform-level administrative operations including 
 
 **Status:** `APPROVED` (platform initialized with RootAdmin)
 
+**Route File:** `/src/routes/rootAdmin.routes.ts`
+
+**Controller File:** `/src/controllers/rootAdmin.controller.ts`
+
+**Middleware:** `/src/middlewares/rootAdmin.middleware.ts`
+
 ---
 
 ## Table of Contents
@@ -314,6 +320,10 @@ Cookie: accesstoken=<token>
 
 **Primary Table:** `Bb_user`
 
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
+
 #### Find Admin
 
 ```sql
@@ -481,6 +491,10 @@ Cookie: accesstoken=<token>
 
 **Primary Table:** `Bb_user`
 
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
+
 #### Update Admin Status to REJECTED
 
 ```sql
@@ -616,6 +630,10 @@ Cookie: accesstoken=<token>
 ### Database Operations
 
 **Primary Table:** `Bb_agentProfile`
+
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
 
 #### Find Agent
 
