@@ -19,7 +19,7 @@ const userLoginValidator = z.object({
 });
 
 const verifyAccountValidator = z.object({
-  veriryToken: z.string("Verify token is required"),
+  verifyToken: z.string("Verify token is required"),
 });
 
 export { userRegisterValidator, userLoginValidator, verifyAccountValidator };

@@ -1,22 +1,22 @@
 import type { Request, Response } from "express";
 
-import { asyncHandler } from "../uitls/asyncHandler.js";
+import { asyncHandler } from "../../uitls/asyncHandler.js";
 import {
   userRegisterValidator,
   userLoginValidator,
   verifyAccountValidator,
-} from "../validator/user.validator.js";
-import { ApiError } from "../uitls/apiError.js";
-import { db } from "../db/db.js";
+} from "../../validator/user.validator.js";
+import { ApiError } from "../../uitls/apiError.js";
+import { db } from "../../db/db.js";
 import bcrypt from "bcryptjs";
 import {
   createAccessToken,
   createRefreshToken,
   createVerificationToken,
-} from "../helper/createAccessRefreshAndVerificationToken.js";
-import { validENV } from "../validator/env.validator.js";
-import { ApiResponse } from "../uitls/apiResponse.js";
-import { sendAccountVerificationMail } from "../helper/sendMail.js";
+} from "../../helper/createAccessRefreshAndVerificationToken.js";
+import { validENV } from "../../validator/env.validator.js";
+import { ApiResponse } from "../../uitls/apiResponse.js";
+import { sendAccountVerificationMail } from "../../helper/sendMail.js";
 import { type JwtPayload } from "jsonwebtoken";
 
 interface VerificationPayload extends JwtPayload {

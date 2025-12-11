@@ -4,7 +4,7 @@ import {
   userLogIn,
   userAccountVerification,
   sendAccountVerificationLink,
-} from "../controller/user.controller.js";
+} from "../controller/user/user.controller.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 const userRouter = Router();
 

@@ -1,17 +1,16 @@
 import bcrypt from "bcryptjs";
-import { db } from "../db/db.js";
-import { ApiError } from "../uitls/apiError.js";
-import { asyncHandler } from "../uitls/asyncHandler.js";
-import { agentRegisterValidator } from "../validator/agent.validator.js";
 import type { Request, Response } from "express";
+import { db } from "../../db/db.js";
 import {
   createAccessToken,
   createRefreshToken,
   createVerificationToken,
-} from "../helper/createAccessRefreshAndVerificationToken.js";
-import { validENV } from "../validator/env.validator.js";
-import { sendAccountVerificationMail } from "../helper/sendMail.js";
-
+} from "../../helper/createAccessRefreshAndVerificationToken.js";
+import { sendAccountVerificationMail } from "../../helper/sendMail.js";
+import { ApiError } from "../../uitls/apiError.js";
+import { asyncHandler } from "../../uitls/asyncHandler.js";
+import { agentRegisterValidator } from "../../validator/agent.validator.js";
+import { validENV } from "../../validator/env.validator.js";
 const agentRegister = asyncHandler(async (req: Request, res: Response) => {
   const valid = agentRegisterValidator.safeParse(req.body);
   if (!valid.success) {

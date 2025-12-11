@@ -154,7 +154,7 @@ model Bb_agentProfile {
   //relation to the document 
   documents Bb_document[]
   //relation to travel packages
- 
+ packages Bb_travelPackage[]
 
 
   bannerImageId String? @unique
@@ -216,6 +216,7 @@ model Bb_travelPackage {
   bookingEndAt         DateTime
   packagePolicies      String    @default("NA")
   cancellationPolicies String    @default("NA")
+  agent   Bb_agentProfile @relation(fields: [agentId], references: [id], onDelete: Cascade)
   packageBannerImageId String?   @unique
   PackageBannerImage   Bb_image?    @relation("PackageBannerImage", fields: [packageBannerImageId], references: [id])
   isBookingActive      Boolean   @default(true)

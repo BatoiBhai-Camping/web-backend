@@ -1,9 +1,13 @@
-import { agentRegister } from "../controller/agent.controller.js";
+import {
+  agentRegister,
+  publishPackage,
+} from "../controller/agent/agent.controller.js";
 import {
   userLogIn,
   userAccountVerification,
   sendAccountVerificationLink,
-} from "../controller/user.controller.js";
+} from "../controller/user/user.controller.js";
+import { agentMiddleware } from "../middleware/agent.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import { Router } from "express";
 
@@ -20,5 +24,6 @@ agentRouter
 agentRouter
   .route("/send-verification-link")
   .post(authMiddleware, sendAccountVerificationLink);
+agentRouter.route("/publish-package").post(agentMiddleware, publishPackage);
 
 export { agentRouter };
