@@ -4,6 +4,10 @@ import { ApiError } from "../../uitls/apiError.js";
 import { ApiResponse } from "../../uitls/apiResponse.js";
 import { asyncHandler } from "../../uitls/asyncHandler.js";
 import { validateAdmin } from "../../validator/rootAdmin.validator.js";
+import {
+  adminAccountApprovedMail,
+  agentAccountApprovedMail,
+} from "../../helper/sendMail.js";
 const approveSubAdmin = asyncHandler(async (req: Request, res: Response) => {
   // get the admin user id from the body
   const validRes = validateAdmin.safeParse(req.body);
@@ -25,7 +29,19 @@ const approveSubAdmin = asyncHandler(async (req: Request, res: Response) => {
     data: {
       roleStatus: "APPROVED",
     },
+    select: {
+      fullName: true,
+      email: true,
+    },
   });
+
+  if (adminStatusUpdate) {
+    agentAccountApprovedMail({
+      reciverGamil: adminStatusUpdate.email,
+      reciverName: adminStatusUpdate.fullName,
+      loginLink: "link",
+    });
+  }
 
   return res
     .status(200)

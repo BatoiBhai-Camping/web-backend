@@ -20,7 +20,7 @@ rootAdminRouter
   .route("/verify-account")
   .post(authMiddleware, userAccountVerification);
 rootAdminRouter.route("/login").post(rootAdminLogin);
-rootAdminRouter.route("/logout").delete(authMiddleware,logout)
+rootAdminRouter.route("/logout").delete(authMiddleware, logout);
 rootAdminRouter
   .route("/approve-sub-admin")
   .post(rootAdminMiddleware, approveSubAdmin);

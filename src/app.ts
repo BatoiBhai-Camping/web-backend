@@ -1,4 +1,4 @@
-import express,{type Request, type Response} from "express";
+import express, { type Request, type Response } from "express";
 import { healthRoute } from "./routes/health.route.js";
 import { userRouter } from "./routes/user.route.js";
 import { agentRouter } from "./routes/agent.route.js";
@@ -29,12 +29,11 @@ app.use(`${apiVersion}/assets`, assetsRouter);
 app.use(`${apiVersion}/root-admin`, rootAdminRouter);
 app.use(`${apiVersion}/admin`, adminRouter);
 
-app.use((req:Request,res:Response)=>{
-    throw new ApiError(400,"api location not found")
-})
+app.use((req: Request, res: Response) => {
+  throw new ApiError(400, "api location not found");
+});
 
 //global error handler
 app.use(globalErrorHandler);
-
 
 export { app };
