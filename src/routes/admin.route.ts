@@ -6,8 +6,7 @@ import {
 } from "../controller/root admin/rootAdmin.controller.js";
 import { adminMiddleware } from "../middleware/admin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
-import { sendAccountVerificationLink } from "../controller/user/userSendAccountVerificationLink.controller.js";
-import { userAccountVerification } from "../controller/user/userAccountVerification.controller.js";
+import { sendAccountVerificationLink, userAccountVerification,logout } from "../controller/user/user.controller.js";
 const adminRouter = Router();
 
 adminRouter.route("/register").post(adminRegister);
@@ -18,6 +17,8 @@ adminRouter
   .route("/send-verification-link")
   .post(authMiddleware, sendAccountVerificationLink);
 adminRouter.route("/login").post(rootAdminLogin);
+adminRouter.route("/logout").delete(authMiddleware,logout)
 adminRouter.route("/approve-agent").post(adminMiddleware, approveAgent);
+
 
 export { adminRouter };
