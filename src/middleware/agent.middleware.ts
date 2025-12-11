@@ -95,8 +95,28 @@ const agentMiddleware = asyncHandler(
       );
     }
 
-    // set the user id and email to the request object in order to use it further reoutes which need authentication
+    // now get the agent profile
+    const agentProfile = await db.bb_agentProfile.findUnique({
+      where:{
+        userId: dbUser.id,
+        
+      },
+      select:{
+        id: true
+      }
+    })
+
+    if(!agentProfile){
+      throw new ApiError(400,"Provided user doesnot have any agent profile",[
+        {
+          field: "Agent profile",
+          message: "This user doesnot have any agent profile"
+        }
+      ])
+    }
+    // set the userId, agentId and email to the request object in order to use it further reoutes which need authentication
     req.userId = dbUser.id;
+    req.agentId = agentProfile.id;
     req.userEmail = dbUser.email;
 
     next();

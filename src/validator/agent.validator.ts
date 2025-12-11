@@ -38,4 +38,6 @@ const agentRegisterValidator = z.object({
     .optional(),
 });
 
+// package publish validator
+
 export { agentRegisterValidator };

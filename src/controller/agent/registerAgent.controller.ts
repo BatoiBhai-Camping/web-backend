@@ -160,7 +160,7 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
   });
 
   // Send verification email
-   sendAccountVerificationMail({
+  sendAccountVerificationMail({
     reciverGamil: agentAccountRes.user.email,
     reciverName: agentAccountRes.user.fullName,
     verificationLink: verifyToken,

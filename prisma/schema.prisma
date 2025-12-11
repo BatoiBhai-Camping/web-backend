@@ -208,6 +208,9 @@ model Bb_travelPackage {
   withTax       Boolean? @default(false)
   taxPercentage Int?     @default(0)
 
+  totalSeats Int @default(0)
+  seatsAvailable Int @default(0)
+  seatBooked Int @default(0)
   destination          String
   durationDays         Int
   startDate            DateTime?
