@@ -1,4 +1,4 @@
-import express from "express";
+import express,{type Request, type Response} from "express";
 import { healthRoute } from "./routes/health.route.js";
 import { userRouter } from "./routes/user.route.js";
 import { agentRouter } from "./routes/agent.route.js";
@@ -7,6 +7,7 @@ import { globalErrorHandler } from "./uitls/globalErrorHandeller.js";
 import cookieParser from "cookie-parser";
 import { assetsRouter } from "./routes/assets.route.js";
 import { rootAdminRouter } from "./routes/rootAdmin.route.js";
+import { ApiError } from "./uitls/apiError.js";
 const app = express();
 
 // app.set("trust proxy", 1); //enebale only in production
@@ -28,7 +29,12 @@ app.use(`${apiVersion}/assets`, assetsRouter);
 app.use(`${apiVersion}/root-admin`, rootAdminRouter);
 app.use(`${apiVersion}/admin`, adminRouter);
 
+app.use((req:Request,res:Response)=>{
+    throw new ApiError(400,"api location not found")
+})
+
 //global error handler
 app.use(globalErrorHandler);
+
 
 export { app };
