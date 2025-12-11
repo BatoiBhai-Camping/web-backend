@@ -16,20 +16,25 @@ const userAccountVerification = asyncHandler(
   async (req: Request, res: Response) => {
     // check user is verifyed or not
 
-    const isVerifyedUser = await db.bb_user.findFirst({
-      where: {
-        id: req.userId as string,
-        emailVerified: true,
-      },
-    });
-
-    if (isVerifyedUser) {
-      throw new ApiError(400, "User is already verifyed");
-    }
     const validateRes = verifyAccountValidator.safeParse(req.body);
     if (!validateRes.success) {
       throw new ApiError(400, "No verifify token is provided");
     }
+
+    const user = await db.bb_user.findFirst({
+      where: {
+        id: req.userId as string,
+      },
+    });
+
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    if (user.emailVerified) {
+      throw new ApiError(400, "User is already verified");
+    }
+
     const verifyToken = validateRes.data.verifyToken;
     // verify the token
     const tokenData = jwt.verify(
