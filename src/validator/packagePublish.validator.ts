@@ -45,8 +45,6 @@ export const itineraryDaySchema = z.object({
 });
 
 export const publishPackageValidator = z.object({
-  
-
   title: z.string(),
   description: z.string(),
   pricePerPerson: z.number(),
