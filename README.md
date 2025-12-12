@@ -42,6 +42,7 @@ APP_PASSWORD=< use offical batiobhai app password for sending verification mail>
 CLOUDINARY_CLOUD_NAME=<Your cloudinary cloude name>
 CLOUDINARY_API_KEY=<your cloudinary api key>
 CLOUDINARY_API_SECRET=<Your cloudinary api secreate>
+ROOT_ADMIN_GMAIL=<Root admin gmail>
 ```
 
 
