@@ -30,6 +30,7 @@ const envSchema = z.object({
   ROOT_ADMIN_GMAIL: z.string(
     "Root admin gmail is required for access the admin access",
   ),
+  FRONTEND_URL: z.string("frontend origin is required")
 });
 
 export const validENV = envSchema.parse(process.env);

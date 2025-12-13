@@ -37,6 +37,15 @@ export const RoleStatus = {
 export type RoleStatus = (typeof RoleStatus)[keyof typeof RoleStatus]
 
 
+export const PackageApprovedStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type PackageApprovedStatus = (typeof PackageApprovedStatus)[keyof typeof PackageApprovedStatus]
+
+
 export const BookingStatus = {
   PENDING: 'PENDING',
   HOLD: 'HOLD',

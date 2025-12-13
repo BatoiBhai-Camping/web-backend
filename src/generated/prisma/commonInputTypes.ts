@@ -202,6 +202,13 @@ export type FloatFilter<$PrismaModel = never> = {
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
 }
 
+export type EnumPackageApprovedStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageApprovedStatus | Prisma.EnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageApprovedStatus[] | Prisma.ListEnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageApprovedStatus[] | Prisma.ListEnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageApprovedStatusFilter<$PrismaModel> | $Enums.PackageApprovedStatus
+}
+
 export type IntNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null
@@ -254,6 +261,16 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type EnumPackageApprovedStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageApprovedStatus | Prisma.EnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageApprovedStatus[] | Prisma.ListEnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageApprovedStatus[] | Prisma.ListEnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageApprovedStatusWithAggregatesFilter<$PrismaModel> | $Enums.PackageApprovedStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPackageApprovedStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPackageApprovedStatusFilter<$PrismaModel>
 }
 
 export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -674,6 +691,13 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
 }
 
+export type NestedEnumPackageApprovedStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageApprovedStatus | Prisma.EnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageApprovedStatus[] | Prisma.ListEnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageApprovedStatus[] | Prisma.ListEnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageApprovedStatusFilter<$PrismaModel> | $Enums.PackageApprovedStatus
+}
+
 export type NestedBoolNullableFilter<$PrismaModel = never> = {
   equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel> | null
   not?: Prisma.NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -704,6 +728,16 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type NestedEnumPackageApprovedStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageApprovedStatus | Prisma.EnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageApprovedStatus[] | Prisma.ListEnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageApprovedStatus[] | Prisma.ListEnumPackageApprovedStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageApprovedStatusWithAggregatesFilter<$PrismaModel> | $Enums.PackageApprovedStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPackageApprovedStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPackageApprovedStatusFilter<$PrismaModel>
 }
 
 export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {

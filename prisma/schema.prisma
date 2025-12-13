@@ -32,6 +32,12 @@ enum RoleStatus {
   REJECTED
 }
 
+enum PackageApprovedStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 enum BookingStatus {
   PENDING
   HOLD
@@ -201,6 +207,7 @@ model Bb_travelPackage {
   description       String
   pricePerPerson    Float
   advancedPerPerson Float
+  packageApprovedStatus PackageApprovedStatus @default(PENDING) 
 
   discountAmount     Int? @default(0)
   discountPercentage Int? @default(0)

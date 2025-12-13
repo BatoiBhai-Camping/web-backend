@@ -43,6 +43,7 @@ CLOUDINARY_CLOUD_NAME=<Your cloudinary cloude name>
 CLOUDINARY_API_KEY=<your cloudinary api key>
 CLOUDINARY_API_SECRET=<Your cloudinary api secreate>
 ROOT_ADMIN_GMAIL=<Root admin gmail>
+FRONTEND_URL=<The forntedn origin to communicate with the forntend>
 ```
 
 

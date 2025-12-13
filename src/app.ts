@@ -8,6 +8,8 @@ import cookieParser from "cookie-parser";
 import { assetsRouter } from "./routes/assets.route.js";
 import { rootAdminRouter } from "./routes/rootAdmin.route.js";
 import { ApiError } from "./uitls/apiError.js";
+import cors from "cors"
+import { validENV } from "./validator/env.validator.js";
 const app = express();
 
 // app.set("trust proxy", 1); //enebale only in production
@@ -19,6 +21,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // for serve the file form the public folder
 app.use(express.static("public"));
+
+app.use(cors({
+  origin:[validENV.FRONTEND_URL],
+  credentials: true,
+}))
 
 const apiVersion = "/api/v1";
 

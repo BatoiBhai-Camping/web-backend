@@ -1948,6 +1948,7 @@ export const Bb_travelPackageScalarFieldEnum = {
   description: 'description',
   pricePerPerson: 'pricePerPerson',
   advancedPerPerson: 'advancedPerPerson',
+  packageApprovedStatus: 'packageApprovedStatus',
   discountAmount: 'discountAmount',
   discountPercentage: 'discountPercentage',
   withTax: 'withTax',
@@ -2284,6 +2285,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PackageApprovedStatus'
+ */
+export type EnumPackageApprovedStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PackageApprovedStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PackageApprovedStatus[]'
+ */
+export type ListEnumPackageApprovedStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PackageApprovedStatus[]'>
     
 
 

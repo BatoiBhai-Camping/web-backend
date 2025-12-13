@@ -17,7 +17,7 @@ const health = asyncHandler(async (req: Request, res: Response) => {
     throw new ApiError(400, "Api is sending the error as per request");
   } else {
     const a: any = null;
-    a.foo(); // ❌ runtime error
+    a.foo(); //runn time errro
   }
 });
 

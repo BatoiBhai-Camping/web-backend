@@ -57,6 +57,7 @@ export type Bb_travelPackageMinAggregateOutputType = {
   description: string | null
   pricePerPerson: number | null
   advancedPerPerson: number | null
+  packageApprovedStatus: $Enums.PackageApprovedStatus | null
   discountAmount: number | null
   discountPercentage: number | null
   withTax: boolean | null
@@ -86,6 +87,7 @@ export type Bb_travelPackageMaxAggregateOutputType = {
   description: string | null
   pricePerPerson: number | null
   advancedPerPerson: number | null
+  packageApprovedStatus: $Enums.PackageApprovedStatus | null
   discountAmount: number | null
   discountPercentage: number | null
   withTax: boolean | null
@@ -115,6 +117,7 @@ export type Bb_travelPackageCountAggregateOutputType = {
   description: number
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus: number
   discountAmount: number
   discountPercentage: number
   withTax: number
@@ -171,6 +174,7 @@ export type Bb_travelPackageMinAggregateInputType = {
   description?: true
   pricePerPerson?: true
   advancedPerPerson?: true
+  packageApprovedStatus?: true
   discountAmount?: true
   discountPercentage?: true
   withTax?: true
@@ -200,6 +204,7 @@ export type Bb_travelPackageMaxAggregateInputType = {
   description?: true
   pricePerPerson?: true
   advancedPerPerson?: true
+  packageApprovedStatus?: true
   discountAmount?: true
   discountPercentage?: true
   withTax?: true
@@ -229,6 +234,7 @@ export type Bb_travelPackageCountAggregateInputType = {
   description?: true
   pricePerPerson?: true
   advancedPerPerson?: true
+  packageApprovedStatus?: true
   discountAmount?: true
   discountPercentage?: true
   withTax?: true
@@ -346,6 +352,7 @@ export type Bb_travelPackageGroupByOutputType = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus: $Enums.PackageApprovedStatus
   discountAmount: number | null
   discountPercentage: number | null
   withTax: boolean | null
@@ -399,6 +406,7 @@ export type Bb_travelPackageWhereInput = {
   description?: Prisma.StringFilter<"Bb_travelPackage"> | string
   pricePerPerson?: Prisma.FloatFilter<"Bb_travelPackage"> | number
   advancedPerPerson?: Prisma.FloatFilter<"Bb_travelPackage"> | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFilter<"Bb_travelPackage"> | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   discountPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   withTax?: Prisma.BoolNullableFilter<"Bb_travelPackage"> | boolean | null
@@ -436,6 +444,7 @@ export type Bb_travelPackageOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   advancedPerPerson?: Prisma.SortOrder
+  packageApprovedStatus?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   discountPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
   withTax?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -477,6 +486,7 @@ export type Bb_travelPackageWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Bb_travelPackage"> | string
   pricePerPerson?: Prisma.FloatFilter<"Bb_travelPackage"> | number
   advancedPerPerson?: Prisma.FloatFilter<"Bb_travelPackage"> | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFilter<"Bb_travelPackage"> | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   discountPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   withTax?: Prisma.BoolNullableFilter<"Bb_travelPackage"> | boolean | null
@@ -513,6 +523,7 @@ export type Bb_travelPackageOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   advancedPerPerson?: Prisma.SortOrder
+  packageApprovedStatus?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   discountPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
   withTax?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -551,6 +562,7 @@ export type Bb_travelPackageScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Bb_travelPackage"> | string
   pricePerPerson?: Prisma.FloatWithAggregatesFilter<"Bb_travelPackage"> | number
   advancedPerPerson?: Prisma.FloatWithAggregatesFilter<"Bb_travelPackage"> | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusWithAggregatesFilter<"Bb_travelPackage"> | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.IntNullableWithAggregatesFilter<"Bb_travelPackage"> | number | null
   discountPercentage?: Prisma.IntNullableWithAggregatesFilter<"Bb_travelPackage"> | number | null
   withTax?: Prisma.BoolNullableWithAggregatesFilter<"Bb_travelPackage"> | boolean | null
@@ -580,6 +592,7 @@ export type Bb_travelPackageCreateInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -616,6 +629,7 @@ export type Bb_travelPackageUncheckedCreateInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -650,6 +664,7 @@ export type Bb_travelPackageUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -686,6 +701,7 @@ export type Bb_travelPackageUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -721,6 +737,7 @@ export type Bb_travelPackageCreateManyInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -750,6 +767,7 @@ export type Bb_travelPackageUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -779,6 +797,7 @@ export type Bb_travelPackageUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -832,6 +851,7 @@ export type Bb_travelPackageCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   advancedPerPerson?: Prisma.SortOrder
+  packageApprovedStatus?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
   withTax?: Prisma.SortOrder
@@ -874,6 +894,7 @@ export type Bb_travelPackageMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   advancedPerPerson?: Prisma.SortOrder
+  packageApprovedStatus?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
   withTax?: Prisma.SortOrder
@@ -903,6 +924,7 @@ export type Bb_travelPackageMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   advancedPerPerson?: Prisma.SortOrder
+  packageApprovedStatus?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
   withTax?: Prisma.SortOrder
@@ -1010,6 +1032,10 @@ export type FloatFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type EnumPackageApprovedStatusFieldUpdateOperationsInput = {
+  set?: $Enums.PackageApprovedStatus
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -1137,6 +1163,7 @@ export type Bb_travelPackageCreateWithoutAgentInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1171,6 +1198,7 @@ export type Bb_travelPackageUncheckedCreateWithoutAgentInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1235,6 +1263,7 @@ export type Bb_travelPackageScalarWhereInput = {
   description?: Prisma.StringFilter<"Bb_travelPackage"> | string
   pricePerPerson?: Prisma.FloatFilter<"Bb_travelPackage"> | number
   advancedPerPerson?: Prisma.FloatFilter<"Bb_travelPackage"> | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFilter<"Bb_travelPackage"> | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   discountPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   withTax?: Prisma.BoolNullableFilter<"Bb_travelPackage"> | boolean | null
@@ -1264,6 +1293,7 @@ export type Bb_travelPackageCreateWithoutAddressInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1299,6 +1329,7 @@ export type Bb_travelPackageUncheckedCreateWithoutAddressInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1348,6 +1379,7 @@ export type Bb_travelPackageUpdateWithoutAddressInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1383,6 +1415,7 @@ export type Bb_travelPackageUncheckedUpdateWithoutAddressInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1416,6 +1449,7 @@ export type Bb_travelPackageCreateWithoutPackageBannerImageInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1451,6 +1485,7 @@ export type Bb_travelPackageUncheckedCreateWithoutPackageBannerImageInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1489,6 +1524,7 @@ export type Bb_travelPackageCreateWithoutPackagesImagesInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1524,6 +1560,7 @@ export type Bb_travelPackageUncheckedCreateWithoutPackagesImagesInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1573,6 +1610,7 @@ export type Bb_travelPackageUpdateWithoutPackageBannerImageInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1608,6 +1646,7 @@ export type Bb_travelPackageUncheckedUpdateWithoutPackageBannerImageInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1652,6 +1691,7 @@ export type Bb_travelPackageUpdateWithoutPackagesImagesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1687,6 +1727,7 @@ export type Bb_travelPackageUncheckedUpdateWithoutPackagesImagesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1720,6 +1761,7 @@ export type Bb_travelPackageCreateWithoutItineraryInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1755,6 +1797,7 @@ export type Bb_travelPackageUncheckedCreateWithoutItineraryInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1804,6 +1847,7 @@ export type Bb_travelPackageUpdateWithoutItineraryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1839,6 +1883,7 @@ export type Bb_travelPackageUncheckedUpdateWithoutItineraryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1872,6 +1917,7 @@ export type Bb_travelPackageCreateWithoutBookingsInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1907,6 +1953,7 @@ export type Bb_travelPackageUncheckedCreateWithoutBookingsInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -1956,6 +2003,7 @@ export type Bb_travelPackageUpdateWithoutBookingsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1991,6 +2039,7 @@ export type Bb_travelPackageUncheckedUpdateWithoutBookingsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -2024,6 +2073,7 @@ export type Bb_travelPackageCreateWithoutReviewsInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -2059,6 +2109,7 @@ export type Bb_travelPackageUncheckedCreateWithoutReviewsInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -2108,6 +2159,7 @@ export type Bb_travelPackageUpdateWithoutReviewsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -2143,6 +2195,7 @@ export type Bb_travelPackageUncheckedUpdateWithoutReviewsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -2176,6 +2229,7 @@ export type Bb_travelPackageCreateManyAgentInput = {
   description: string
   pricePerPerson: number
   advancedPerPerson: number
+  packageApprovedStatus?: $Enums.PackageApprovedStatus
   discountAmount?: number | null
   discountPercentage?: number | null
   withTax?: boolean | null
@@ -2205,6 +2259,7 @@ export type Bb_travelPackageUpdateWithoutAgentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -2239,6 +2294,7 @@ export type Bb_travelPackageUncheckedUpdateWithoutAgentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -2273,6 +2329,7 @@ export type Bb_travelPackageUncheckedUpdateManyWithoutAgentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   advancedPerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
   discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -2370,6 +2427,7 @@ export type Bb_travelPackageSelect<ExtArgs extends runtime.Types.Extensions.Inte
   description?: boolean
   pricePerPerson?: boolean
   advancedPerPerson?: boolean
+  packageApprovedStatus?: boolean
   discountAmount?: boolean
   discountPercentage?: boolean
   withTax?: boolean
@@ -2408,6 +2466,7 @@ export type Bb_travelPackageSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   description?: boolean
   pricePerPerson?: boolean
   advancedPerPerson?: boolean
+  packageApprovedStatus?: boolean
   discountAmount?: boolean
   discountPercentage?: boolean
   withTax?: boolean
@@ -2440,6 +2499,7 @@ export type Bb_travelPackageSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   description?: boolean
   pricePerPerson?: boolean
   advancedPerPerson?: boolean
+  packageApprovedStatus?: boolean
   discountAmount?: boolean
   discountPercentage?: boolean
   withTax?: boolean
@@ -2472,6 +2532,7 @@ export type Bb_travelPackageSelectScalar = {
   description?: boolean
   pricePerPerson?: boolean
   advancedPerPerson?: boolean
+  packageApprovedStatus?: boolean
   discountAmount?: boolean
   discountPercentage?: boolean
   withTax?: boolean
@@ -2495,7 +2556,7 @@ export type Bb_travelPackageSelectScalar = {
   tags?: boolean
 }
 
-export type Bb_travelPackageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "agentId" | "title" | "description" | "pricePerPerson" | "advancedPerPerson" | "discountAmount" | "discountPercentage" | "withTax" | "taxPercentage" | "totalSeats" | "seatsAvailable" | "seatBooked" | "destination" | "durationDays" | "startDate" | "endDate" | "bookingActiveFrom" | "bookingEndAt" | "packagePolicies" | "cancellationPolicies" | "packageBannerImageId" | "isBookingActive" | "isDeleted" | "createdAt" | "updatedAt" | "tags", ExtArgs["result"]["bb_travelPackage"]>
+export type Bb_travelPackageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "agentId" | "title" | "description" | "pricePerPerson" | "advancedPerPerson" | "packageApprovedStatus" | "discountAmount" | "discountPercentage" | "withTax" | "taxPercentage" | "totalSeats" | "seatsAvailable" | "seatBooked" | "destination" | "durationDays" | "startDate" | "endDate" | "bookingActiveFrom" | "bookingEndAt" | "packagePolicies" | "cancellationPolicies" | "packageBannerImageId" | "isBookingActive" | "isDeleted" | "createdAt" | "updatedAt" | "tags", ExtArgs["result"]["bb_travelPackage"]>
 export type Bb_travelPackageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   agent?: boolean | Prisma.Bb_agentProfileDefaultArgs<ExtArgs>
   PackageBannerImage?: boolean | Prisma.Bb_travelPackage$PackageBannerImageArgs<ExtArgs>
@@ -2533,6 +2594,7 @@ export type $Bb_travelPackagePayload<ExtArgs extends runtime.Types.Extensions.In
     description: string
     pricePerPerson: number
     advancedPerPerson: number
+    packageApprovedStatus: $Enums.PackageApprovedStatus
     discountAmount: number | null
     discountPercentage: number | null
     withTax: boolean | null
@@ -2990,6 +3052,7 @@ export interface Bb_travelPackageFieldRefs {
   readonly description: Prisma.FieldRef<"Bb_travelPackage", 'String'>
   readonly pricePerPerson: Prisma.FieldRef<"Bb_travelPackage", 'Float'>
   readonly advancedPerPerson: Prisma.FieldRef<"Bb_travelPackage", 'Float'>
+  readonly packageApprovedStatus: Prisma.FieldRef<"Bb_travelPackage", 'PackageApprovedStatus'>
   readonly discountAmount: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
   readonly discountPercentage: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
   readonly withTax: Prisma.FieldRef<"Bb_travelPackage", 'Boolean'>

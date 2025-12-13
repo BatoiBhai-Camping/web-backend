@@ -169,6 +169,7 @@ export const Bb_travelPackageScalarFieldEnum = {
   description: 'description',
   pricePerPerson: 'pricePerPerson',
   advancedPerPerson: 'advancedPerPerson',
+  packageApprovedStatus: 'packageApprovedStatus',
   discountAmount: 'discountAmount',
   discountPercentage: 'discountPercentage',
   withTax: 'withTax',
