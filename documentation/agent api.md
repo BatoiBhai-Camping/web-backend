@@ -24,6 +24,7 @@ The Agent Router handles all agent-related operations including registration, lo
 2. [Login](#login)
 3. [Account Verification](#account-verification)
 4. [Resend Verification Link](#resend-verification-link)
+5. [Publish Travel Package](#publish-travel-package)
 
 ---
 
@@ -466,66 +467,6 @@ INSERT INTO "Bb_document" (
 **Subject:** For email/account verification with BatioBhai
 **Content:** Verification link with verification token embedded
 
-### Payment Model
-
-**Important:** Each booking has a **single payment record** (one-to-one relationship). When a booking is created, a corresponding payment record is automatically created with status `PENDING`.
-
-**Payment Relationship:**
-
-- One booking → One payment
-- Payment status tracks the overall transaction state
-- Refunds are handled by updating the same payment record with `isRefund: true`
-
-**Payment Lifecycle:**
-
-1. Booking created → Payment created with `PENDING` status
-2. Payment successful → Payment status updated to `SUCCESS`
-3. Payment failed → Payment status updated to `FAILED`
-4. Refund initiated → Payment `isRefund` set to `true`, status becomes `REFUNDED`
-
-**Database Schema:**
-
-```typescript
-// Bb_booking Table
-{
-  id: "booking_id",
-  bookingCode: "BK-2025-001",
-  userId: "user_id",
-  packageId: "package_id",
-  numberOfTravelers: 2,
-  status: "CONFIRMED",
-  paymentStatus: "SUCCESS",
-  baseAmount: 50000,
-  taxAmount: 2500,
-  discountAmount: 5000,
-  totalAmount: 47500,
-  payments: { // One-to-one relation
-    id: "payment_id",
-    // ...payment details
-  }
-}
-
-// Bb_payment Table (One payment per booking)
-{
-  id: "payment_id",
-  bookingId: "booking_id", // unique constraint
-  type: "BOOKING",
-  status: "SUCCESS",
-  amount: 47500,
-  currency: "INR",
-  provider: "RAZORPAY",
-  providerRef: "pay_xyz123",
-  isRefund: false
-}
-```
-
-### Cookies Set
-
-```
-accesstoken: "Bearer eyJhbGciOiJIUzI1NiIs..." (httpOnly, 3 days expiry)
-refreshtoken: "Bearer eyJhbGciOiJIUzI1NiIs..." (httpOnly, 10 days expiry)
-```
-
 ---
 
 ## Login
@@ -798,97 +739,571 @@ Cookie: accesstoken=<token>
 
 ---
 
-## Agent Registration Workflow Diagram
+## Publish Travel Package
+
+### Endpoint
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                    AGENT REGISTRATION WORKFLOW                   │
-├──────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  1. AGENT SUBMITS REGISTRATION                                   │
-│     ├─ Personal Info: fullName, email, password, phone           │
-│     ├─ Company Info: companyName, description                    │
-│     ├─ Address: country, state, district, city, pin              │
-│     ├─ IDs: aadharNumber, panNumber, gstNumber                   │
-│     └─ Documents: Aadhar & PAN file URLs                         │
-│                                                                  │
-│  2. VALIDATION & CHECKS                                          │
-│     ├─ Validate all fields                                       │
-│     ├─ Check email uniqueness                                    │
-│     └─ Hash password                                             │
-│                                                                  │
-│  3. DATABASE TRANSACTION STARTS                                  │
-│     ├─ Create Bb_user (role: AGENT, status: not verified)       │
-│     ├─ Create Bb_address (agent location)                        │
-│     ├─ Create Bb_image (profile & banner)                        │
-│     ├─ Create Bb_agentProfile (status: PENDING)                  │
-│     ├─ Create Bb_document (Aadhar & PAN)                         │
-│     └─ Link all records                                          │
-│                                                                  │
-│  4. TOKEN GENERATION                                             │
-│     ├─ Generate verification token                               │
-│     ├─ Generate access token (3 days)                            │
-│     └─ Generate refresh token (10 days)                          │
-│                                                                  │
-│  5. COMMUNICATION & SETUP                                        │
-│     ├─ Send verification email                                   │
-│     ├─ Set cookies with tokens                                   │
-│     └─ Return success response                                   │
-│                                                                  │
-│  6. VERIFICATION PHASE                                           │
-│     ├─ Agent clicks email verification link                      │
-│     ├─ POST /verify-account with token                           │
-│     └─ Set emailVerified = true                                  │
-│                                                                  │
-│  7. APPROVAL PHASE                                               │
-│     ├─ Agent profile is PENDING                                  │
-│     ├─ Admin/RootAdmin reviews documents                         │
-│     ├─ Admin can APPROVE or REJECT                               │
-│     └─ Agent notified of approval status                         │
-│                                                                  │
-│  8. AGENT ACTIVE                                                 │
-│     ├─ Can create travel packages                                │
-│     ├─ Can manage bookings                                       │
-│     └─ Can interact with travelers                               │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
+POST /api/v1/agent/publish-package
 ```
+
+### Description
+
+Allows an approved agent to publish a new travel package with complete itinerary, hotel stays, transport, meals, and visiting places. Creates a comprehensive package with database transaction for data consistency.
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "title": "Luxury 5-Day Goa Beach Paradise",
+  "description": "Experience the best of Goa with luxury accommodations, guided tours, and authentic cuisine.",
+  "pricePerPerson": 25000,
+  "totalSeats": 30,
+  "discountAmount": 2000,
+  "discountPercentage": 8,
+  "withTax": true,
+  "taxPercentage": 5,
+  "destination": "Goa",
+  "durationDays": 5,
+  "startDate": "2025-04-10T00:00:00Z",
+  "endDate": "2025-04-15T00:00:00Z",
+  "bookingActiveFrom": "2025-01-15T00:00:00Z",
+  "bookingEndAt": "2025-04-05T23:59:59Z",
+  "packagePolicies": "1. Valid ID proof required. 2. Children below 5 travel free.",
+  "cancellationPolicies": "Full refund if cancelled 15+ days before travel.",
+  "bannerImageUrl": "https://example.com/goa-banner.jpg",
+  "bannerImageFileId": "file_goa_banner_001",
+  "packageImages": [
+    {
+      "imageUrl": "https://example.com/goa-beach1.jpg",
+      "fileId": "file_goa_img_001"
+    }
+  ],
+  "itineraryDays": [
+    {
+      "dayNumber": 1,
+      "title": "Day 1: Arrival in Goa & Beach Sunset",
+      "description": "Welcome to Goa!",
+      "hotelStay": {
+        "hotelName": "Taj Exotica Resort & Spa",
+        "checkIn": "2025-04-10T14:00:00Z",
+        "checkOut": "2025-04-11T11:00:00Z",
+        "address": "Calwaddo, Benaulim, Goa",
+        "wifi": true,
+        "tv": true,
+        "attachWashroom": true,
+        "acRoom": true,
+        "kitchen": false
+      },
+      "transports": [
+        {
+          "fromLocation": "Goa Airport",
+          "toLocation": "Hotel",
+          "mode": "CAR",
+          "startTime": "2025-04-10T11:00:00Z",
+          "endTime": "2025-04-10T12:30:00Z"
+        }
+      ],
+      "visits": [
+        {
+          "name": "Calangute Beach",
+          "address": "Calangute, Goa",
+          "description": "Famous beach for sunset",
+          "visitTime": "17:00"
+        }
+      ],
+      "meals": [
+        {
+          "type": "LUNCH",
+          "mealDescription": "Welcome lunch buffet"
+        },
+        {
+          "type": "DINNER",
+          "mealDescription": "Beach BBQ dinner"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Request Body Validation
+
+| Field                | Type    | Required | Rules                              | Notes                             |
+| -------------------- | ------- | -------- | ---------------------------------- | --------------------------------- |
+| title                | string  | Yes      | Must be provided                   | Package title                     |
+| description          | string  | Yes      | Must be provided                   | Detailed package description      |
+| pricePerPerson       | number  | Yes      | Greater than 0                     | Base price per traveler           |
+| totalSeats           | number  | Yes      | Minimum 1                          | Total available seats             |
+| discountAmount       | number  | No       | Non-negative                       | Fixed discount amount             |
+| discountPercentage   | number  | No       | 0-100                              | Percentage-based discount         |
+| withTax              | boolean | No       | true/false                         | Whether tax is included           |
+| taxPercentage        | number  | No       | 0-100                              | Tax percentage if withTax is true |
+| destination          | string  | Yes      | Must be provided                   | Primary destination               |
+| durationDays         | number  | Yes      | Minimum 1                          | Number of days for the trip       |
+| startDate            | string  | No       | ISO 8601 format                    | Package start date                |
+| endDate              | string  | No       | ISO 8601 format                    | Package end date                  |
+| bookingActiveFrom    | string  | Yes      | ISO 8601 format                    | When booking opens                |
+| bookingEndAt         | string  | Yes      | ISO 8601 format                    | When booking closes               |
+| packagePolicies      | string  | No       | Any text                           | General package policies          |
+| cancellationPolicies | string  | No       | Any text                           | Cancellation and refund policies  |
+| bannerImageUrl       | string  | Yes      | Valid URL                          | Main package banner image         |
+| bannerImageFileId    | string  | Yes      | Cloudinary file ID                 | For deletion tracking             |
+| packageImages        | array   | No       | Array of image objects             | Additional package images         |
+| itineraryDays        | array   | Yes      | Minimum 1 day, see itinerary below | Complete day-by-day itinerary     |
+
+### Itinerary Day Schema
+
+| Field       | Type   | Required | Rules                              | Notes                              |
+| ----------- | ------ | -------- | ---------------------------------- | ---------------------------------- |
+| dayNumber   | number | Yes      | Minimum 1, unique per package      | Sequential day number              |
+| title       | string | Yes      | Must be provided                   | Day title (e.g., "Day 1: Arrival") |
+| description | string | No       | Any text                           | Detailed day description           |
+| hotelStay   | object | No       | See hotel schema below             | Accommodation details              |
+| transports  | array  | Yes      | Minimum 1 transport                | All transports for the day         |
+| visits      | array  | Yes      | Minimum 1 visit                    | Places to visit                    |
+| meals       | array  | No       | 0-3 meals (breakfast/lunch/dinner) | Meal plan for the day              |
+
+### Hotel Stay Schema
+
+| Field          | Type    | Required | Rules            | Notes               |
+| -------------- | ------- | -------- | ---------------- | ------------------- |
+| hotelName      | string  | Yes      | Must be provided | Hotel/resort name   |
+| checkIn        | string  | No       | ISO 8601 format  | Check-in date/time  |
+| checkOut       | string  | No       | ISO 8601 format  | Check-out date/time |
+| address        | string  | No       | Any text         | Hotel address       |
+| wifi           | boolean | No       | true/false       | WiFi availability   |
+| tv             | boolean | No       | true/false       | TV availability     |
+| attachWashroom | boolean | No       | true/false       | Attached bathroom   |
+| acRoom         | boolean | No       | true/false       | AC room             |
+| kitchen        | boolean | No       | true/false       | Kitchen/kitchenette |
+
+### Transport Schema
+
+| Field        | Type   | Required | Rules                                | Notes                |
+| ------------ | ------ | -------- | ------------------------------------ | -------------------- |
+| fromLocation | string | Yes      | Must be provided                     | Starting location    |
+| toLocation   | string | Yes      | Must be provided                     | Destination location |
+| mode         | string | Yes      | BUS/TRAIN/CAR/FLIGHT/BOAT/WALK/OTHER | Transport type       |
+| startTime    | string | Yes      | ISO 8601 format                      | Departure time       |
+| endTime      | string | Yes      | ISO 8601 format                      | Arrival time         |
+
+### Visit Place Schema
+
+| Field       | Type   | Required | Rules            | Notes                  |
+| ----------- | ------ | -------- | ---------------- | ---------------------- |
+| name        | string | Yes      | Must be provided | Place name             |
+| address     | string | No       | Any text         | Place address          |
+| description | string | No       | Any text         | Place description      |
+| visitTime   | string | No       | Time format      | Recommended visit time |
+
+### Meal Schema
+
+| Field           | Type   | Required | Rules                  | Notes        |
+| --------------- | ------ | -------- | ---------------------- | ------------ |
+| type            | string | Yes      | BREAKFAST/LUNCH/DINNER | Meal type    |
+| mealDescription | string | No       | Any text               | Meal details |
+
+### Success Response
+
+**Status Code:** `201 Created`
+
+```json
+{
+  "success": true,
+  "message": "Package published successfully",
+  "packageId": "clz1a2b3c4d5e6f7g8h9i0j1"
+}
+```
+
+### Error Responses
+
+#### 1. Validation Error - Missing Required Field
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Validation error: title is required",
+  "errors": ["title cannot be empty"]
+}
+```
+
+#### 2. Validation Error - Invalid Itinerary
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Validation error: itineraryDays must have at least 1 day",
+  "errors": ["Minimum 1 itinerary day required"]
+}
+```
+
+#### 3. Database Transaction Failed
+
+**Status Code:** `500 Internal Server Error`
+
+```json
+{
+  "success": false,
+  "statusCode": 500,
+  "data": null,
+  "message": "Internal server error during package creation"
+}
+```
+
+### Data Flow
+
+```
+1. Agent submits package data
+   ↓
+2. Validate input with Zod schema
+   ↓ (if validation fails)
+   └─→ Return validation error
+   ↓ (if validation passes)
+3. START DATABASE TRANSACTION
+   ↓
+4. Create banner image record
+   - imageUrl, fileId
+   ↓
+5. Create main package record
+   - agentId, title, description, pricing
+   - totalSeats, seatsAvailable = totalSeats
+   - seatBooked = 0
+   - tax & discount settings
+   - booking dates, policies
+   - packageBannerImageId
+   - packageApprovedStatus: PENDING
+   ↓
+6. Create additional package images (if provided)
+   - Link to travelPackageId
+   ↓
+7. FOR EACH itinerary day:
+   ├─ Create itinerary day record
+   │  - dayNumber, title, description, packageId
+   │
+   ├─ Create hotel stay (if provided)
+   │  - hotelName, checkIn/Out, amenities
+   │  - Link to itineraryDayId
+   │
+   ├─ Create all transports
+   │  - fromLocation, toLocation, mode, times
+   │  - Link to itineraryDayId
+   │
+   ├─ Create all visiting places
+   │  - name, address, description, visitTime
+   │  - Link to itineraryDayId
+   │
+   └─ Create meal plan (if meals provided)
+      ├─ Create meal plan record
+      │  - Link to itineraryDayId
+      │
+      └─ Create individual meals
+         - type, mealDescription
+         - Link to mealPlanId
+   ↓
+8. COMMIT TRANSACTION
+   ↓
+9. Return success response with packageId
+```
+
+### Database Operations - Transaction
+
+**Primary Tables:** `Bb_travelPackage`, `Bb_image`, `Bb_itineraryDay`, `Bb_hotelStay`, `Bb_transport`, `Bb_visitPlace`, `Bb_mealPlan`, `Bb_meal`
+
+#### Step 1: Create Banner Image
+
+```sql
+INSERT INTO "Bb_image" (
+  id, "imageUrl", "fileId", "createdAt"
+) VALUES (
+  GENERATED_CUID, 'https://example.com/banner.jpg',
+  'file_banner_001', NOW()
+);
+```
+
+#### Step 2: Create Package
+
+```sql
+INSERT INTO "Bb_travelPackage" (
+  id, "agentId", title, description, "pricePerPerson",
+  "totalSeats", "seatsAvailable", "seatBooked",
+  "discountAmount", "discountPercentage",
+  "withTax", "taxPercentage",
+  destination, "durationDays", "startDate", "endDate",
+  "bookingActiveFrom", "bookingEndAt",
+  "packagePolicies", "cancellationPolicies",
+  "packageBannerImageId", "packageApprovedStatus",
+  "createdAt", "updatedAt"
+) VALUES (
+  GENERATED_CUID, 'agent_id', 'Luxury Goa Package', '...',
+  25000, 30, 30, 0,
+  2000, 8,
+  true, 5,
+  'Goa', 5, '2025-04-10', '2025-04-15',
+  '2025-01-15', '2025-04-05',
+  '...', '...',
+  'banner_image_id', 'PENDING',
+  NOW(), NOW()
+);
+```
+
+#### Step 3: Create Itinerary Day
+
+```sql
+INSERT INTO "Bb_itineraryDay" (
+  id, "dayNumber", title, description, "packageId", "createdAt"
+) VALUES (
+  GENERATED_CUID, 1, 'Day 1: Arrival', '...',
+  'package_id', NOW()
+);
+```
+
+#### Step 4: Create Hotel Stay
+
+```sql
+INSERT INTO "Bb_hotelStay" (
+  id, "hotelName", "checkIn", "checkOut", address,
+  wifi, tv, "attachWashroom", "acRoom", kitchen,
+  "itineraryDayId"
+) VALUES (
+  GENERATED_CUID, 'Taj Exotica', '2025-04-10 14:00', '2025-04-11 11:00',
+  'Benaulim, Goa',
+  true, true, true, true, false,
+  'itinerary_day_id'
+);
+```
+
+#### Step 5: Create Transports
+
+```sql
+INSERT INTO "Bb_transport" (
+  id, "fromLocation", "toLocation", mode,
+  "startTime", "endTime", "itineraryDayId"
+) VALUES (
+  GENERATED_CUID, 'Goa Airport', 'Hotel', 'CAR',
+  '2025-04-10 11:00', '2025-04-10 12:30',
+  'itinerary_day_id'
+);
+```
+
+#### Step 6: Create Visiting Places
+
+```sql
+INSERT INTO "Bb_visitPlace" (
+  id, name, address, description, "visitTime",
+  "itineraryDayId"
+) VALUES (
+  GENERATED_CUID, 'Calangute Beach', 'Calangute, Goa',
+  'Famous beach', '17:00',
+  'itinerary_day_id'
+);
+```
+
+#### Step 7: Create Meal Plan & Meals
+
+```sql
+-- Create meal plan
+INSERT INTO "Bb_mealPlan" (
+  id, "itineraryDayId"
+) VALUES (
+  GENERATED_CUID, 'itinerary_day_id'
+);
+
+-- Create meals
+INSERT INTO "Bb_meal" (
+  id, type, "mealDescription", "mealPlanId"
+) VALUES
+  (GENERATED_CUID, 'LUNCH', 'Welcome lunch buffet', 'meal_plan_id'),
+  (GENERATED_CUID, 'DINNER', 'Beach BBQ dinner', 'meal_plan_id');
+```
+
+### Database State After Package Creation
+
+```typescript
+// Bb_travelPackage Table
+{
+  id: "pkg_001",
+  agentId: "agent_id",
+  title: "Luxury 5-Day Goa Beach Paradise",
+  pricePerPerson: 25000,
+  totalSeats: 30,
+  seatsAvailable: 30,
+  seatBooked: 0,
+  discountAmount: 2000,
+  discountPercentage: 8,
+  withTax: true,
+  taxPercentage: 5,
+  destination: "Goa",
+  durationDays: 5,
+  packageApprovedStatus: "PENDING", // Awaiting admin approval
+  isBookingActive: true,
+  createdAt: "2025-12-07T10:30:00Z"
+}
+
+// Bb_itineraryDay Table
+{
+  id: "itinerary_001",
+  dayNumber: 1,
+  title: "Day 1: Arrival in Goa & Beach Sunset",
+  description: "Welcome to Goa!",
+  packageId: "pkg_001",
+  createdAt: "2025-12-07T10:30:00Z"
+}
+
+// Bb_hotelStay Table
+{
+  id: "hotel_001",
+  hotelName: "Taj Exotica Resort & Spa",
+  checkIn: "2025-04-10T14:00:00Z",
+  checkOut: "2025-04-11T11:00:00Z",
+  wifi: true,
+  tv: true,
+  attachWashroom: true,
+  acRoom: true,
+  kitchen: false,
+  itineraryDayId: "itinerary_001"
+}
+
+// Bb_transport Table
+{
+  id: "transport_001",
+  fromLocation: "Goa Airport",
+  toLocation: "Hotel",
+  mode: "CAR",
+  startTime: "2025-04-10T11:00:00Z",
+  endTime: "2025-04-10T12:30:00Z",
+  itineraryDayId: "itinerary_001"
+}
+
+// Bb_visitPlace Table
+{
+  id: "visit_001",
+  name: "Calangute Beach",
+  address: "Calangute, Goa",
+  description: "Famous beach for sunset",
+  visitTime: "17:00",
+  itineraryDayId: "itinerary_001"
+}
+
+// Bb_mealPlan Table
+{
+  id: "mealplan_001",
+  itineraryDayId: "itinerary_001"
+}
+
+// Bb_meal Table
+{
+  id: "meal_001",
+  type: "LUNCH",
+  mealDescription: "Welcome lunch buffet",
+  mealPlanId: "mealplan_001"
+},
+{
+  id: "meal_002",
+  type: "DINNER",
+  mealDescription: "Beach BBQ dinner",
+  mealPlanId: "mealplan_001"
+}
+```
+
+### Package Approval Workflow
+
+```
+1. Agent publishes package → Status: PENDING
+   ↓
+2. Admin/RootAdmin reviews package
+   ↓
+3. Admin approves/rejects
+   ├─ APPROVED → Package visible to travelers
+   └─ REJECTED → Package hidden, agent notified
+   ↓
+4. If APPROVED:
+   - Travelers can browse and book
+   - Booking creates single payment record
+   - Seats are managed automatically
+```
+
+### Payment Model Integration
+
+When a traveler books this package:
+
+1. **Booking Creation:**
+   - `numberOfTravelers` × `pricePerPerson` = `baseAmount`
+   - Apply `taxPercentage` → `taxAmount`
+   - Apply `discountAmount` or `discountPercentage` → `discountAmount`
+   - Calculate `totalAmount` = `baseAmount` + `taxAmount` - `discountAmount`
+
+2. **Single Payment Record:**
+   - One booking → One payment (one-to-one relationship)
+   - Payment status: `PENDING` → `SUCCESS`/`FAILED`
+   - Payment provider: `RAZORPAY`/`STRIP`/`OTHER`
+   - For refunds: same payment record, `isRefund: true`
+
+**Example Calculation:**
+
+```
+2 travelers book Goa package:
+- Base: 25000 × 2 = 50000
+- Tax (5%): 50000 × 0.05 = 2500
+- Discount: 2000 (fixed) or 8% (4000)
+- Total: 50000 + 2500 - 2000 = 50500
+→ Creates booking with totalAmount: 50500
+→ Creates single payment record with amount: 50500
+```
+
+### Important Notes
+
+#### Package Status
+
+- **PENDING** - Initial status, awaiting approval
+- **APPROVED** - Admin approved, visible to travelers
+- **REJECTED** - Admin rejected, hidden from travelers
+
+#### Seat Management
+
+- `totalSeats` - Total capacity
+- `seatsAvailable` - Decrements on booking
+- `seatBooked` - Increments on booking
+- Automatic seat updates on booking/cancellation
+
+#### Image Management
+
+- Banner image: Required, one per package
+- Package images: Optional, multiple supported
+- All images tracked with Cloudinary fileId for deletion
+
+#### Booking Windows
+
+- `bookingActiveFrom` - When booking opens
+- `bookingEndAt` - When booking closes
+- `startDate`/`endDate` - Actual trip dates (optional)
 
 ---
 
 ## Summary Table
 
-| Operation      | Endpoint                  | Method | Auth Required | Role Status  |
-| -------------- | ------------------------- | ------ | ------------- | ------------ |
-| Register       | `/register`               | POST   | No            | PENDING      |
-| Login          | `/login`                  | POST   | No            | Any          |
-| Verify Account | `/verify-account`         | POST   | Yes           | Any          |
-| Resend Link    | `/send-verification-link` | POST   | Yes           | Not Verified |
+| Operation       | Endpoint                  | Method | Auth Required | Role Status  |
+| --------------- | ------------------------- | ------ | ------------- | ------------ |
+| Register        | `/register`               | POST   | No            | PENDING      |
+| Login           | `/login`                  | POST   | No            | Any          |
+| Verify Account  | `/verify-account`         | POST   | Yes           | Any          |
+| Resend Link     | `/send-verification-link` | POST   | Yes           | Not Verified |
+| Publish Package | `/publish-package`        | POST   | Yes           | APPROVED     |
 
 ---
-
-## Important Notes
-
-### Status Progression
-
-1. **PENDING** - Initial status after registration
-2. **APPROVED** - Admin/RootAdmin approved documents
-3. **REJECTED** - Admin/RootAdmin rejected application
-
-### Documents Required
-
-- **Aadhar:** Government ID (mandatory)
-- **PAN:** Tax ID (optional but recommended)
-- **GST:** Business tax number (optional)
-
-### Profile Images
-
-- **Profile Image:** Agent/company profile picture
-- **Banner Image:** Company banner for listings
-
-### Verification Process
-
-1. Agent registers → verification email sent
-2. Agent clicks email link → email verified
-3. Admin reviews documents → approval status updated
-4. Agent can then create packages (if approved)

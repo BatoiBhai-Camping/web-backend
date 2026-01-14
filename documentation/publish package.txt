@@ -1,11 +1,11 @@
-bareminimum data set for package publishin
+BARE MINIMUM DATA TO PUBLISH A PACKAGE
 -----------------------------------------------
+Minimum required fields to create a basic package:
+
 {
-  "agentId": "clxxxxxxxxxxxxxx",
   "title": "Weekend Getaway to Manali",
   "description": "A quick 2-day escape to the mountains",
   "pricePerPerson": 5000,
-  "advancedPerPerson": 2000,
   "totalSeats": 20,
   "destination": "Manali, Himachal Pradesh",
   "durationDays": 2,
@@ -55,28 +55,42 @@ bareminimum data set for package publishin
 
 
 
-complete data as per the database model to publish the package
+COMPLETE DATA WITH ALL OPTIONAL FIELDS
 -------------------------------------------------------------------
+Full example showing all available fields including optional ones:
+
 {
   "title": "Luxury 5-Day Goa Beach Paradise",
   "description": "Experience the best of Goa with luxury accommodations, guided tours, and authentic cuisine. Perfect for families and couples seeking relaxation and adventure.",
   "pricePerPerson": 25000,
-  "advancedPerPerson": 10000,
   "totalSeats": 30,
-  "discountAmount": 2000,
-  "discountPercentage": 8,
-  "withTax": true,
-  "taxPercentage": 5,
+  
+  // Optional pricing & tax fields
+  "discountAmount": 2000,           // Fixed discount in rupees
+  "discountPercentage": 8,          // Or percentage-based discount
+  "withTax": true,                  // Whether tax is included
+  "taxPercentage": 5,               // Tax percentage if withTax is true
+  
   "destination": "Goa",
   "durationDays": 5,
+  
+  // Optional trip dates
   "startDate": "2025-04-10T00:00:00Z",
   "endDate": "2025-04-15T00:00:00Z",
+  
+  // Required booking window
   "bookingActiveFrom": "2025-01-15T00:00:00Z",
   "bookingEndAt": "2025-04-05T23:59:59Z",
+  
+  // Optional policies
   "packagePolicies": "1. Valid ID proof required. 2. Children below 5 travel free. 3. No refund for no-show. 4. Travel insurance recommended.",
   "cancellationPolicies": "Full refund if cancelled 15+ days before travel. 50% refund if cancelled 7-14 days before. No refund within 7 days.",
+  
+  // Required banner image
   "bannerImageUrl": "https://example.com/goa-banner.jpg",
   "bannerImageFileId": "file_goa_banner_001",
+  
+  // Optional additional images
   "packageImages": [
     {
       "imageUrl": "https://example.com/goa-beach1.jpg",
@@ -88,13 +102,18 @@ complete data as per the database model to publish the package
     },
     {
       "imageUrl": "https://example.com/goa-hotel.jpg"
+      // fileId is optional for images
     }
   ],
+  
+  // Required itinerary (at least 1 day)
   "itineraryDays": [
     {
       "dayNumber": 1,
       "title": "Day 1: Arrival in Goa & Beach Sunset",
       "description": "Welcome to Goa! Check into your luxury beach resort and enjoy a relaxing evening at Calangute Beach.",
+      
+      // Optional hotel stay
       "hotelStay": {
         "hotelName": "Taj Exotica Resort & Spa",
         "checkIn": "2025-04-10T14:00:00Z",
@@ -106,6 +125,8 @@ complete data as per the database model to publish the package
         "acRoom": true,
         "kitchen": false
       },
+      
+      // Required: at least 1 transport
       "transports": [
         {
           "fromLocation": "Goa International Airport",
@@ -115,6 +136,8 @@ complete data as per the database model to publish the package
           "endTime": "2025-04-10T12:30:00Z"
         }
       ],
+      
+      // Required: at least 1 visit
       "visits": [
         {
           "name": "Calangute Beach",
@@ -123,6 +146,8 @@ complete data as per the database model to publish the package
           "visitTime": "17:00"
         }
       ],
+      
+      // Optional: meals (0-3 meals per day)
       "meals": [
         {
           "type": "LUNCH",
@@ -338,26 +363,84 @@ complete data as per the database model to publish the package
   ]
 }
 
-PAYMENT MODEL FOR BOOKINGS
+
+
+SINGLE PAYMENT MODEL FOR BOOKINGS
 -------------------------------------------------------------------
-When a traveler books a package, the system creates:
+IMPORTANT: The architecture uses ONE-TO-ONE relationship between bookings and payments.
+Each booking has exactly ONE payment record.
 
-1. A booking record with payment details:
-   - baseAmount: pricePerPerson × numberOfTravelers
-   - taxAmount: calculated from withTax and taxPercentage
-   - discountAmount: calculated from discountAmount or discountPercentage
-   - totalAmount: baseAmount + taxAmount - discountAmount
+DATABASE RELATIONSHIP:
+- Bb_booking ←→ Bb_payment (one-to-one)
+- Payment record is created automatically when booking is made
+- Refunds are handled by updating the SAME payment record
 
-2. A single payment record (one-to-one with booking):
-   - Automatically created when booking is made
-   - Tracks payment status: PENDING → SUCCESS/FAILED
-   - Handles refunds by setting isRefund: true
-   - Stores provider details (RAZORPAY, STRIP, etc.)
+BOOKING CREATION FLOW:
+1. Traveler books a package
+2. System calculates:
+   - baseAmount = pricePerPerson × numberOfTravelers
+   - taxAmount = (withTax) ? baseAmount × (taxPercentage/100) : 0
+   - discountAmount = discountAmount OR (baseAmount × discountPercentage/100)
+   - totalAmount = baseAmount + taxAmount - discountAmount
 
-Example booking flow:
-- User books package (2 travelers)
-- System calculates: 25000 × 2 = 50000 (base)
-- Applies tax: 50000 × 0.05 = 2500
-- Applies discount: 2000
-- Total: 50500
-- Creates booking + single payment record with amount 50500
+3. Creates ONE booking record with calculated amounts
+4. Creates ONE payment record linked to booking (bookingId is unique)
+
+PAYMENT LIFECYCLE:
+┌─────────────────────────────────────────────────────────────┐
+│ Booking Created → Payment Status: PENDING                   │
+│         ↓                                                   │
+│ Payment Processed → Status: SUCCESS or FAILED               │
+│         ↓                                                   │
+│ (If cancellation requested)                                 │
+│ Refund Initiated → isRefund: true, Status: REFUNDED        │
+└─────────────────────────────────────────────────────────────┘
+
+PAYMENT RECORD STRUCTURE:
+{
+  id: "payment_id",
+  bookingId: "booking_id",        // UNIQUE - one payment per booking
+  type: "BOOKING",                // or "REFUND"
+  status: "PENDING",              // → SUCCESS/FAILED/REFUNDED
+  amount: 50500,                  // total amount
+  currency: "INR",
+  provider: "RAZORPAY",           // or STRIP, OTHER
+  providerRef: "pay_xyz123",      // payment gateway reference
+  isRefund: false,                // true when refund is processed
+  createdAt: "2025-12-07T10:30:00Z",
+  updatedAt: "2025-12-07T10:35:00Z"
+}
+
+EXAMPLE CALCULATION:
+Package: Goa Beach Paradise
+- pricePerPerson: 25000
+- withTax: true, taxPercentage: 5
+- discountAmount: 2000
+- numberOfTravelers: 2
+
+Calculation:
+1. baseAmount = 25000 × 2 = 50000
+2. taxAmount = 50000 × 0.05 = 2500
+3. discountAmount = 2000 (fixed)
+4. totalAmount = 50000 + 2500 - 2000 = 50500
+
+Creates:
+- 1 booking record (totalAmount: 50500)
+- 1 payment record (amount: 50500, status: PENDING)
+
+When payment succeeds:
+- Payment status updated to SUCCESS
+- Booking paymentStatus updated to SUCCESS
+
+When refund is needed:
+- Same payment record updated
+- isRefund: true
+- status: REFUNDED
+- Booking status: CANCELLED or REFUNDED
+
+KEY POINTS:
+✓ One booking = One payment (enforced by unique constraint on bookingId)
+✓ Payment record created WITH booking, not separately
+✓ Refunds update the SAME payment record
+✓ No multiple payment records per booking
+✓ Payment status tracks entire transaction lifecycle
