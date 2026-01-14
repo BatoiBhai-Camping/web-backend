@@ -337,3 +337,27 @@ complete data as per the database model to publish the package
     }
   ]
 }
+
+PAYMENT MODEL FOR BOOKINGS
+-------------------------------------------------------------------
+When a traveler books a package, the system creates:
+
+1. A booking record with payment details:
+   - baseAmount: pricePerPerson × numberOfTravelers
+   - taxAmount: calculated from withTax and taxPercentage
+   - discountAmount: calculated from discountAmount or discountPercentage
+   - totalAmount: baseAmount + taxAmount - discountAmount
+
+2. A single payment record (one-to-one with booking):
+   - Automatically created when booking is made
+   - Tracks payment status: PENDING → SUCCESS/FAILED
+   - Handles refunds by setting isRefund: true
+   - Stores provider details (RAZORPAY, STRIP, etc.)
+
+Example booking flow:
+- User books package (2 travelers)
+- System calculates: 25000 × 2 = 50000 (base)
+- Applies tax: 50000 × 0.05 = 2500
+- Applies discount: 2000
+- Total: 50500
+- Creates booking + single payment record with amount 50500

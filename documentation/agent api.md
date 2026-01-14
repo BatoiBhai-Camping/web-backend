@@ -466,21 +466,64 @@ INSERT INTO "Bb_document" (
 **Subject:** For email/account verification with BatioBhai
 **Content:** Verification link with verification token embedded
 
+### Payment Model
+
+**Important:** Each booking has a **single payment record** (one-to-one relationship). When a booking is created, a corresponding payment record is automatically created with status `PENDING`.
+
+**Payment Relationship:**
+
+- One booking → One payment
+- Payment status tracks the overall transaction state
+- Refunds are handled by updating the same payment record with `isRefund: true`
+
+**Payment Lifecycle:**
+
+1. Booking created → Payment created with `PENDING` status
+2. Payment successful → Payment status updated to `SUCCESS`
+3. Payment failed → Payment status updated to `FAILED`
+4. Refund initiated → Payment `isRefund` set to `true`, status becomes `REFUNDED`
+
+**Database Schema:**
+
+```typescript
+// Bb_booking Table
+{
+  id: "booking_id",
+  bookingCode: "BK-2025-001",
+  userId: "user_id",
+  packageId: "package_id",
+  numberOfTravelers: 2,
+  status: "CONFIRMED",
+  paymentStatus: "SUCCESS",
+  baseAmount: 50000,
+  taxAmount: 2500,
+  discountAmount: 5000,
+  totalAmount: 47500,
+  payments: { // One-to-one relation
+    id: "payment_id",
+    // ...payment details
+  }
+}
+
+// Bb_payment Table (One payment per booking)
+{
+  id: "payment_id",
+  bookingId: "booking_id", // unique constraint
+  type: "BOOKING",
+  status: "SUCCESS",
+  amount: 47500,
+  currency: "INR",
+  provider: "RAZORPAY",
+  providerRef: "pay_xyz123",
+  isRefund: false
+}
+```
+
 ### Cookies Set
 
 ```
 accesstoken: "Bearer eyJhbGciOiJIUzI1NiIs..." (httpOnly, 3 days expiry)
 refreshtoken: "Bearer eyJhbGciOiJIUzI1NiIs..." (httpOnly, 10 days expiry)
-```
-
-### Postman Testing
-
-```
-Method: POST
-URL: http://localhost:3000/api/v1/agent/register
-Headers:
-  Content-Type: application/json
-Body: (See Request Body above)
 ```
 
 ---
