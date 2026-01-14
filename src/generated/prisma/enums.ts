@@ -70,8 +70,7 @@ export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
 
 export const PaymentType = {
-  ADVANCE: 'ADVANCE',
-  FINAL: 'FINAL',
+  BOOKING: 'BOOKING',
   REFUND: 'REFUND'
 } as const
 

@@ -1947,7 +1947,6 @@ export const Bb_travelPackageScalarFieldEnum = {
   title: 'title',
   description: 'description',
   pricePerPerson: 'pricePerPerson',
-  advancedPerPerson: 'advancedPerPerson',
   packageApprovedStatus: 'packageApprovedStatus',
   discountAmount: 'discountAmount',
   discountPercentage: 'discountPercentage',
@@ -2073,9 +2072,6 @@ export const Bb_bookingScalarFieldEnum = {
   taxAmount: 'taxAmount',
   discountAmount: 'discountAmount',
   totalAmount: 'totalAmount',
-  amountPaid: 'amountPaid',
-  balanceDue: 'balanceDue',
-  fullPaymentDueAt: 'fullPaymentDueAt',
   refundableAmount: 'refundableAmount',
   cancellationReason: 'cancellationReason',
   cancelledAt: 'cancelledAt',
@@ -2097,7 +2093,6 @@ export const Bb_paymentScalarFieldEnum = {
   provider: 'provider',
   providerRef: 'providerRef',
   isRefund: 'isRefund',
-  refundForId: 'refundForId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

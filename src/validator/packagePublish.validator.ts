@@ -48,7 +48,6 @@ export const publishPackageValidator = z.object({
   title: z.string(),
   description: z.string(),
   pricePerPerson: z.number(),
-  advancedPerPerson: z.number(),
 
   totalSeats: z.number().min(1),
 

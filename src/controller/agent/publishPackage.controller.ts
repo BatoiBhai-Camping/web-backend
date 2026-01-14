@@ -30,7 +30,6 @@ const publishPackage = asyncHandler(async (req: Request, res: Response) => {
         title: data.title,
         description: data.description,
         pricePerPerson: data.pricePerPerson,
-        advancedPerPerson: data.advancedPerPerson,
 
         totalSeats: data.totalSeats,
         seatsAvailable: data.totalSeats,
