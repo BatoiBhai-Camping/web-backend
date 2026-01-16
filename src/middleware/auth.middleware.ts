@@ -59,6 +59,7 @@ const authMiddleware = asyncHandler(
       where: {
         id: verifyAccessToken.userId,
         email: verifyAccessToken.email,
+        isDeleted: false,
       },
       select: {
         id: true,

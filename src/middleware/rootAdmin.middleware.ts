@@ -78,6 +78,7 @@ const rootAdminMiddleware = asyncHandler(
         emailVerified: true,
         role: "ROOTADMIN",
         roleStatus: "APPROVED",
+        isDeleted: false,
       },
       select: {
         id: true,

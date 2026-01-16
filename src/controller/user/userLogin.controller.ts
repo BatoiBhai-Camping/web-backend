@@ -31,6 +31,7 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
   const user = await db.bb_user.findUnique({
     where: {
       email: data.email,
+      isDeleted: false,
     },
     select: {
       id: true,

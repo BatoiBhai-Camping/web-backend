@@ -71,6 +71,7 @@ const agentMiddleware = asyncHandler(
       where: {
         id: verifyAccessToken.userId,
         email: verifyAccessToken.email,
+        isDeleted: false,
         emailVerified: true,
         role: "AGENT",
         roleStatus: "APPROVED",

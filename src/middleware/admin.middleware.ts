@@ -71,6 +71,7 @@ const adminMiddleware = asyncHandler(
       where: {
         id: verifyAccessToken.userId,
         email: verifyAccessToken.email,
+        isDeleted: false,
         emailVerified: true,
         role: "ADMIN",
         roleStatus: "APPROVED",

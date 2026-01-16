@@ -5,6 +5,7 @@ import {
   userAccountVerification,
   sendAccountVerificationLink,
   logout,
+  deleteAccout,
 } from "../controller/user/user.controller.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 const userRouter = Router();
@@ -18,4 +19,5 @@ userRouter
   .post(authMiddleware, sendAccountVerificationLink);
 userRouter.route("/login").post(userLogIn);
 userRouter.route("/logout").delete(authMiddleware, logout);
+userRouter.route("/delete-acc").delete(authMiddleware, deleteAccout);
 export { userRouter };
