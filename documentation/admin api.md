@@ -21,6 +21,7 @@ The Admin Router handles administrative operations including admin registration,
 1. [Registration](#registration)
 2. [Login](#login)
 3. [Approve Agent](#approve-agent)
+4. [Delete Account](#delete-account)
 
 ---
 
@@ -588,6 +589,184 @@ Body:
 
 ---
 
+## Delete Account
+
+### Endpoint
+
+```
+DELETE /api/v1/admin/delete-acc
+```
+
+### Description
+
+Allows an admin to permanently delete their account. This operation performs a soft delete by setting the `isDeleted` flag to true, clears all authentication tokens, and removes cookies.
+
+**Authorization:** Requires Admin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{}
+```
+
+(Empty body - user information comes from authentication token)
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Account deleted successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized - Missing Token
+
+**Status Code:** `401 Unauthorized`
+
+```json
+{
+  "success": false,
+  "statusCode": 401,
+  "data": null,
+  "message": "Unauthorized - Admin access required"
+}
+```
+
+#### 2. Admin Not Found
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Admin account not found"
+}
+```
+
+### Data Flow
+
+```
+1. Admin requests account deletion
+   ↓
+2. Verify admin authentication via middleware
+   ↓ (if not authenticated)
+   └─→ Return error: "Unauthorized"
+   ↓ (if authenticated)
+3. Update admin user record:
+   - Set isDeleted = true
+   ↓
+4. Clear refresh token from database
+   - Set refreshToken = null
+   ↓
+5. Clear authentication cookies:
+   - Clear accesstoken cookie
+   - Clear refreshtoken cookie
+   ↓
+6. Return success response
+```
+
+### Database Operations
+
+**Primary Table:** `Bb_user`
+
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
+
+#### Soft Delete Admin Account
+
+```sql
+UPDATE "Bb_user"
+SET "isDeleted" = true,
+    "updatedAt" = NOW()
+WHERE id = 'admin_id';
+```
+
+#### Clear Refresh Token
+
+```sql
+UPDATE "Bb_user"
+SET "refreshToken" = null
+WHERE id = 'admin_id';
+```
+
+### Database State After Deletion
+
+```typescript
+// Before Deletion
+{
+  id: "clz2a2b3c4d5e6f7g8h9i0j1",
+  isDeleted: false,
+  refreshToken: "eyJhbGciOiJIUzI1NiIs...",
+  updatedAt: "2025-12-07T10:30:00Z"
+}
+
+// After Deletion
+{
+  id: "clz2a2b3c4d5e6f7g8h9i0j1",
+  isDeleted: true, // Changed
+  refreshToken: null, // Cleared
+  updatedAt: "2025-12-07T10:45:00Z" // Updated
+}
+```
+
+### Cookies Cleared
+
+```
+accesstoken: Cleared
+refreshtoken: Cleared
+```
+
+### Important Notes
+
+#### Soft Delete vs Hard Delete
+
+- This is a **soft delete** operation
+- The admin record remains in database with `isDeleted: true`
+- Admin cannot login after deletion
+- Data is retained for audit purposes
+
+#### Post-Deletion State
+
+- All authentication tokens invalidated
+- Cannot access any admin endpoints
+- Email can be reused for new registration (if needed)
+
+#### Recovery
+
+- Contact RootAdmin for account recovery
+- May require manual database operation
+
+### Postman Testing
+
+```
+Method: DELETE
+URL: http://localhost:3000/api/v1/admin/delete-acc
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+Body: {}
+```
+
+---
+
 ## Admin Workflow Diagram
 
 ```
@@ -662,11 +841,12 @@ ADMIN (Sub-Admin)
 
 ## Summary Table
 
-| Operation     | Endpoint         | Method | Auth Required | Role  |
-| ------------- | ---------------- | ------ | ------------- | ----- |
-| Register      | `/register`      | POST   | No            | ADMIN |
-| Login         | `/login`         | POST   | No            | ADMIN |
-| Approve Agent | `/approve-agent` | POST   | Yes           | ADMIN |
+| Operation      | Endpoint         | Method | Auth Required | Role  |
+| -------------- | ---------------- | ------ | ------------- | ----- |
+| Register       | `/register`      | POST   | No            | ADMIN |
+| Login          | `/login`         | POST   | No            | ADMIN |
+| Approve Agent  | `/approve-agent` | POST   | Yes           | ADMIN |
+| Delete Account | `/delete-acc`    | DELETE | Yes           | ADMIN |
 
 ---
 

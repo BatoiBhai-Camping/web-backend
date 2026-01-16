@@ -24,6 +24,7 @@ The User Router handles all user-related operations including registration, logi
 2. [Login](#login)
 3. [Account Verification](#account-verification)
 4. [Resend Verification Link](#resend-verification-link)
+5. [Delete Account](#delete-account)
 
 ---
 
@@ -849,35 +850,218 @@ Body:
 
 ---
 
-## Authentication Flow Summary
+## Delete Account
+
+### Endpoint
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    USER JOURNEY                             │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  1. REGISTRATION                                            │
-│     POST /user/register                                     │
-│     └─→ Create user, generate tokens, send email           │
-│     └─→ Cookies set: accesstoken, refreshtoken             │
-│                                                             │
-│  2. EMAIL VERIFICATION                                      │
-│     POST /user/verify-account                              │
-│     └─→ Verify with token from email                       │
-│     └─→ Set emailVerified = true                           │
-│                                                             │
-│  3. LOGIN                                                   │
-│     POST /user/login                                        │
-│     └─→ Authenticate with email/password                   │
-│     └─→ New tokens generated                               │
-│     └─→ Cookies set: accesstoken, refreshtoken             │
-│                                                             │
-│  4. PROTECTED REQUESTS                                      │
-│     Any request requiring auth                              │
-│     └─→ accesstoken from cookies used                      │
-│     └─→ User info extracted from token                     │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+DELETE /api/v1/user/delete-acc
+```
+
+### Description
+
+Allows a user to permanently delete their account. This operation performs a soft delete by setting the `isDeleted` flag to true, clears all authentication tokens, and removes cookies. User bookings and travel history are retained for record-keeping purposes.
+
+**Authorization:** Requires User authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{}
+```
+
+(Empty body - user information comes from authentication token)
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Account deleted successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized - Missing Token
+
+**Status Code:** `401 Unauthorized`
+
+```json
+{
+  "success": false,
+  "statusCode": 401,
+  "data": null,
+  "message": "Unauthorized - Authentication required"
+}
+```
+
+#### 2. User Not Found
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "User account not found"
+}
+```
+
+### Data Flow
+
+```
+1. User requests account deletion
+   ↓
+2. Verify user authentication via middleware
+   ↓ (if not authenticated)
+   └─→ Return error: "Unauthorized"
+   ↓ (if authenticated)
+3. Update user record:
+   - Set isDeleted = true
+   ↓
+4. Clear refresh token from database
+   - Set refreshToken = null
+   ↓
+5. Clear authentication cookies:
+   - Clear accesstoken cookie
+   - Clear refreshtoken cookie
+   ↓
+6. Return success response
+```
+
+### Database Operations
+
+**Primary Table:** `Bb_user`
+
+**Related Tables:** `Bb_booking` (bookings remain for record-keeping)
+
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
+
+#### Soft Delete User Account
+
+```sql
+UPDATE "Bb_user"
+SET "isDeleted" = true,
+    "updatedAt" = NOW()
+WHERE id = 'user_id' AND role = 'TRAVELER';
+```
+
+#### Clear Refresh Token
+
+```sql
+UPDATE "Bb_user"
+SET "refreshToken" = null
+WHERE id = 'user_id';
+```
+
+### Database State After Deletion
+
+```typescript
+// Before Deletion
+{
+  id: "clz1a2b3c4d5e6f7g8h9i0j1",
+  fullName: "John Doe",
+  email: "john.doe@example.com",
+  role: "TRAVELER",
+  isDeleted: false,
+  refreshToken: "eyJhbGciOiJIUzI1NiIs...",
+  updatedAt: "2025-12-07T10:30:00Z"
+}
+
+// After Deletion
+{
+  id: "clz1a2b3c4d5e6f7g8h9i0j1",
+  fullName: "John Doe",
+  email: "john.doe@example.com",
+  role: "TRAVELER",
+  isDeleted: true, // Changed
+  refreshToken: null, // Cleared
+  updatedAt: "2025-12-07T10:45:00Z" // Updated
+}
+
+// User Bookings (Unchanged)
+// Bookings remain for:
+// - Agent records
+// - Payment records
+// - Travel history
+```
+
+### Cookies Cleared
+
+```
+accesstoken: Cleared
+refreshtoken: Cleared
+```
+
+### Important Notes
+
+#### Soft Delete Behavior
+
+- **User Account:** Soft deleted (`isDeleted: true`)
+- **Personal Data:** Retained for legal/audit purposes
+- **Bookings:** All booking records remain intact
+- **Payments:** Payment history preserved
+
+#### What Happens After Deletion
+
+- Cannot login to user account
+- Cannot make new bookings
+- Cannot access account dashboard
+- Cannot view/manage existing bookings
+- Email can be reused for new registration
+
+#### Data Retention
+
+User-related data is retained because:
+
+1. **Booking Records:** Agents need customer booking history
+2. **Payment Records:** Financial and tax compliance
+3. **Legal Requirements:** Data retention laws
+4. **Refund Processing:** May need to process refunds after deletion
+5. **Dispute Resolution:** Historical data for complaint handling
+
+#### Active Bookings
+
+If user has active/upcoming bookings:
+
+- Bookings remain valid and active
+- User cannot access booking details after deletion
+- Agent can still manage the booking
+- Consider cancelling active bookings before deletion
+- Contact support for booking-related issues after deletion
+
+#### Recovery
+
+- Contact platform support for account recovery
+- May require email verification
+- Existing booking data will be accessible after recovery
+- New password required after recovery
+
+### Postman Testing
+
+```
+Method: DELETE
+URL: http://localhost:3000/api/v1/user/delete-acc
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+Body: {}
 ```
 
 ---
@@ -890,6 +1074,7 @@ Body:
 | Login          | `/login`                  | POST   | No            | Email, Password           |
 | Verify Account | `/verify-account`         | POST   | Yes           | Verification Token        |
 | Resend Link    | `/send-verification-link` | POST   | Yes           | None                      |
+| Delete Account | `/delete-acc`             | DELETE | Yes           | None                      |
 
 ---
 

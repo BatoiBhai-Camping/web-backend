@@ -25,6 +25,7 @@ The Agent Router handles all agent-related operations including registration, lo
 3. [Account Verification](#account-verification)
 4. [Resend Verification Link](#resend-verification-link)
 5. [Publish Travel Package](#publish-travel-package)
+6. [Delete Account](#delete-account)
 
 ---
 
@@ -1296,6 +1297,230 @@ When a traveler books this package:
 
 ---
 
+## Delete Account
+
+### Endpoint
+
+```
+DELETE /api/v1/agent/delete-acc
+```
+
+### Description
+
+Allows an agent to permanently delete their account. This operation performs a soft delete by setting the `isDeleted` flag to true, clears all authentication tokens, and removes cookies. Note that this only marks the account as deleted; agent profile and package data remain for record-keeping.
+
+**Authorization:** Requires Agent authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{}
+```
+
+(Empty body - user information comes from authentication token)
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Account deleted successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized - Missing Token
+
+**Status Code:** `401 Unauthorized`
+
+```json
+{
+  "success": false,
+  "statusCode": 401,
+  "data": null,
+  "message": "Unauthorized - Agent access required"
+}
+```
+
+#### 2. Agent Not Found
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Agent account not found"
+}
+```
+
+#### 3. Agent Not Approved
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied - Agent must be approved"
+}
+```
+
+### Data Flow
+
+```
+1. Agent requests account deletion
+   ↓
+2. Verify agent authentication via middleware
+   ↓ (if not authenticated)
+   └─→ Return error: "Unauthorized"
+   ↓ (if authenticated)
+3. Update agent user record:
+   - Set isDeleted = true
+   ↓
+4. Clear refresh token from database
+   - Set refreshToken = null
+   ↓
+5. Clear authentication cookies:
+   - Clear accesstoken cookie
+   - Clear refreshtoken cookie
+   ↓
+6. Return success response
+```
+
+### Database Operations
+
+**Primary Table:** `Bb_user`
+
+**Related Tables:** `Bb_agentProfile`, `Bb_travelPackage`
+
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
+
+#### Soft Delete Agent Account
+
+```sql
+UPDATE "Bb_user"
+SET "isDeleted" = true,
+    "updatedAt" = NOW()
+WHERE id = 'agent_id' AND role = 'AGENT';
+```
+
+#### Clear Refresh Token
+
+```sql
+UPDATE "Bb_user"
+SET "refreshToken" = null
+WHERE id = 'agent_id';
+```
+
+### Database State After Deletion
+
+```typescript
+// Before Deletion
+{
+  id: "clz1a2b3c4d5e6f7g8h9i0j1",
+  role: "AGENT",
+  isDeleted: false,
+  refreshToken: "eyJhbGciOiJIUzI1NiIs...",
+  updatedAt: "2025-12-07T10:30:00Z"
+}
+
+// After Deletion
+{
+  id: "clz1a2b3c4d5e6f7g8h9i0j1",
+  role: "AGENT",
+  isDeleted: true, // Changed
+  refreshToken: null, // Cleared
+  updatedAt: "2025-12-07T10:45:00Z" // Updated
+}
+
+// Agent Profile (Unchanged)
+{
+  id: "clz1a2b3c4d5e6f7g8h9i0j2",
+  userId: "clz1a2b3c4d5e6f7g8h9i0j1",
+  companyName: "Travel Company",
+  status: "APPROVED",
+  // Profile remains intact for record-keeping
+}
+
+// Travel Packages (Unchanged)
+{
+  id: "pkg_001",
+  agentId: "clz1a2b3c4d5e6f7g8h9i0j2",
+  title: "Luxury Goa Package",
+  // Packages remain for booking history
+}
+```
+
+### Cookies Cleared
+
+```
+accesstoken: Cleared
+refreshtoken: Cleared
+```
+
+### Important Notes
+
+#### Soft Delete Behavior
+
+- **User Account:** Soft deleted (`isDeleted: true`)
+- **Agent Profile:** Remains intact
+- **Travel Packages:** Remain intact but may be hidden from new bookings
+- **Existing Bookings:** Not affected, remain for travelers
+
+#### What Happens After Deletion
+
+- Cannot login to agent account
+- Cannot create new packages
+- Cannot manage existing bookings (access denied)
+- Existing packages may continue for booked travelers
+- Agent profile data retained for audit purposes
+
+#### Data Retention
+
+Agent-related data is retained because:
+
+1. **Booking History:** Travelers need access to booked packages
+2. **Audit Trail:** Platform needs agent activity records
+3. **Financial Records:** Payment and commission tracking
+4. **Legal Compliance:** Record-keeping requirements
+
+#### Recovery
+
+- Contact Admin/RootAdmin for account recovery
+- May require verification process
+- Existing packages and bookings will be restored
+
+### Postman Testing
+
+```
+Method: DELETE
+URL: http://localhost:3000/api/v1/agent/delete-acc
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+Body: {}
+```
+
+---
+
 ## Summary Table
 
 | Operation       | Endpoint                  | Method | Auth Required | Role Status  |
@@ -1305,5 +1530,4 @@ When a traveler books this package:
 | Verify Account  | `/verify-account`         | POST   | Yes           | Any          |
 | Resend Link     | `/send-verification-link` | POST   | Yes           | Not Verified |
 | Publish Package | `/publish-package`        | POST   | Yes           | APPROVED     |
-
----
+| Delete Account  | `/delete-acc`             | DELETE | Yes           | APPROVED     |

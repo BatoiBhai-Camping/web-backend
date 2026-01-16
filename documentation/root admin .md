@@ -25,6 +25,7 @@ The RootAdmin Router handles platform-level administrative operations including 
 3. [Approve Sub-Admin](#approve-sub-admin)
 4. [Reject Sub-Admin](#reject-sub-admin)
 5. [Approve Agent](#approve-agent)
+6. [Delete Account](#delete-account)
 
 ---
 
@@ -654,6 +655,219 @@ WHERE id = 'agent_id';
 
 ---
 
+## Delete Account
+
+### Endpoint
+
+```
+DELETE /api/v1/root-admin/delete-acc
+```
+
+### Description
+
+Allows a RootAdmin to delete their account. This operation performs a soft delete by setting the `isDeleted` flag to true, clears all authentication tokens, and removes cookies.
+
+**⚠️ WARNING:** This is a critical operation. Deleting a RootAdmin account should be done with extreme caution as it affects platform administration capabilities.
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{}
+```
+
+(Empty body - user information comes from authentication token)
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Account deleted successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized - Missing Token
+
+**Status Code:** `401 Unauthorized`
+
+```json
+{
+  "success": false,
+  "statusCode": 401,
+  "data": null,
+  "message": "Unauthorized - RootAdmin access required"
+}
+```
+
+#### 2. RootAdmin Not Found
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "RootAdmin account not found"
+}
+```
+
+### Data Flow
+
+```
+1. RootAdmin requests account deletion
+   ↓
+2. Verify RootAdmin authentication via middleware
+   ↓ (if not authenticated)
+   └─→ Return error: "Unauthorized"
+   ↓ (if authenticated)
+3. Update RootAdmin user record:
+   - Set isDeleted = true
+   ↓
+4. Clear refresh token from database
+   - Set refreshToken = null
+   ↓
+5. Clear authentication cookies:
+   - Clear accesstoken cookie
+   - Clear refreshtoken cookie
+   ↓
+6. Return success response
+```
+
+### Database Operations
+
+**Primary Table:** `Bb_user`
+
+**Prisma Schema:** `/src/prisma/schema.prisma`
+
+**Database Client:** `/src/config/database.ts`
+
+#### Soft Delete RootAdmin Account
+
+```sql
+UPDATE "Bb_user"
+SET "isDeleted" = true,
+    "updatedAt" = NOW()
+WHERE id = 'rootadmin_id' AND role = 'ROOTADMIN';
+```
+
+#### Clear Refresh Token
+
+```sql
+UPDATE "Bb_user"
+SET "refreshToken" = null
+WHERE id = 'rootadmin_id';
+```
+
+### Database State After Deletion
+
+```typescript
+// Before Deletion
+{
+  id: "clz3a3b4c5d6e7f8g9h0i1j2",
+  role: "ROOTADMIN",
+  roleStatus: "APPROVED",
+  isDeleted: false,
+  refreshToken: "eyJhbGciOiJIUzI1NiIs...",
+  updatedAt: "2025-12-07T10:30:00Z"
+}
+
+// After Deletion
+{
+  id: "clz3a3b4c5d6e7f8g9h0i1j2",
+  role: "ROOTADMIN",
+  roleStatus: "APPROVED",
+  isDeleted: true, // Changed
+  refreshToken: null, // Cleared
+  updatedAt: "2025-12-07T10:45:00Z" // Updated
+}
+```
+
+### Cookies Cleared
+
+```
+accesstoken: Cleared
+refreshtoken: Cleared
+```
+
+### Important Notes
+
+#### Critical Operation Warning
+
+⚠️ **This is a highly sensitive operation:**
+
+- Deleting a RootAdmin account affects platform administration
+- Ensure at least one active RootAdmin exists
+- Consider the impact on pending admin/agent approvals
+- All administrative actions will be logged
+
+#### Soft Delete Behavior
+
+- **User Account:** Soft deleted (`isDeleted: true`)
+- **Role & Permissions:** Retained for audit trail
+- **Historical Actions:** All admin actions remain logged
+- **Email:** Can be reused for new RootAdmin if needed
+
+#### What Happens After Deletion
+
+- Cannot login to RootAdmin account
+- Cannot approve/reject admins or agents
+- Cannot perform any administrative operations
+- All historical administrative actions remain in logs
+
+#### Platform Impact
+
+After RootAdmin deletion:
+
+- Other RootAdmins (if any) can continue operations
+- Pending admin approvals require another RootAdmin
+- Platform operations continue normally
+- May need to create a new RootAdmin if this was the only one
+
+#### Recovery
+
+- Requires direct database access
+- May need server administrator intervention
+- Can manually set `isDeleted: false` in database
+- Contact system administrator for recovery
+
+#### Best Practices
+
+1. **Verify Multiple RootAdmins:** Ensure at least 2 active RootAdmins exist
+2. **Document Reason:** Keep record of why deletion occurred
+3. **Notify Team:** Inform other administrators
+4. **Backup Data:** Ensure all critical data is backed up
+5. **Alternative:** Consider role downgrade instead of deletion
+
+### Postman Testing
+
+```
+Method: DELETE
+URL: http://localhost:3000/api/v1/root-admin/delete-acc
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+Body: {}
+```
+
+---
+
 ## RootAdmin Workflow Diagram
 
 ```
@@ -776,6 +990,7 @@ ADMIN CREATION
 | Approve Sub-Admin | `/approve-sub-admin` | POST   | Yes           | ROOTADMIN       |
 | Reject Sub-Admin  | `/reject-sub-admin`  | POST   | Yes           | ROOTADMIN       |
 | Approve Agent     | `/approve-agent`     | POST   | Yes           | ROOTADMIN       |
+| Delete Account    | `/delete-acc`        | DELETE | Yes           | ROOTADMIN       |
 
 ---
 
