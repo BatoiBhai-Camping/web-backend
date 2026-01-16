@@ -11,7 +11,8 @@ import {
 import { rootAdminMiddleware } from "../middleware/rootAdmin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import { userAccountVerification } from "../controller/user/userAccountVerification.controller.js";
-import { logout } from "../controller/user/logout.controller.js";
+
+import { logout, deleteAccout } from "../controller/user/user.controller.js";
 
 const rootAdminRouter = Router();
 
@@ -28,5 +29,6 @@ rootAdminRouter
   .route("/reject-sub-admin")
   .post(rootAdminMiddleware, rejectSubAdmin);
 rootAdminRouter.route("/approve-agent").post(rootAdminMiddleware, approveAgent);
+rootAdminRouter.route("/delete-acc").delete(rootAdminMiddleware, deleteAccout);
 
 export { rootAdminRouter };

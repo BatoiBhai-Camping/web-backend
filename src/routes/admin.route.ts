@@ -10,6 +10,7 @@ import {
   sendAccountVerificationLink,
   userAccountVerification,
   logout,
+  deleteAccout,
 } from "../controller/user/user.controller.js";
 const adminRouter = Router();
 
@@ -23,5 +24,5 @@ adminRouter
 adminRouter.route("/login").post(rootAdminLogin);
 adminRouter.route("/logout").delete(authMiddleware, logout);
 adminRouter.route("/approve-agent").post(adminMiddleware, approveAgent);
-
+adminRouter.route("/delete-acc").post(adminMiddleware, deleteAccout);
 export { adminRouter };

@@ -7,6 +7,7 @@ import {
   userAccountVerification,
   sendAccountVerificationLink,
   logout,
+  deleteAccout,
 } from "../controller/user/user.controller.js";
 import { agentMiddleware } from "../middleware/agent.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
@@ -27,5 +28,5 @@ agentRouter
   .route("/send-verification-link")
   .post(authMiddleware, sendAccountVerificationLink);
 agentRouter.route("/publish-package").post(agentMiddleware, publishPackage);
-
+agentRouter.route("/delete-acc").delete(agentMiddleware, deleteAccout);
 export { agentRouter };
