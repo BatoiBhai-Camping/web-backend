@@ -24,6 +24,7 @@ const rootAdminLogin = asyncHandler(async (req: Request, res: Response) => {
   const user = await db.bb_user.findUnique({
     where: {
       email: data.email,
+      isDeleted: false,
       role: {
         in: ["ADMIN", "ROOTADMIN"],
       },

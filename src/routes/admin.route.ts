@@ -24,5 +24,5 @@ adminRouter
 adminRouter.route("/login").post(rootAdminLogin);
 adminRouter.route("/logout").delete(authMiddleware, logout);
 adminRouter.route("/approve-agent").post(adminMiddleware, approveAgent);
-adminRouter.route("/delete-acc").post(adminMiddleware, deleteAccout);
+adminRouter.route("/delete-acc").delete(adminMiddleware, deleteAccout);
 export { adminRouter };
