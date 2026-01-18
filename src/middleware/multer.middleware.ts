@@ -1,30 +1,21 @@
-// import multer from "multer";
-
-// const storage = multer.diskStorage({
-//   destination: function (req: any, file: any, cb: any) {
-//     cb(null, "./public/temp");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.originalname);
-//   },
-// });
-
-// const upload = multer({
-//   storage,
-// });
-
-// export { upload };
-
 import multer from "multer";
 import type { Request } from "express";
 import path from "path";
 
 const storage = multer.diskStorage({
-  destination: (req: Request, file: Express.Multer.File, cb) => {
+  destination: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, destination: string) => void
+  ) => {
     cb(null, "./public/temp");
   },
 
-  filename: (req: Request, file: Express.Multer.File, cb) => {
+  filename: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, filename: string) => void
+  ) => {
     const uniqueName =
       Date.now() +
       "-" +
@@ -35,6 +26,4 @@ const storage = multer.diskStorage({
   },
 });
 
-export const upload = multer({
-  storage,
-});
+export const upload = multer({ storage });

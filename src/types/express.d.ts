@@ -1,4 +1,4 @@
-import express from "express";
+import "express";
 
 declare global {
   namespace Express {
@@ -6,8 +6,11 @@ declare global {
       userId?: string;
       agentId?: string;
       userEmail?: string;
-      file?: Multer.File;
-      files?: Multer.File[];
+
+      file?: Express.Multer.File;
+      files?: Express.Multer.File[];
     }
   }
 }
+
+export {};
