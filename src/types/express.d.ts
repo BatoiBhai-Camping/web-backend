@@ -6,6 +6,8 @@ declare global {
       userId?: string;
       agentId?: string;
       userEmail?: string;
+      file?: Multer.File;
+      files?: Multer.File[];
     }
   }
 }

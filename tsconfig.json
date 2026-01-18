@@ -14,7 +14,7 @@
       "node",
       "express"
     ],
-    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "typeRoots": ["src","./src/types", "./node_modules/@types"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
