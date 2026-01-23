@@ -6,10 +6,9 @@ import {
   approvePackage,
   rejectPckage,
   getAllAgents,
-  
   getAllPayments,
   getAllUser,
-  
+  getAllPkg,
 } from "../controller/root admin/rootAdmin.controller.js";
 import { adminMiddleware } from "../middleware/admin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
@@ -34,9 +33,8 @@ adminRouter.route("/approve-agent").post(adminMiddleware, approveAgent);
 adminRouter.route("/approve-pkg").post(adminMiddleware, approvePackage);
 adminRouter.route("/reject-pkg").post(adminMiddleware, rejectPckage);
 adminRouter.route("/get-all-agent").get(adminMiddleware, getAllAgents);
-adminRouter
-  .route("/get-all-payments")
-  .get(adminMiddleware, getAllPayments);
-adminRouter.route("/get-all-user").get(adminMiddleware,getAllUser);
+adminRouter.route("/get-all-payments").get(adminMiddleware, getAllPayments);
+adminRouter.route("/get-all-user").get(adminMiddleware, getAllUser);
+adminRouter.route("/get-all-pkg").get(adminMiddleware, getAllPkg);
 adminRouter.route("/delete-acc").delete(adminMiddleware, deleteAccout);
 export { adminRouter };
