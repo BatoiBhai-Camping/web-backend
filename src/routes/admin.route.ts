@@ -4,7 +4,8 @@ import {
   rootAdminLogin,
   approveAgent,
   approvePackage,
-  rejectPckage
+  rejectPckage,
+  getAllAgents,
 } from "../controller/root admin/rootAdmin.controller.js";
 import { adminMiddleware } from "../middleware/admin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
@@ -26,7 +27,8 @@ adminRouter
 adminRouter.route("/login").post(rootAdminLogin);
 adminRouter.route("/logout").delete(authMiddleware, logout);
 adminRouter.route("/approve-agent").post(adminMiddleware, approveAgent);
-adminRouter.route("/approve-pkg").post(adminMiddleware,approvePackage);
-adminRouter.route("/reject-pkg").post(adminMiddleware,rejectPckage);
+adminRouter.route("/approve-pkg").post(adminMiddleware, approvePackage);
+adminRouter.route("/reject-pkg").post(adminMiddleware, rejectPckage);
+adminRouter.route("/get-all-agent").get(adminMiddleware, getAllAgents);
 adminRouter.route("/delete-acc").delete(adminMiddleware, deleteAccout);
 export { adminRouter };

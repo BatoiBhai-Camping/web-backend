@@ -41,7 +41,7 @@ const rejectPckage = asyncHandler(async (req: Request, res: Response) => {
 
   return res
     .status(200)
-        .json(new ApiResponse(200, null, "Travel package rejected successfully"));
+    .json(new ApiResponse(200, null, "Travel package rejected successfully"));
 });
 
 export { rejectPckage };
