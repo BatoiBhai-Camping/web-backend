@@ -5,6 +5,9 @@ import { rootAdminLogin } from "./rootAdminLogin.controller.js";
 import { approvePackage } from "./approvePackage.controller.js";
 import { rejectPckage } from "./rejectPkg.controller.js";
 import { getAllAgents } from "./getAllAgents.controller.js";
+import { getAllPayments } from "./getAllPayments.controller.js";
+import { getAllSubAdmin } from "./getAllSubAdmin.controller.js";
+import { getAllUser } from "./getAllUsers.controller.js";
 
 export {
   approveAgent,
@@ -14,4 +17,7 @@ export {
   approvePackage,
   rejectPckage,
   getAllAgents,
+  getAllPayments,
+  getAllSubAdmin,
+  getAllUser
 };
