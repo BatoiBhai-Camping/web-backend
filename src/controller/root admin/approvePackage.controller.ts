@@ -25,7 +25,7 @@ const approvePackage = asyncHandler(async (req: Request, res: Response) => {
   }
 
   // check if package is already active
-  if (TPackage.isBookingActive) {
+  if (TPackage.packageApprovedStatus == "APPROVED") {
     throw new ApiError(400, "Package is already approved");
   }
 
