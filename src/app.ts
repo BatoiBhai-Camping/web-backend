@@ -3,6 +3,7 @@ import { healthRoute } from "./routes/health.route.js";
 import { userRouter } from "./routes/user.route.js";
 import { agentRouter } from "./routes/agent.route.js";
 import { adminRouter } from "./routes/admin.route.js";
+import {appRoute} from "./routes/app.route.js"
 import { globalErrorHandler } from "./uitls/globalErrorHandeller.js";
 import cookieParser from "cookie-parser";
 import { assetsRouter } from "./routes/assets.route.js";
@@ -37,6 +38,7 @@ app.use(`${apiVersion}/agent`, agentRouter);
 app.use(`${apiVersion}/assets`, assetsRouter);
 app.use(`${apiVersion}/root-admin`, rootAdminRouter);
 app.use(`${apiVersion}/admin`, adminRouter);
+app.use(`${apiVersion}`,appRoute);
 
 app.use((req: Request, res: Response) => {
   throw new ApiError(400, "api location not found");
