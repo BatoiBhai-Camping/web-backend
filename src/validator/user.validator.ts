@@ -22,4 +22,8 @@ const verifyAccountValidator = z.object({
   verifyToken: z.string("Verify token is required"),
 });
 
-export { userRegisterValidator, userLoginValidator, verifyAccountValidator };
+const idValidator = z.object({
+  id: z.string("id is required")
+})
+
+export { userRegisterValidator, userLoginValidator, verifyAccountValidator,idValidator };
