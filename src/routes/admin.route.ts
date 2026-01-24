@@ -9,6 +9,7 @@ import {
   getAllPayments,
   getAllUser,
   getAllPkg,
+  getAllPkgOfAgent
 } from "../controller/root admin/rootAdmin.controller.js";
 import { adminMiddleware } from "../middleware/admin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
@@ -36,5 +37,6 @@ adminRouter.route("/get-all-agent").get(adminMiddleware, getAllAgents);
 adminRouter.route("/get-all-payments").get(adminMiddleware, getAllPayments);
 adminRouter.route("/get-all-user").get(adminMiddleware, getAllUser);
 adminRouter.route("/get-all-pkg").get(adminMiddleware, getAllPkg);
+adminRouter.route("/get-agent-pkg").post(adminMiddleware,getAllPkgOfAgent)
 adminRouter.route("/delete-acc").delete(adminMiddleware, deleteAccout);
 export { adminRouter };
