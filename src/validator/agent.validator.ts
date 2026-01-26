@@ -38,5 +38,8 @@ const agentRegisterValidator = z.object({
     .optional(),
 });
 
+const agentIdValidator = z.object({
+  id: z.string("Agent id is required")
+})
 
-export { agentRegisterValidator };
+export { agentRegisterValidator, agentIdValidator };
