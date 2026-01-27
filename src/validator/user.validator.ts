@@ -23,7 +23,12 @@ const verifyAccountValidator = z.object({
 });
 
 const idValidator = z.object({
-  id: z.string("id is required")
-})
+  id: z.string("id is required"),
+});
 
-export { userRegisterValidator, userLoginValidator, verifyAccountValidator,idValidator };
+export {
+  userRegisterValidator,
+  userLoginValidator,
+  verifyAccountValidator,
+  idValidator,
+};

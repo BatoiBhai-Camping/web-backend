@@ -22,12 +22,12 @@ const getAgentProfile = asyncHandler(async (req: Request, res: Response) => {
       role: "AGENT",
     },
     select: {
-       ...publicUseDataUser,
-       profileImage:{
-        select:{
-            userProfile: true
-        }
-       }
+      ...publicUseDataUser,
+      profileImage: {
+        select: {
+          userProfile: true,
+        },
+      },
     },
   });
 });

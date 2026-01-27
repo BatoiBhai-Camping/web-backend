@@ -11,6 +11,7 @@ import { rootAdminRouter } from "./routes/rootAdmin.route.js";
 import { ApiError } from "./uitls/apiError.js";
 import cors from "cors";
 import { validENV } from "./validator/env.validator.js";
+
 const app = express();
 
 // app.set("trust proxy", 1); //enebale only in production

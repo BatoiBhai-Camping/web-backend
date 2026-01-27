@@ -23,5 +23,5 @@ export {
   getAllSubAdmin,
   getAllUser,
   getAllPkg,
-  getAllPkgOfAgent
+  getAllPkgOfAgent,
 };

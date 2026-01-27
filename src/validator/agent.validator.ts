@@ -39,7 +39,7 @@ const agentRegisterValidator = z.object({
 });
 
 const agentIdValidator = z.object({
-  id: z.string("Agent id is required")
-})
+  id: z.string("Agent id is required"),
+});
 
 export { agentRegisterValidator, agentIdValidator };
