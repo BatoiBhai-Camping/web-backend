@@ -32,6 +32,7 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
     where: {
       email: data.email,
       isDeleted: false,
+      role: "TRAVELER"
     },
     select: {
       id: true,
@@ -43,7 +44,7 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
   if (!user) {
     throw new ApiError(
       400,
-      "Provided email is not found kindly register or try with another email",
+      "Provided email is not found, or it not register as normal user kindly register or try with another email",
     );
   }
 

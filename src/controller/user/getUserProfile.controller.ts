@@ -12,7 +12,20 @@ const getUserProfile = asyncHandler(async (req:Request, res:Response)=> {
             role: "TRAVELER"
         },
         select:{
-            ...publicUseDataUser
+            ...publicUseDataUser,
+            address:{
+                select:{
+                    id: true,
+                    addressType: true,
+                    city: true,
+                    country: true,
+                    district: true, 
+                    latitude: true,
+                    longitude: true,
+                    pin: true,
+                    state: true,
+                }
+            }
         }
     })
 

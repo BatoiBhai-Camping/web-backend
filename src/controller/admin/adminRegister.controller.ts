@@ -3,8 +3,7 @@ import type { Request, Response } from "express";
 import { asyncHandler } from "../../uitls/asyncHandler.js";
 import {
   userRegisterValidator,
-  userLoginValidator,
-  verifyAccountValidator,
+  
 } from "../../validator/user.validator.js";
 import { ApiError } from "../../uitls/apiError.js";
 import { db } from "../../db/db.js";
@@ -63,6 +62,27 @@ const adminRegister = asyncHandler(async (req: Request, res: Response) => {
       id: true,
       email: true,
       fullName: true,
+      emailVerified: true,
+      role: true,
+      roleStatus: true,
+      phone: true,
+      createdAt: true,
+      profileImage:{
+        select:{
+          imageUrl: true,
+        }
+      },
+      address:{
+        select:{
+          addressType: true,
+          city: true,
+          country: true,
+          district: true,
+          pin: true, 
+          state: true,
+
+        }
+      }
     },
   });
 
@@ -119,7 +139,7 @@ const adminRegister = asyncHandler(async (req: Request, res: Response) => {
     .json(
       new ApiResponse(
         200,
-        null,
+        user,
         "User registerd success fully kindly verify your email",
       ),
     );

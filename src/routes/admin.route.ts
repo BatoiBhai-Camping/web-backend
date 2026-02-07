@@ -10,6 +10,8 @@ import {
   getAllUser,
   getAllPkg,
   getAllPkgOfAgent,
+  
+  
 } from "../controller/root admin/rootAdmin.controller.js";
 import { adminMiddleware } from "../middleware/admin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";

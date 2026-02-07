@@ -1,7 +1,10 @@
 import {
   agentRegister,
   publishPackage,
-  agentLogIn
+  agentLogIn,
+  getAllPackages,
+  getProfile,
+  updateProfile
 } from "../controller/agent/agent.controller.js";
 import {
   userAccountVerification,
@@ -29,4 +32,8 @@ agentRouter
   .post(authMiddleware, sendAccountVerificationLink);
 agentRouter.route("/publish-package").post(agentMiddleware, publishPackage);
 agentRouter.route("/delete-acc").delete(agentMiddleware, deleteAccout);
+agentRouter.route("/get-all-packages").get(agentMiddleware,getAllPackages);
+agentRouter.route("/get-profile").get(agentMiddleware,getProfile);
+agentRouter.route("/get-all-pkgs").get(agentMiddleware,getAllPackages);
+agentRouter.route("/update-profile").post(agentMiddleware,updateProfile)
 export { agentRouter };

@@ -10,7 +10,6 @@ import { getAllSubAdmin } from "./getAllSubAdmin.controller.js";
 import { getAllUser } from "./getAllUsers.controller.js";
 import { getAllPkg } from "../getAllPkg.controller.js";
 import { getAllPkgOfAgent } from "./getAllPkgOfAgent.controller.js";
-
 export {
   approveAgent,
   approveSubAdmin,
@@ -24,4 +23,5 @@ export {
   getAllUser,
   getAllPkg,
   getAllPkgOfAgent,
+  
 };

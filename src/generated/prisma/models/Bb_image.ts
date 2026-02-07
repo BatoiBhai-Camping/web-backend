@@ -284,7 +284,7 @@ export type Bb_imageCreateInput = {
   userProfile?: Prisma.Bb_userCreateNestedOneWithoutProfileImageInput
   agentBanner?: Prisma.Bb_agentProfileCreateNestedOneWithoutBannerImageInput
   packageBanner?: Prisma.Bb_travelPackageCreateNestedOneWithoutPackageBannerImageInput
-  travelPackage?: Prisma.Bb_travelPackageCreateNestedOneWithoutPackagesImagesInput
+  travelPackage?: Prisma.Bb_travelPackageCreateNestedOneWithoutPackagesImagesInput | undefined
 }
 
 export type Bb_imageUncheckedCreateInput = {
@@ -293,7 +293,7 @@ export type Bb_imageUncheckedCreateInput = {
   fileId?: string | null
   isDeleted?: boolean | null
   createdAt?: Date | string
-  travelPackageId?: string | null
+  travelPackageId?: string | null | undefined
   userId?: string | null
   agentId?: string | null
   userProfile?: Prisma.Bb_userUncheckedCreateNestedOneWithoutProfileImageInput
