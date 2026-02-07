@@ -20,6 +20,7 @@ import {
   userAccountVerification,
   logout,
   deleteAccout,
+  updateUserProfile
 } from "../controller/user/user.controller.js";
 const adminRouter = Router();
 
@@ -41,4 +42,5 @@ adminRouter.route("/get-all-user").get(adminMiddleware, getAllUser);
 adminRouter.route("/get-all-pkg").get(adminMiddleware, getAllPkg);
 adminRouter.route("/get-agent-pkg").post(adminMiddleware, getAllPkgOfAgent);
 adminRouter.route("/delete-acc").delete(adminMiddleware, deleteAccout);
+adminRouter.route("/update-profile").post(adminMiddleware,updateUserProfile)
 export { adminRouter };

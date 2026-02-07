@@ -20,8 +20,8 @@ import { rootAdminMiddleware } from "../middleware/rootAdmin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import { userAccountVerification } from "../controller/user/userAccountVerification.controller.js";
 
-import { logout, deleteAccout } from "../controller/user/user.controller.js";
-import { adminMiddleware } from "../middleware/admin.middleware.js";
+import { logout, deleteAccout, updateUserProfile } from "../controller/user/user.controller.js";
+
 
 const rootAdminRouter = Router();
 
@@ -53,5 +53,6 @@ rootAdminRouter
   .route("/get-agent-pkg")
   .post(rootAdminMiddleware, getAllPkgOfAgent);
 rootAdminRouter.route("/delete-acc").delete(rootAdminMiddleware, deleteAccout);
+rootAdminRouter.route("/update-profile").post(rootAdminMiddleware,updateUserProfile);
 
 export { rootAdminRouter };
