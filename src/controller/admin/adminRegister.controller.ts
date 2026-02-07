@@ -1,10 +1,7 @@
 import type { Request, Response } from "express";
 
 import { asyncHandler } from "../../uitls/asyncHandler.js";
-import {
-  userRegisterValidator,
-  
-} from "../../validator/user.validator.js";
+import { userRegisterValidator } from "../../validator/user.validator.js";
 import { ApiError } from "../../uitls/apiError.js";
 import { db } from "../../db/db.js";
 import bcrypt from "bcryptjs";
@@ -67,22 +64,21 @@ const adminRegister = asyncHandler(async (req: Request, res: Response) => {
       roleStatus: true,
       phone: true,
       createdAt: true,
-      profileImage:{
-        select:{
+      profileImage: {
+        select: {
           imageUrl: true,
-        }
+        },
       },
-      address:{
-        select:{
+      address: {
+        select: {
           addressType: true,
           city: true,
           country: true,
           district: true,
-          pin: true, 
+          pin: true,
           state: true,
-
-        }
-      }
+        },
+      },
     },
   });
 

@@ -10,11 +10,11 @@ const updateUserProfile = asyncHandler(async (req: Request, res: Response) => {
 
   // Validate request body
   const validatedData = updateUserProfileSchema.safeParse(req.body);
-if(!validatedData.success){
-    throw new ApiError(400,"Invalid data for update profile")
-}
+  if (!validatedData.success) {
+    throw new ApiError(400, "Invalid data for update profile");
+  }
 
-    const data = validatedData.data;
+  const data = validatedData.data;
   // Check if user exists
   const existingUser = await db.bb_user.findUnique({
     where: {

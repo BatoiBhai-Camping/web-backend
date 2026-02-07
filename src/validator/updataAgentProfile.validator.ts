@@ -48,9 +48,7 @@ export const updateAgentProfileSchema = z.object({
     .length(10, "PAN number must be 10 characters")
     .regex(/^[A-Z]{5}\d{4}[A-Z]$/, "Invalid PAN number format")
     .optional(),
-  gstNumber: z
-    .string("gst number is required")
-    .optional(),
+  gstNumber: z.string("gst number is required").optional(),
   bannerImageUrl: z.string().url("Invalid banner image URL").optional(),
   bannerFileId: z.string().optional(),
 });

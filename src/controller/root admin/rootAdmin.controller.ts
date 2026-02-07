@@ -23,5 +23,4 @@ export {
   getAllUser,
   getAllPkg,
   getAllPkgOfAgent,
-  
 };

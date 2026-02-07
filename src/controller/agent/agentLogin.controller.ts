@@ -37,7 +37,7 @@ const agentLogIn = asyncHandler(async (req: Request, res: Response) => {
       id: true,
       email: true,
       password: true,
-      role: true
+      role: true,
     },
   });
 
@@ -47,8 +47,8 @@ const agentLogIn = asyncHandler(async (req: Request, res: Response) => {
       "Provided email is not found kindly register or try with another email",
     );
   }
-  if(user.role != "AGENT"){
-    throw new ApiError(400,"The email is not registerd as agent")
+  if (user.role != "AGENT") {
+    throw new ApiError(400, "The email is not registerd as agent");
   }
 
   // check the pass

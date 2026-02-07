@@ -4,7 +4,7 @@ import { userRegister } from "./userRegister.controller.js";
 import { sendAccountVerificationLink } from "./userSendAccountVerificationLink.controller.js";
 import { logout } from "./logout.controller.js";
 import { deleteAccout } from "./DeleteAccouint.controller.js";
-import {getUserProfile} from "./getUserProfile.controller.js";
+import { getUserProfile } from "./getUserProfile.controller.js";
 import { updateUserProfile } from "./updateUserProfile.controller.js";
 export {
   sendAccountVerificationLink,
@@ -14,5 +14,5 @@ export {
   logout,
   deleteAccout,
   getUserProfile,
-  updateUserProfile
+  updateUserProfile,
 };

@@ -1,12 +1,12 @@
 import { db } from "../../db/db.js";
-import type { Request,Response } from "express";
+import type { Request, Response } from "express";
 import { ApiResponse } from "../../uitls/apiResponse.js";
 import { ApiError } from "../../uitls/apiError.js";
 import { asyncHandler } from "../../uitls/asyncHandler.js";
-const getProfile = asyncHandler(async (req: Request, res:Response) => {
+const getProfile = asyncHandler(async (req: Request, res: Response) => {
   const userId = req.userId;
 
-  const agentProfile =  await db.bb_agentProfile.findUnique({
+  const agentProfile = await db.bb_agentProfile.findUnique({
     where: {
       userId: userId!,
     },
@@ -49,13 +49,12 @@ const getProfile = asyncHandler(async (req: Request, res:Response) => {
   });
 
   if (!agentProfile) {
-    throw new ApiError(400,"Agent profile not found");
+    throw new ApiError(400, "Agent profile not found");
   }
 
-  return res.status(200).json(
-    new ApiResponse(200,agentProfile,"Agent profile get successfully")
-  )
-}
-)
+  return res
+    .status(200)
+    .json(new ApiResponse(200, agentProfile, "Agent profile get successfully"));
+});
 
-export  {getProfile};
+export { getProfile };

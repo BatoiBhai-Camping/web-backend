@@ -32,7 +32,7 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
     where: {
       email: data.email,
       isDeleted: false,
-      role: "TRAVELER"
+      role: "TRAVELER",
     },
     select: {
       id: true,

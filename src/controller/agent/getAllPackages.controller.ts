@@ -2,11 +2,9 @@ import { db } from "../../db/db.js";
 import { ApiError } from "../../uitls/apiError.js";
 import { ApiResponse } from "../../uitls/apiResponse.js";
 import { asyncHandler } from "../../uitls/asyncHandler.js";
-import type {Request, Response} from "express"
+import type { Request, Response } from "express";
 
-const getAllPackages = asyncHandler( async (req: Request, res: Response) => {
-  
-
+const getAllPackages = asyncHandler(async (req: Request, res: Response) => {
   const agentProfile = await db.bb_agentProfile.findUnique({
     where: {
       userId: req.userId!,
@@ -17,7 +15,7 @@ const getAllPackages = asyncHandler( async (req: Request, res: Response) => {
   });
 
   if (!agentProfile) {
-    throw new ApiError(400,"Agent profile not found");
+    throw new ApiError(400, "Agent profile not found");
   }
 
   const allPkgs = await db.bb_travelPackage.findMany({
@@ -72,9 +70,8 @@ const getAllPackages = asyncHandler( async (req: Request, res: Response) => {
   });
 
   return res.json(
-    new ApiResponse(200,allPkgs,"Successfully get all the packatges")
-  )
-}
-)
+    new ApiResponse(200, allPkgs, "Successfully get all the packatges"),
+  );
+});
 
-export {getAllPackages};
+export { getAllPackages };
