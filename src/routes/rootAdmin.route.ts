@@ -15,6 +15,7 @@ import {
   getAllUser,
   getAllPkg,
   getAllPkgOfAgent,
+  getRootAdminProfile,
 } from "../controller/root admin/rootAdmin.controller.js";
 import { rootAdminMiddleware } from "../middleware/rootAdmin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
@@ -59,5 +60,8 @@ rootAdminRouter.route("/delete-acc").delete(rootAdminMiddleware, deleteAccout);
 rootAdminRouter
   .route("/update-profile")
   .post(rootAdminMiddleware, updateUserProfile);
+rootAdminRouter
+  .route("/get-profile")
+  .get(rootAdminMiddleware, getRootAdminProfile);
 
 export { rootAdminRouter };

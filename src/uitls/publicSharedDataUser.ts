@@ -8,5 +8,15 @@ const publicUseDataUser = {
   phone: true,
   createdAt: true,
 };
-
-export { publicUseDataUser };
+const address = {
+  id: true,
+  addressType: true,
+  country: true,
+  state: true,
+  district: true,
+  pin: true,
+  city: true,
+  longitude: true,
+  latitude: true,
+};
+export { publicUseDataUser, address };
