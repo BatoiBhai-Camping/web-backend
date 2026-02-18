@@ -93,10 +93,10 @@ const rootAdminLogin = asyncHandler(async (req: Request, res: Response) => {
       refreshToken: refreshToken,
     },
   });
-
+const {password, ...safeUser} = user;
   return res
     .status(200)
-    .json(new ApiResponse(200, user, "User loggedin successfully"));
+    .json(new ApiResponse(200, safeUser, "User loggedin successfully"));
 });
 
 export { rootAdminLogin };
