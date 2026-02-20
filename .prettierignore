@@ -2,7 +2,8 @@
 dist
 # Dependencies
 node_modules
-
+Dockerfile
+.dockerignore
 .prettierignore
 .prettierrc
 
