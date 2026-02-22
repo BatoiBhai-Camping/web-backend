@@ -73,7 +73,9 @@ const adminMiddleware = asyncHandler(
         email: verifyAccessToken.email,
         isDeleted: false,
         emailVerified: true,
-        role: "ADMIN",
+        role: {
+          in: ["ADMIN", "ROOTADMIN"],
+        },
         roleStatus: "APPROVED",
       },
       select: {

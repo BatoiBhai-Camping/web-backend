@@ -16,6 +16,7 @@ import {
   getAllPkg,
   getAllPkgOfAgent,
   getRootAdminProfile,
+  rootAdminRegister,
 } from "../controller/root admin/rootAdmin.controller.js";
 import { rootAdminMiddleware } from "../middleware/rootAdmin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
@@ -25,11 +26,12 @@ import {
   logout,
   deleteAccout,
   updateUserProfile,
+  sendAccountVerificationLink,
 } from "../controller/user/user.controller.js";
 
 const rootAdminRouter = Router();
 
-rootAdminRouter.route("/register").post(adminRegister);
+rootAdminRouter.route("/register").post(rootAdminRegister);
 rootAdminRouter
   .route("/verify-account")
   .post(authMiddleware, userAccountVerification);
@@ -63,5 +65,8 @@ rootAdminRouter
 rootAdminRouter
   .route("/get-profile")
   .get(rootAdminMiddleware, getRootAdminProfile);
+  rootAdminRouter
+  .route("/send-verification-link")
+  .post(authMiddleware, sendAccountVerificationLink);
 
 export { rootAdminRouter };

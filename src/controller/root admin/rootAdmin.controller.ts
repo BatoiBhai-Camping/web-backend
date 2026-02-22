@@ -11,6 +11,7 @@ import { getAllUser } from "./getAllUsers.controller.js";
 import { getAllPkg } from "../getAllPkg.controller.js";
 import { getAllPkgOfAgent } from "./getAllPkgOfAgent.controller.js";
 import { getRootAdminProfile } from "./getRootAdminProfile.controller.js";
+import { rootAdminRegister } from "./rootAdminRegister.controller.js";
 export {
   approveAgent,
   approveSubAdmin,
@@ -25,4 +26,5 @@ export {
   getAllPkg,
   getAllPkgOfAgent,
   getRootAdminProfile,
+  rootAdminRegister
 };

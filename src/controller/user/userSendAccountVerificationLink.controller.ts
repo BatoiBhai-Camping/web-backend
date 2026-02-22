@@ -7,6 +7,7 @@ import { sendAccountVerificationMail } from "../../helper/sendMail.js";
 import { ApiError } from "../../uitls/apiError.js";
 import { ApiResponse } from "../../uitls/apiResponse.js";
 import { asyncHandler } from "../../uitls/asyncHandler.js";
+import { validENV } from "../../validator/env.validator.js";
 
 interface VerificationPayload extends JwtPayload {
   email: string;
@@ -57,7 +58,7 @@ const sendAccountVerificationLink = asyncHandler(
     sendAccountVerificationMail({
       reciverGamil: dbuser.email,
       reciverName: dbuser.fullName,
-      verificationLink: verificationToken, //the verification link is a frontend url which contain the verification token
+      verificationLink: `${validENV.FRONTEND_URL}/verify-email?verifyToken=${verificationToken}`, //the verification link is a frontend url which contain the verification token
     });
 
     // send the response that mail is send

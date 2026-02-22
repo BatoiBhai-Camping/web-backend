@@ -75,7 +75,7 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
   sendAccountVerificationMail({
     reciverGamil: user.email,
     reciverName: user.fullName,
-    verificationLink: verificationToken, //the verification link is a frontend url which contain the verification token
+    verificationLink: `${validENV.FRONTEND_URL}/verify-email?verifyToken=${verificationToken}`, //the verification link is a frontend url which contain the verification token
   });
 
   // create and set the new access and refresh token in the cookie and db

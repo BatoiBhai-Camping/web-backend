@@ -19,15 +19,26 @@ interface VerificationPayload extends JwtPayload {
   email: string;
 }
 
-const adminRegister = asyncHandler(async (req: Request, res: Response) => {
+const rootAdminRegister = asyncHandler(async (req: Request, res: Response) => {
   const userData = req.body;
-
   // validate the data
   const validRes = userRegisterValidator.safeParse(userData);
   if (!validRes.success) {
     throw new ApiError(
       400,
       validRes.error.message || "Provided data are invalid",
+    );
+  }
+  // check if ther is any other root admin present then return error
+  const rootAdmin = await db.bb_user.findFirst({
+    where: {
+      role: "ROOTADMIN",
+    },
+  });
+  if (rootAdmin) {
+    throw new ApiError(
+      400,
+      "A root admin is already esist no root admin creation allowed",
     );
   }
   const data = validRes.data;
@@ -52,7 +63,7 @@ const adminRegister = asyncHandler(async (req: Request, res: Response) => {
       fullName: data.fullName,
       email: data.email,
       password: hashedPass,
-      role: "ADMIN",
+      role: "ROOTADMIN",
       roleStatus: "PENDING",
     },
     select: {
@@ -141,4 +152,4 @@ const adminRegister = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
-export { adminRegister };
+export { rootAdminRegister };

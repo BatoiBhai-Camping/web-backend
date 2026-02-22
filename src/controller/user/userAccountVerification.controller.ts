@@ -15,7 +15,6 @@ interface VerificationPayload extends JwtPayload {
 const userAccountVerification = asyncHandler(
   async (req: Request, res: Response) => {
     // check user is verifyed or not
-
     const validateRes = verifyAccountValidator.safeParse(req.body);
     if (!validateRes.success) {
       throw new ApiError(400, "No verifify token is provided");
