@@ -24,7 +24,10 @@ The User Router handles all user-related operations including registration, logi
 2. [Login](#login)
 3. [Account Verification](#account-verification)
 4. [Resend Verification Link](#resend-verification-link)
-5. [Delete Account](#delete-account)
+5. [Get User Profile](#get-user-profile)
+6. [Update User Profile](#update-user-profile)
+7. [Logout](#logout)
+8. [Delete Account](#delete-account)
 
 ---
 
@@ -846,6 +849,373 @@ Headers:
   Cookie: accesstoken=<token>
 Body:
 {}
+```
+
+---
+
+## Get User Profile
+
+### Endpoint
+
+```
+GET /api/v1/user/get-profile
+```
+
+### Description
+
+Retrieves the authenticated user's complete profile information including personal details, addresses, and profile image.
+
+**Authorization:** Requires User authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "clz1a2b3c4d5e6f7g8h9i0j1",
+    "fullName": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1234567890",
+    "role": "TRAVELER",
+    "emailVerified": true,
+    "profileImage": {
+      "id": "img_123",
+      "imageUrl": "https://cloudinary.com/profile.jpg",
+      "fileId": "cloudinary_file_123"
+    },
+    "addresses": [
+      {
+        "id": "addr_123",
+        "addressType": "PERMANENT",
+        "country": "India",
+        "state": "Maharashtra",
+        "district": "Mumbai",
+        "pin": "400001",
+        "city": "Mumbai",
+        "longitude": "72.8777",
+        "latitude": "19.0760"
+      }
+    ],
+    "createdAt": "2025-12-07T10:30:00Z"
+  },
+  "message": "User profile fetched successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized - Missing Token
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required",
+  "errors": [
+    {
+      "field": "token",
+      "message": "No access token is found"
+    }
+  ]
+}
+```
+
+#### 2. User Not Found
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required",
+  "errors": [
+    {
+      "field": "Invalid user token",
+      "message": "Provided token data is not found in db"
+    }
+  ]
+}
+```
+
+### Postman Testing
+
+```
+Method: GET
+URL: http://localhost:3000/api/v1/user/get-profile
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+```
+
+---
+
+## Update User Profile
+
+### Endpoint
+
+```
+POST /api/v1/user/update-profile
+```
+
+### Description
+
+Allows an authenticated user to update their profile information including full name, phone number, profile image, and addresses. All fields are optional - only send fields that need to be updated.
+
+**Authorization:** Requires User authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "fullName": "John Updated Doe",
+  "phone": "+9876543210",
+  "profileImageUrl": "https://cloudinary.com/new-profile.jpg",
+  "profileFileId": "cloudinary_new_file_123",
+  "addresses": [
+    {
+      "id": "addr_existing_123",
+      "addressType": "CURRENT",
+      "country": "India",
+      "state": "Karnataka",
+      "district": "Bangalore",
+      "pin": "560001",
+      "city": "Bangalore",
+      "longitude": "77.5946",
+      "latitude": "12.9716"
+    }
+  ]
+}
+```
+
+### Request Body Validation
+
+| Field           | Type   | Required | Rules                                     | Notes                                 |
+| --------------- | ------ | -------- | ----------------------------------------- | ------------------------------------- |
+| fullName        | string | No       | Min 2 chars, Max 100 chars                | User's updated full name              |
+| phone           | string | No       | Min 10 digits, Max 15 digits, valid chars | Contact number with country code      |
+| profileImageUrl | string | No       | Valid URL                                 | Cloudinary image URL                  |
+| profileFileId   | string | No       | Any string                                | Cloudinary file ID for image tracking |
+| addresses       | array  | No       | Array of address objects                  | User's addresses                      |
+| addresses[].id  | string | No       | Valid address ID                          | If provided, updates existing address |
+| addressType     | enum   | No       | PERMANENT\|CURRENT\|TRAVEL                | Type of address                       |
+| country         | string | No       | Any string                                | Country name                          |
+| state           | string | No       | Any string                                | State name                            |
+| district        | string | No       | Any string                                | District name                         |
+| pin             | string | No       | Min 6 characters                          | Postal code                           |
+| city            | string | No       | Any string                                | City name                             |
+| longitude       | string | No       | Any string                                | GPS longitude                         |
+| latitude        | string | No       | Any string                                | GPS latitude                          |
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "clz1a2b3c4d5e6f7g8h9i0j1",
+    "fullName": "John Updated Doe",
+    "email": "john.doe@example.com",
+    "phone": "+9876543210",
+    "profileImage": {
+      "imageUrl": "https://cloudinary.com/new-profile.jpg",
+      "fileId": "cloudinary_new_file_123"
+    },
+    "addresses": [
+      {
+        "id": "addr_existing_123",
+        "addressType": "CURRENT",
+        "country": "India",
+        "state": "Karnataka",
+        "district": "Bangalore",
+        "pin": "560001",
+        "city": "Bangalore"
+      }
+    ],
+    "updatedAt": "2025-12-08T14:20:00Z"
+  },
+  "message": "User profile updated successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Validation Error - Invalid Phone Format
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Validation failed",
+  "errors": [
+    {
+      "field": "phone",
+      "message": "Phone number must contain only valid characters"
+    }
+  ]
+}
+```
+
+#### 2. Validation Error - Full Name Too Short
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Validation failed",
+  "errors": [
+    {
+      "field": "fullName",
+      "message": "Full name must be at least 2 characters"
+    }
+  ]
+}
+```
+
+#### 3. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required"
+}
+```
+
+### Postman Testing
+
+```
+Method: POST
+URL: http://localhost:3000/api/v1/user/update-profile
+Headers:
+  Authorization: Bearer <access_token>
+  Content-Type: application/json
+  Cookie: accesstoken=<token>
+Body:
+{
+  "fullName": "John Updated Doe",
+  "phone": "+9876543210",
+  "profileImageUrl": "https://cloudinary.com/new-profile.jpg"
+}
+```
+
+---
+
+## Logout
+
+### Endpoint
+
+```
+DELETE /api/v1/user/logout
+```
+
+### Description
+
+Logs out the authenticated user by clearing their authentication tokens and cookies. This invalidates the current session.
+
+**Authorization:** Requires User authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "User logged out successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized - Missing Token
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required",
+  "errors": [
+    {
+      "field": "token",
+      "message": "No access token is found"
+    }
+  ]
+}
+```
+
+### Cookies Cleared
+
+```
+accesstoken: (cleared)
+refreshtoken: (cleared)
+```
+
+### Postman Testing
+
+```
+Method: DELETE
+URL: http://localhost:3000/api/v1/user/logout
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
 ```
 
 ---

@@ -25,7 +25,12 @@ The Agent Router handles all agent-related operations including registration, lo
 3. [Account Verification](#account-verification)
 4. [Resend Verification Link](#resend-verification-link)
 5. [Publish Travel Package](#publish-travel-package)
-6. [Delete Account](#delete-account)
+6. [Get All Packages](#get-all-packages)
+7. [Update Package](#update-package)
+8. [Get Agent Profile](#get-agent-profile)
+9. [Update Agent Profile](#update-agent-profile)
+10. [Logout](#logout)
+11. [Delete Account](#delete-account)
 
 ---
 
@@ -1294,6 +1299,632 @@ When a traveler books this package:
 - `bookingActiveFrom` - When booking opens
 - `bookingEndAt` - When booking closes
 - `startDate`/`endDate` - Actual trip dates (optional)
+
+---
+
+## Get All Packages
+
+### Endpoint
+
+```
+GET /api/v1/agent/get-all-packages
+```
+
+or
+
+```
+GET /api/v1/agent/get-all-pkgs
+```
+
+### Description
+
+Retrieves all travel packages created by the authenticated agent with complete details including itinerary, pricing, and approval status.
+
+**Authorization:** Requires Agent authentication (AGENT role with APPROVED status and verified email)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "packageId": "pkg_123",
+      "title": "Goa Beach Paradise",
+      "description": "Experience the best beaches of Goa",
+      "pricePerPerson": 15000,
+      "totalSeats": 20,
+      "bookedSeats": 5,
+      "destination": "Goa",
+      "durationDays": 5,
+      "approveStatus": "APPROVED",
+      "bannerImage": {
+        "imageUrl": "https://cloudinary.com/banner.jpg",
+        "fileId": "banner_123"
+      },
+      "bookingActiveFrom": "2025-12-01T00:00:00Z",
+      "bookingEndAt": "2025-12-25T23:59:59Z",
+      "createdAt": "2025-11-20T10:30:00Z",
+      "updatedAt": "2025-11-22T14:20:00Z"
+    }
+  ],
+  "message": "Packages retrieved successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized - Not Agent or Not Approved
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as agent",
+  "errors": [
+    {
+      "field": "Invalid user token",
+      "message": "Provided token data is not found in db with the constrains, id, email , emailVerified, role, rolestatus"
+    }
+  ]
+}
+```
+
+#### 2. Email Not Verified
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as agent"
+}
+```
+
+### Postman Testing
+
+```
+Method: GET
+URL: http://localhost:3000/api/v1/agent/get-all-packages
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+```
+
+---
+
+## Update Package
+
+### Endpoint
+
+```
+POST /api/v1/agent/update-package
+```
+
+### Description
+
+Allows an authenticated agent to update their existing travel package. All fields except packageId are optional - only send fields that need to be updated. Supports updating nested items (itinerary days, transports, visits, meals) by providing their IDs, and deleting items using delete ID arrays.
+
+**Authorization:** Requires Agent authentication (AGENT role with APPROVED status and verified email)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "packageId": "pkg_clz2a2b3c4d5e6f7g8h9i0j1",
+  "title": "Updated Goa Beach Paradise",
+  "pricePerPerson": 18000,
+  "totalSeats": 25,
+  "discountPercentage": 10,
+  "bookingActiveFrom": "2025-12-05T00:00:00Z",
+  "bannerImageUrl": "https://cloudinary.com/new-banner.jpg",
+  "bannerImageFileId": "new_banner_456",
+  "itineraryDays": [
+    {
+      "id": "day_existing_123",
+      "title": "Updated Beach Day",
+      "description": "Relaxing day at the beach",
+      "transports": [
+        {
+          "id": "transport_existing_456",
+          "mode": "CAR",
+          "startTime": "09:00 AM"
+        }
+      ],
+      "deleteVisitIds": ["visit_old_789"]
+    }
+  ],
+  "deleteImageIds": ["img_old_321"],
+  "deleteItineraryDayIds": ["day_old_654"]
+}
+```
+
+### Request Body Validation
+
+| Field                     | Type    | Required | Rules                                                | Notes                               |
+| ------------------------- | ------- | -------- | ---------------------------------------------------- | ----------------------------------- |
+| packageId                 | string  | Yes      | Valid package ID                                     | Required to identify which package  |
+| title                     | string  | No       | Any string                                           | Package title                       |
+| description               | string  | No       | Any string                                           | Package description                 |
+| pricePerPerson            | number  | No       | Positive number                                      | Price per person                    |
+| totalSeats                | number  | No       | Min 1                                                | Total available seats               |
+| discountAmount            | number  | No       | Positive number                                      | Fixed discount amount               |
+| discountPercentage        | number  | No       | 0-100                                                | Percentage discount                 |
+| withTax                   | boolean | No       | true/false                                           | Whether price includes tax          |
+| taxPercentage             | number  | No       | 0-100                                                | Tax percentage                      |
+| destination               | string  | No       | Any string                                           | Destination name                    |
+| durationDays              | number  | No       | Min 1                                                | Duration in days                    |
+| startDate                 | string  | No       | ISO date string                                      | Trip start date                     |
+| endDate                   | string  | No       | ISO date string                                      | Trip end date                       |
+| bookingActiveFrom         | string  | No       | ISO date string                                      | Booking opens date                  |
+| bookingEndAt              | string  | No       | ISO date string                                      | Booking closes date                 |
+| packagePolicies           | string  | No       | Any string                                           | Package policies text               |
+| cancellationPolicies      | string  | No       | Any string                                           | Cancellation policies text          |
+| bannerImageUrl            | string  | No       | Valid URL                                            | New banner image URL                |
+| bannerImageFileId         | string  | No       | Any string                                           | Cloudinary file ID                  |
+| packageImages             | array   | No       | Array of image objects                               | Update/add package images           |
+| packageImages[].id        | string  | No       | Valid image ID                                       | If provided, updates existing image |
+| packageImages[].imageUrl  | string  | Yes      | Valid URL                                            | Image URL                           |
+| packageImages[].fileId    | string  | No       | Any string                                           | Cloudinary file ID                  |
+| itineraryDays             | array   | No       | Array of day objects                                 | Update/add itinerary days           |
+| itineraryDays[].id        | string  | No       | Valid day ID                                         | If provided, updates existing day   |
+| itineraryDays[].dayNumber | number  | No       | Min 1                                                | Day number                          |
+| deleteImageIds            | array   | No       | Array of image ID strings                            | Image IDs to delete                 |
+| deleteItineraryDayIds     | array   | No       | Array of day ID strings                              | Itinerary day IDs to delete         |
+| deleteTransportIds        | array   | No       | Array of transport ID strings (within itineraryDays) | Transport IDs to delete             |
+| deleteVisitIds            | array   | No       | Array of visit ID strings (within itineraryDays)     | Visit place IDs to delete           |
+| deleteMealIds             | array   | No       | Array of meal ID strings (within itineraryDays)      | Meal IDs to delete                  |
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "packageId": "pkg_clz2a2b3c4d5e6f7g8h9i0j1",
+    "title": "Updated Goa Beach Paradise",
+    "pricePerPerson": 18000,
+    "totalSeats": 25,
+    "updatedAt": "2025-12-08T15:30:00Z"
+  },
+  "message": "Package updated successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized - Not Agent
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as agent"
+}
+```
+
+#### 2. Package Not Found or Not Owned
+
+**Status Code:** `404 Not Found`
+
+```json
+{
+  "success": false,
+  "statusCode": 404,
+  "data": null,
+  "message": "Package not found or you don't have permission to update it"
+}
+```
+
+#### 3. Validation Error
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Validation failed",
+  "errors": [
+    {
+      "field": "totalSeats",
+      "message": "Total seats must be at least 1"
+    }
+  ]
+}
+```
+
+### Postman Testing
+
+```
+Method: POST
+URL: http://localhost:3000/api/v1/agent/update-package
+Headers:
+  Authorization: Bearer <access_token>
+  Content-Type: application/json
+  Cookie: accesstoken=<token>
+Body:
+{
+  "packageId": "pkg_clz2a2b3c4d5e6f7g8h9i0j1",
+  "title": "Updated Goa Beach Paradise",
+  "pricePerPerson": 18000
+}
+```
+
+---
+
+## Get Agent Profile
+
+### Endpoint
+
+```
+GET /api/v1/agent/get-profile
+```
+
+### Description
+
+Retrieves the authenticated agent's complete profile information including company details, addresses, documents, and status.
+
+**Authorization:** Requires Agent authentication (AGENT role with APPROVED status and verified email)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "agent_123",
+    "userId": "user_456",
+    "fullName": "Agent Name",
+    "email": "agent@example.com",
+    "phone": "+1234567890",
+    "emailVerified": true,
+    "profileImage": {
+      "imageUrl": "https://cloudinary.com/profile.jpg",
+      "fileId": "profile_123"
+    },
+    "agentProfile": {
+      "id": "profile_789",
+      "companyName": "Travel Company Ltd",
+      "description": "Professional travel services",
+      "aadharNumber": "123456789012",
+      "panNumber": "ABCDE1234F",
+      "gstNumber": "27ABCDE1234F1Z5",
+      "status": "APPROVED",
+      "bannerImage": {
+        "imageUrl": "https://cloudinary.com/banner.jpg",
+        "fileId": "banner_456"
+      }
+    },
+    "addresses": [
+      {
+        "id": "addr_321",
+        "addressType": "PERMANENT",
+        "country": "India",
+        "state": "Maharashtra",
+        "district": "Mumbai",
+        "city": "Mumbai",
+        "pin": "400001"
+      }
+    ],
+    "documents": [
+      {
+        "id": "doc_111",
+        "documentType": "AADHAR",
+        "documentUrl": "https://cloudinary.com/aadhar.pdf",
+        "documentFileId": "aadhar_file_111"
+      }
+    ],
+    "createdAt": "2025-12-01T10:30:00Z"
+  },
+  "message": "Agent profile retrieved successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as agent"
+}
+```
+
+### Postman Testing
+
+```
+Method: GET
+URL: http://localhost:3000/api/v1/agent/get-profile
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+```
+
+---
+
+## Update Agent Profile
+
+### Endpoint
+
+```
+POST /api/v1/agent/update-profile
+```
+
+### Description
+
+Allows an authenticated agent to update their profile including personal information, company details, images, and addresses. All fields are optional - only send fields that need to be updated.
+
+**Authorization:** Requires Agent authentication (AGENT role with APPROVED status and verified email)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "fullName": "Updated Agent Name",
+  "phone": "+9876543210",
+  "profileImageUrl": "https://cloudinary.com/new-profile.jpg",
+  "profileFileId": "new_profile_123",
+  "companyName": "Updated Travel Company Ltd",
+  "description": "Leading travel service provider",
+  "aadharNumber": "987654321012",
+  "panNumber": "ZYXWV9876E",
+  "gstNumber": "29ZYXWV9876E1Z8",
+  "bannerImageUrl": "https://cloudinary.com/new-banner.jpg",
+  "bannerFileId": "new_banner_456",
+  "addresses": [
+    {
+      "id": "addr_existing_123",
+      "addressType": "CURRENT",
+      "country": "India",
+      "state": "Karnataka",
+      "city": "Bangalore",
+      "pin": "560001"
+    }
+  ]
+}
+```
+
+### Request Body Validation
+
+| Field           | Type   | Required | Rules                                     | Notes                                 |
+| --------------- | ------ | -------- | ----------------------------------------- | ------------------------------------- |
+| fullName        | string | No       | Min 2 chars, Max 100 chars                | Agent's updated full name             |
+| phone           | string | No       | Min 10 digits, Max 15 digits, valid chars | Contact number                        |
+| profileImageUrl | string | No       | Valid URL                                 | Cloudinary profile image URL          |
+| profileFileId   | string | No       | Any string                                | Cloudinary file ID                    |
+| companyName     | string | No       | Min 2 chars, Max 200 chars                | Travel company name                   |
+| description     | string | No       | Max 2000 chars                            | Company description                   |
+| aadharNumber    | string | No       | 12 digits only                            | Aadhar card number                    |
+| panNumber       | string | No       | 10 chars, format: AAAAA9999A              | PAN card number                       |
+| gstNumber       | string | No       | Any string                                | GST registration number               |
+| bannerImageUrl  | string | No       | Valid URL                                 | Cloudinary banner image URL           |
+| bannerFileId    | string | No       | Any string                                | Cloudinary file ID for banner         |
+| addresses       | array  | No       | Array of address objects                  | Agent's addresses                     |
+| addresses[].id  | string | No       | Valid address ID                          | If provided, updates existing address |
+| addressType     | enum   | No       | PERMANENT\|CURRENT\|TRAVEL                | Type of address                       |
+| country         | string | No       | Any string                                | Country name                          |
+| state           | string | No       | Any string                                | State name                            |
+| district        | string | No       | Any string                                | District name                         |
+| pin             | string | No       | Min 6 characters                          | Postal code                           |
+| city            | string | No       | Any string                                | City name                             |
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "agent_123",
+    "fullName": "Updated Agent Name",
+    "phone": "+9876543210",
+    "companyName": "Updated Travel Company Ltd",
+    "updatedAt": "2025-12-08T15:45:00Z"
+  },
+  "message": "Agent profile updated successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as agent"
+}
+```
+
+#### 2. Validation Error - Invalid PAN Format
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Validation failed",
+  "errors": [
+    {
+      "field": "panNumber",
+      "message": "Invalid PAN number format"
+    }
+  ]
+}
+```
+
+#### 3. Validation Error - Invalid Aadhar
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Validation failed",
+  "errors": [
+    {
+      "field": "aadharNumber",
+      "message": "Aadhar number must contain only digits"
+    }
+  ]
+}
+```
+
+### Postman Testing
+
+```
+Method: POST
+URL: http://localhost:3000/api/v1/agent/update-profile
+Headers:
+  Authorization: Bearer <access_token>
+  Content-Type: application/json
+  Cookie: accesstoken=<token>
+Body:
+{
+  "fullName": "Updated Agent Name",
+  "companyName": "Updated Travel Company Ltd"
+}
+```
+
+---
+
+## Logout
+
+### Endpoint
+
+```
+DELETE /api/v1/agent/logout
+```
+
+### Description
+
+Logs out the authenticated agent by clearing their authentication tokens and cookies.
+
+**Authorization:** Requires authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Agent logged out successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required"
+}
+```
+
+### Postman Testing
+
+```
+Method: DELETE
+URL: http://localhost:3000/api/v1/agent/logout
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+```
 
 ---
 

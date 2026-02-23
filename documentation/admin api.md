@@ -20,8 +20,20 @@ The Admin Router handles administrative operations including admin registration,
 
 1. [Registration](#registration)
 2. [Login](#login)
-3. [Approve Agent](#approve-agent)
-4. [Delete Account](#delete-account)
+3. [Account Verification](#account-verification)
+4. [Resend Verification Link](#resend-verification-link)
+5. [Approve Agent](#approve-agent)
+6. [Approve Package](#approve-package)
+7. [Reject Package](#reject-package)
+8. [Get All Agents](#get-all-agents)
+9. [Get All Users](#get-all-users)
+10. [Get All Packages](#get-all-packages)
+11. [Get Agent Packages](#get-agent-packages)
+12. [Get All Payments](#get-all-payments)
+13. [Get Admin Profile](#get-admin-profile)
+14. [Update Admin Profile](#update-admin-profile)
+15. [Logout](#logout)
+16. [Delete Account](#delete-account)
 
 ---
 
@@ -391,6 +403,156 @@ WHERE id = 'admin_id';
 
 ---
 
+## Account Verification
+
+### Endpoint
+
+```
+POST /api/v1/admin/verify-account
+```
+
+### Description
+
+Verifies an admin's email account using the verification token sent during registration. Admin must be authenticated (have valid access token).
+
+**Authorization:** Requires authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "verifyToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+### Request Body Validation
+
+| Field       | Type   | Required | Rules            | Notes                         |
+| ----------- | ------ | -------- | ---------------- | ----------------------------- |
+| verifyToken | string | Yes      | Valid JWT format | Token from verification email |
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "emailVerified": true
+  },
+  "message": "Admin account verified successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Admin Already Verified
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Admin is already verified"
+}
+```
+
+#### 2. Invalid/Expired Token
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Invalid verification token, token is expired or invalid"
+}
+```
+
+---
+
+## Resend Verification Link
+
+### Endpoint
+
+```
+POST /api/v1/admin/send-verification-link
+```
+
+### Description
+
+Resends the email verification link to the admin's registered email address. Generates a new verification token.
+
+**Authorization:** Requires authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Verification email sent successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Admin Already Verified
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Admin is already verified"
+}
+```
+
+#### 2. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required"
+}
+```
+
+---
+
 ## Approve Agent
 
 ### Endpoint
@@ -585,6 +747,864 @@ Body:
 {
   "agentId": "clz1a2b3c4d5e6f7g8h9i0j2"
 }
+```
+
+---
+
+## Approve Package
+
+### Endpoint
+
+```
+POST /api/v1/admin/approve-pkg
+```
+
+### Description
+
+Admin approves a pending travel package. This updates the package's approval status from PENDING to APPROVED, allowing it to be visible to users for booking.
+
+**Authorization:** Requires Admin authentication (ADMIN or ROOTADMIN with APPROVED status)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "packageId": "pkg_clz2a2b3c4d5e6f7g8h9i0j1"
+}
+```
+
+### Request Body Validation
+
+| Field     | Type   | Required | Rules            | Notes                      |
+| --------- | ------ | -------- | ---------------- | -------------------------- |
+| packageId | string | Yes      | Valid package ID | ID from Bb_travelPkg table |
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "packageId": "pkg_clz2a2b3c4d5e6f7g8h9i0j1",
+    "approvalStatus": "APPROVED",
+    "approvedBy": "admin@example.com",
+    "approvedAt": "2025-12-08T10:30:00Z"
+  },
+  "message": "Package approved successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized - Not Admin
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as admin"
+}
+```
+
+#### 2. Package Not Found
+
+**Status Code:** `404 Not Found`
+
+```json
+{
+  "success": false,
+  "statusCode": 404,
+  "data": null,
+  "message": "Package not found"
+}
+```
+
+#### 3. Package Already Approved
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Package is already approved"
+}
+```
+
+### Postman Testing
+
+```
+Method: POST
+URL: http://localhost:3000/api/v1/admin/approve-pkg
+Headers:
+  Authorization: Bearer <access_token>
+  Content-Type: application/json
+  Cookie: accesstoken=<token>
+Body:
+{
+  "packageId": "pkg_clz2a2b3c4d5e6f7g8h9i0j1"
+}
+```
+
+---
+
+## Reject Package
+
+### Endpoint
+
+```
+POST /api/v1/admin/reject-pkg
+```
+
+### Description
+
+Admin rejects a pending travel package. This updates the package's approval status to REJECTED, preventing it from being visible to users.
+
+**Authorization:** Requires Admin authentication (ADMIN or ROOTADMIN with APPROVED status)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "packageId": "pkg_clz2a2b3c4d5e6f7g8h9i0j1"
+}
+```
+
+### Request Body Validation
+
+| Field     | Type   | Required | Rules            | Notes                      |
+| --------- | ------ | -------- | ---------------- | -------------------------- |
+| packageId | string | Yes      | Valid package ID | ID from Bb_travelPkg table |
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "packageId": "pkg_clz2a2b3c4d5e6f7g8h9i0j1",
+    "approvalStatus": "REJECTED",
+    "rejectedBy": "admin@example.com",
+    "rejectedAt": "2025-12-08T10:30:00Z"
+  },
+  "message": "Package rejected successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as admin"
+}
+```
+
+#### 2. Package Not Found
+
+**Status Code:** `404 Not Found`
+
+```json
+{
+  "success": false,
+  "statusCode": 404,
+  "data": null,
+  "message": "Package not found"
+}
+```
+
+### Postman Testing
+
+```
+Method: POST
+URL: http://localhost:3000/api/v1/admin/reject-pkg
+Headers:
+  Authorization: Bearer <access_token>
+  Content-Type: application/json
+  Cookie: accesstoken=<token>
+Body:
+{
+  "packageId": "pkg_clz2a2b3c4d5e6f7g8h9i0j1"
+}
+```
+
+---
+
+## Get All Agents
+
+### Endpoint
+
+```
+GET /api/v1/admin/get-all-agent
+```
+
+### Description
+
+Retrieves a list of all travel agents registered on the platform with their profile information and approval status.
+
+**Authorization:** Requires Admin authentication (ADMIN or ROOTADMIN with APPROVED status)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "agent_123",
+      "userId": "user_456",
+      "fullName": "Agent Name",
+      "email": "agent@example.com",
+      "phone": "+1234567890",
+      "companyName": "Travel Company Ltd",
+      "status": "APPROVED",
+      "emailVerified": true,
+      "createdAt": "2025-12-01T10:30:00Z"
+    }
+  ],
+  "message": "Agents retrieved successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as admin"
+}
+```
+
+### Postman Testing
+
+```
+Method: GET
+URL: http://localhost:3000/api/v1/admin/get-all-agent
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+```
+
+---
+
+## Get All Users
+
+### Endpoint
+
+```
+GET /api/v1/admin/get-all-user
+```
+
+### Description
+
+Retrieves a list of all users (travelers) registered on the platform.
+
+**Authorization:** Requires Admin authentication (ADMIN or ROOTADMIN with APPROVED status)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "user_123",
+      "fullName": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "role": "TRAVELER",
+      "emailVerified": true,
+      "createdAt": "2025-12-01T10:30:00Z"
+    }
+  ],
+  "message": "Users retrieved successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as admin"
+}
+```
+
+### Postman Testing
+
+```
+Method: GET
+URL: http://localhost:3000/api/v1/admin/get-all-user
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+```
+
+---
+
+## Get All Packages
+
+### Endpoint
+
+```
+GET /api/v1/admin/get-all-pkg
+```
+
+### Description
+
+Retrieves a list of all travel packages on the platform with their details and approval status.
+
+**Authorization:** Requires Admin authentication (ADMIN or ROOTADMIN with APPROVED status)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "packageId": "pkg_123",
+      "title": "Goa Beach Paradise",
+      "description": "5 Days tour",
+      "pricePerPerson": 15000,
+      "destination": "Goa",
+      "durationDays": 5,
+      "approveStatus": "APPROVED",
+      "agentId": "agent_456",
+      "createdAt": "2025-12-01T10:30:00Z"
+    }
+  ],
+  "message": "Packages retrieved successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as admin"
+}
+```
+
+### Postman Testing
+
+```
+Method: GET
+URL: http://localhost:3000/api/v1/admin/get-all-pkg
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+```
+
+---
+
+## Get Agent Packages
+
+### Endpoint
+
+```
+POST /api/v1/admin/get-agent-pkg
+```
+
+### Description
+
+Retrieves all travel packages created by a specific agent.
+
+**Authorization:** Requires Admin authentication (ADMIN or ROOTADMIN with APPROVED status)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "id": "agent_clz2a2b3c4d5e6f7g8h9i0j1"
+}
+```
+
+### Request Body Validation
+
+| Field | Type   | Required | Rules          | Notes                         |
+| ----- | ------ | -------- | -------------- | ----------------------------- |
+| id    | string | Yes      | Valid agent ID | Agent ID from Bb_agentProfile |
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "packageId": "pkg_123",
+      "title": "Goa Beach Paradise",
+      "description": "5 Days tour",
+      "pricePerPerson": 15000,
+      "destination": "Goa",
+      "durationDays": 5,
+      "approveStatus": "PENDING",
+      "agentId": "agent_clz2a2b3c4d5e6f7g8h9i0j1",
+      "createdAt": "2025-12-01T10:30:00Z"
+    }
+  ],
+  "message": "Agent packages retrieved successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as admin"
+}
+```
+
+#### 2. Agent ID Required
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Agent ID is required"
+}
+```
+
+### Postman Testing
+
+```
+Method: POST
+URL: http://localhost:3000/api/v1/admin/get-agent-pkg
+Headers:
+  Authorization: Bearer <access_token>
+  Content-Type: application/json
+  Cookie: accesstoken=<token>
+Body:
+{
+  "id": "agent_clz2a2b3c4d5e6f7g8h9i0j1"
+}
+```
+
+---
+
+## Get All Payments
+
+### Endpoint
+
+```
+GET /api/v1/admin/get-all-payments
+```
+
+### Description
+
+Retrieves a list of all payment transactions on the platform including booking details and payment status.
+
+**Authorization:** Requires Admin authentication (ADMIN or ROOTADMIN with APPROVED status)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "paymentId": "pay_123",
+      "bookingId": "booking_456",
+      "userId": "user_789",
+      "amount": 15000,
+      "status": "COMPLETED",
+      "paymentMethod": "CARD",
+      "transactionId": "txn_abc123",
+      "createdAt": "2025-12-01T10:30:00Z"
+    }
+  ],
+  "message": "Payments retrieved successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as admin"
+}
+```
+
+### Postman Testing
+
+```
+Method: GET
+URL: http://localhost:3000/api/v1/admin/get-all-payments
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+```
+
+---
+
+## Get Admin Profile
+
+### Endpoint
+
+```
+GET /api/v1/admin/get-profile
+```
+
+### Description
+
+Retrieves the authenticated admin's complete profile information.
+
+**Authorization:** Requires authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "admin_123",
+    "fullName": "Admin Name",
+    "email": "admin@example.com",
+    "role": "ADMIN",
+    "roleStatus": "APPROVED",
+    "emailVerified": true,
+    "createdAt": "2025-12-01T10:30:00Z"
+  },
+  "message": "Admin profile retrieved successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required"
+}
+```
+
+### Postman Testing
+
+```
+Method: GET
+URL: http://localhost:3000/api/v1/admin/get-profile
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
+```
+
+---
+
+## Update Admin Profile
+
+### Endpoint
+
+```
+POST /api/v1/admin/update-profile
+```
+
+### Description
+
+Allows an authenticated admin to update their profile information. All fields are optional.
+
+**Authorization:** Requires Admin authentication (ADMIN or ROOTADMIN with APPROVED status)
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "fullName": "Updated Admin Name",
+  "phone": "+9876543210",
+  "profileImageUrl": "https://cloudinary.com/new-profile.jpg",
+  "profileFileId": "cloudinary_new_file_123"
+}
+```
+
+### Request Body Validation
+
+| Field           | Type   | Required | Rules                                     | Notes                                 |
+| --------------- | ------ | -------- | ----------------------------------------- | ------------------------------------- |
+| fullName        | string | No       | Min 2 chars, Max 100 chars                | Admin's updated full name             |
+| phone           | string | No       | Min 10 digits, Max 15 digits, valid chars | Contact number                        |
+| profileImageUrl | string | No       | Valid URL                                 | Cloudinary image URL                  |
+| profileFileId   | string | No       | Any string                                | Cloudinary file ID for image tracking |
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "admin_123",
+    "fullName": "Updated Admin Name",
+    "phone": "+9876543210",
+    "updatedAt": "2025-12-08T14:20:00Z"
+  },
+  "message": "Admin profile updated successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required as admin"
+}
+```
+
+### Postman Testing
+
+```
+Method: POST
+URL: http://localhost:3000/api/v1/admin/update-profile
+Headers:
+  Authorization: Bearer <access_token>
+  Content-Type: application/json
+  Cookie: accesstoken=<token>
+Body:
+{
+  "fullName": "Updated Admin Name"
+}
+```
+
+---
+
+## Logout
+
+### Endpoint
+
+```
+DELETE /api/v1/admin/logout
+```
+
+### Description
+
+Logs out the authenticated admin by clearing their authentication tokens and cookies.
+
+**Authorization:** Requires authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Admin logged out successfully"
+}
+```
+
+### Error Responses
+
+#### 1. Unauthorized
+
+**Status Code:** `400 Bad Request`
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "data": null,
+  "message": "Access denied, authenication required"
+}
+```
+
+### Postman Testing
+
+```
+Method: DELETE
+URL: http://localhost:3000/api/v1/admin/logout
+Headers:
+  Authorization: Bearer <access_token>
+  Cookie: accesstoken=<token>
 ```
 
 ---
