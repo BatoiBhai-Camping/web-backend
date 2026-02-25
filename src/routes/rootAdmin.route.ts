@@ -65,7 +65,7 @@ rootAdminRouter
 rootAdminRouter
   .route("/get-profile")
   .get(rootAdminMiddleware, getRootAdminProfile);
-  rootAdminRouter
+rootAdminRouter
   .route("/send-verification-link")
   .post(authMiddleware, sendAccountVerificationLink);
 

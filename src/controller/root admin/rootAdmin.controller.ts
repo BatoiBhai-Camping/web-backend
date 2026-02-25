@@ -26,5 +26,5 @@ export {
   getAllPkg,
   getAllPkgOfAgent,
   getRootAdminProfile,
-  rootAdminRegister
+  rootAdminRegister,
 };

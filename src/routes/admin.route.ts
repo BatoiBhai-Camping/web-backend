@@ -10,9 +10,12 @@ import {
   getAllUser,
   getAllPkg,
   getAllPkgOfAgent,
-  getRootAdminProfile
+  getRootAdminProfile,
 } from "../controller/root admin/rootAdmin.controller.js";
-import { adminMiddleware } from "../middleware/admin.middleware.js";
+import {
+  adminMiddlewareOperation,
+  adminMiddlewareSelfOperation,
+} from "../middleware/admin.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import {
   sendAccountVerificationLink,
@@ -32,15 +35,25 @@ adminRouter
   .post(authMiddleware, sendAccountVerificationLink);
 adminRouter.route("/login").post(rootAdminLogin);
 adminRouter.route("/logout").delete(authMiddleware, logout);
-adminRouter.route("/approve-agent").post(adminMiddleware, approveAgent);
-adminRouter.route("/approve-pkg").post(adminMiddleware, approvePackage);
-adminRouter.route("/reject-pkg").post(adminMiddleware, rejectPckage);
-adminRouter.route("/get-all-agent").get(adminMiddleware, getAllAgents);
-adminRouter.route("/get-all-payments").get(adminMiddleware, getAllPayments);
-adminRouter.route("/get-all-user").get(adminMiddleware, getAllUser);
-adminRouter.route("/get-all-pkg").get(adminMiddleware, getAllPkg);
-adminRouter.route("/get-agent-pkg").post(adminMiddleware, getAllPkgOfAgent);
-adminRouter.route("/delete-acc").delete(adminMiddleware, deleteAccout);
-adminRouter.route("/update-profile").post(adminMiddleware, updateUserProfile);
-adminRouter.route("/get-profile").get(authMiddleware,getRootAdminProfile);
+adminRouter
+  .route("/approve-agent")
+  .post(adminMiddlewareOperation, approveAgent);
+adminRouter
+  .route("/approve-pkg")
+  .post(adminMiddlewareOperation, approvePackage);
+adminRouter.route("/reject-pkg").post(adminMiddlewareOperation, rejectPckage);
+adminRouter.route("/get-all-agent").get(adminMiddlewareOperation, getAllAgents);
+adminRouter
+  .route("/get-all-payments")
+  .get(adminMiddlewareOperation, getAllPayments);
+adminRouter.route("/get-all-user").get(adminMiddlewareOperation, getAllUser);
+adminRouter.route("/get-all-pkg").get(adminMiddlewareOperation, getAllPkg);
+adminRouter
+  .route("/get-agent-pkg")
+  .post(adminMiddlewareOperation, getAllPkgOfAgent);
+adminRouter.route("/delete-acc").delete(adminMiddlewareOperation, deleteAccout);
+adminRouter
+  .route("/update-profile")
+  .post(adminMiddlewareSelfOperation, updateUserProfile);
+adminRouter.route("/get-profile").get(authMiddleware, getRootAdminProfile);
 export { adminRouter };

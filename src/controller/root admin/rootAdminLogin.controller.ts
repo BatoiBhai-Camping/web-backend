@@ -10,7 +10,10 @@ import { ApiResponse } from "../../uitls/apiResponse.js";
 import { asyncHandler } from "../../uitls/asyncHandler.js";
 import { validENV } from "../../validator/env.validator.js";
 import { userLoginValidator } from "../../validator/user.validator.js";
-import { publicUseDataUser,address } from "../../uitls/publicSharedDataUser.js";
+import {
+  publicUseDataUser,
+  address,
+} from "../../uitls/publicSharedDataUser.js";
 const rootAdminLogin = asyncHandler(async (req: Request, res: Response) => {
   const userData = req.body;
   const validRes = userLoginValidator.safeParse(userData);
@@ -33,15 +36,15 @@ const rootAdminLogin = asyncHandler(async (req: Request, res: Response) => {
     select: {
       ...publicUseDataUser,
       profileImage: {
-          select: {
-            userProfile: true,
-          },
+        select: {
+          userProfile: true,
         },
-        address: {
-          select: {
-            ...address,
-          },
+      },
+      address: {
+        select: {
+          ...address,
         },
+      },
       password: true,
     },
   });
@@ -93,7 +96,7 @@ const rootAdminLogin = asyncHandler(async (req: Request, res: Response) => {
       refreshToken: refreshToken,
     },
   });
-const {password, ...safeUser} = user;
+  const { password, ...safeUser } = user;
   return res
     .status(200)
     .json(new ApiResponse(200, safeUser, "User loggedin successfully"));

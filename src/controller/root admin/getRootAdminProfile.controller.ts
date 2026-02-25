@@ -29,9 +29,15 @@ const getRootAdminProfile = asyncHandler(
       },
     });
 
-    return res.status(200).json(
-        new ApiResponse(200,rootAdmin,"successfully get the root admin profile")
-    )
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          rootAdmin,
+          "successfully get the root admin profile",
+        ),
+      );
   },
 );
 
