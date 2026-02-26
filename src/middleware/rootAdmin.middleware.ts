@@ -75,7 +75,6 @@ const rootAdminMiddleware = asyncHandler(
       where: {
         id: verifyAccessToken.userId,
         email: verifyAccessToken.email,
-        emailVerified: true,
         role: "ROOTADMIN",
         roleStatus: "APPROVED",
         isDeleted: false,
@@ -83,6 +82,8 @@ const rootAdminMiddleware = asyncHandler(
       select: {
         id: true,
         email: true,
+        emailVerified: true,
+        roleStatus: true,
       },
     });
 
@@ -99,7 +100,18 @@ const rootAdminMiddleware = asyncHandler(
         ],
       );
     }
-
+    if (!dbUser.emailVerified) {
+      throw new ApiError(
+        400,
+        "Root admin Email is not verifyed kindly veirify it",
+      );
+    }
+    if (dbUser.roleStatus != "APPROVED") {
+      throw new ApiError(
+        400,
+        "Root admin is not approved kindly approve it in data base",
+      );
+    }
     // check the admin email match to the environment email or not for root admin access
     if (dbUser.email != validENV.ROOT_ADMIN_GMAIL) {
       throw new ApiError(
