@@ -19,11 +19,11 @@ const getAllSubAdmin = asyncHandler(async (req: Request, res: Response) => {
           ...address,
         },
       },
-      profileImage:{
-        select:{
+      profileImage: {
+        select: {
           id: true,
-          imageUrl: true
-        }
+          imageUrl: true,
+        },
       },
     },
   });

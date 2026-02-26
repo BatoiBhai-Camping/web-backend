@@ -39,6 +39,7 @@ const sendAccountVerificationLink = asyncHandler(
         fullName: true,
         id: true,
         email: true,
+        role: true,
       },
     });
     if (!dbuser) {
@@ -54,12 +55,26 @@ const sendAccountVerificationLink = asyncHandler(
       },
     });
 
-    // send the verification code to the user for account verificaton
-    sendAccountVerificationMail({
-      reciverGamil: dbuser.email,
-      reciverName: dbuser.fullName,
-      verificationLink: `${validENV.FRONTEND_URL}/verify-email?verifyToken=${verificationToken}`, //the verification link is a frontend url which contain the verification token
-    });
+    // send the verification code to the user for account verificaton according to the user
+    if (dbuser.role === "TRAVELER") {
+      sendAccountVerificationMail({
+        reciverGamil: dbuser.email,
+        reciverName: dbuser.fullName,
+        verificationLink: `${validENV.FRONTEND_URL_USER}/verify-email?verifyToken=${verificationToken}`, //the verification link is a frontend url which contain the verification token
+      });
+    } else if (dbuser.role === "AGENT") {
+      sendAccountVerificationMail({
+        reciverGamil: dbuser.email,
+        reciverName: dbuser.fullName,
+        verificationLink: `${validENV.FRONTEND_URL_AGENT}/verify-email?verifyToken=${verificationToken}`, //the verification link is a frontend url which contain the verification token
+      });
+    } else {
+      sendAccountVerificationMail({
+        reciverGamil: dbuser.email,
+        reciverName: dbuser.fullName,
+        verificationLink: `${validENV.FRONTEND_URL_ADMIN}/verify-email?verifyToken=${verificationToken}`, //the verification link is a frontend url which contain the verification token
+      });
+    }
 
     // send the response that mail is send
     return res

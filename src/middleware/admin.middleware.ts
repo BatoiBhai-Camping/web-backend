@@ -220,8 +220,6 @@ const adminMiddlewareSelfOperation = asyncHandler(
       );
     }
 
-    
-
     // set the user id and email to the request object in order to use it further reoutes which need authentication
     req.userId = dbUser.id;
     req.userEmail = dbUser.email;
@@ -229,6 +227,5 @@ const adminMiddlewareSelfOperation = asyncHandler(
     next();
   },
 );
-
 
 export { adminMiddlewareOperation, adminMiddlewareSelfOperation };

@@ -26,7 +26,11 @@ app.use(express.static("public"));
 
 app.use(
   cors({
-    origin: [validENV.FRONTEND_URL],
+    origin: [
+      validENV.FRONTEND_URL_USER,
+      validENV.FRONTEND_URL_ADMIN,
+      validENV.FRONTEND_URL_AGENT,
+    ],
     credentials: true,
   }),
 );

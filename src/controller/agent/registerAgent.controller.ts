@@ -163,7 +163,7 @@ const agentRegister = asyncHandler(async (req: Request, res: Response) => {
   sendAccountVerificationMail({
     reciverGamil: agentAccountRes.user.email,
     reciverName: agentAccountRes.user.fullName,
-    verificationLink: verifyToken,
+    verificationLink: `${validENV.FRONTEND_URL_AGENT}/verify-email?verifyToken=${verifyToken}`,
   });
 
   return res.status(201).json({

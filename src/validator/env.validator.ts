@@ -30,7 +30,9 @@ const envSchema = z.object({
   ROOT_ADMIN_GMAIL: z.string(
     "Root admin gmail is required for access the admin access",
   ),
-  FRONTEND_URL: z.string("frontend origin is required"),
+  FRONTEND_URL_USER: z.string("frontend origin of user is required"),
+  FRONTEND_URL_AGENT: z.string("frontend origin of agent is required"),
+  FRONTEND_URL_ADMIN: z.string("frontend origin of admin is required"),
   STRIPE_SECRET_KEY: z.string("stripe secret key required"),
   STRIPE_PUBLISH_KEY: z.string("stripe publisheble key required"),
   STRIPE_WEBHOOK_SECRET: z.string("stripe web hook secreat required"),
