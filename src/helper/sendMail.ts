@@ -1,5 +1,4 @@
-import type z from "zod";
-import { validENV } from "../validator/env.validator.js";
+import type z from "zod";import { validENV } from "../validator/env.validator.js";
 import { transporter } from "../uitls/nodeMaillerSetup.js";
 import { accountVerificationTemplate } from "../mailTemplates/accoutverifyMailTemplate.js";
 import { adminApprovalTemplate } from "../mailTemplates/adminApprovedMailTemplate.js";

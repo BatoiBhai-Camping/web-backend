@@ -5,6 +5,7 @@ import { ApiResponse } from "../../uitls/apiResponse.js";
 import { asyncHandler } from "../../uitls/asyncHandler.js";
 import { validateAdmin } from "../../validator/rootAdmin.validator.js";
 import { adminAccountApprovedMail } from "../../helper/sendMail.js";
+import { validENV } from "../../validator/env.validator.js";
 const approveAgent = asyncHandler(async (req: Request, res: Response) => {
   // get the agent by id check its mail verifiation status
   const validRes = validateAdmin.safeParse(req.body);
@@ -66,7 +67,7 @@ const approveAgent = asyncHandler(async (req: Request, res: Response) => {
     adminAccountApprovedMail({
       reciverName: approvedStatus.fullName,
       reciverGamil: approvedStatus.email,
-      loginLink: "link",
+      loginLink: `${validENV.FRONTEND_URL_AGENT}`,
     });
   }
 

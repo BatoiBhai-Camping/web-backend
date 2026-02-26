@@ -8,6 +8,7 @@ import {
   adminAccountApprovedMail,
   agentAccountApprovedMail,
 } from "../../helper/sendMail.js";
+import { validENV } from "../../validator/env.validator.js";
 const approveSubAdmin = asyncHandler(async (req: Request, res: Response) => {
   // get the admin user id from the body
   const validRes = validateAdmin.safeParse(req.body);
@@ -39,7 +40,7 @@ const approveSubAdmin = asyncHandler(async (req: Request, res: Response) => {
     agentAccountApprovedMail({
       reciverGamil: adminStatusUpdate.email,
       reciverName: adminStatusUpdate.fullName,
-      loginLink: "link",
+      loginLink: `${validENV.FRONTEND_URL_ADMIN}`,
     });
   }
 
