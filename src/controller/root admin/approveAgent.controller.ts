@@ -11,7 +11,11 @@ const approveAgent = asyncHandler(async (req: Request, res: Response) => {
   const validRes = validateAdmin.safeParse(req.body);
 
   if (!validRes.success) {
-    throw new ApiError(400, "Invalid inpu data for agent id");
+    throw new ApiError(
+      400,
+      "Invalid inpu data for agent id",
+      validRes.error.issues,
+    );
   }
   const data = validRes.data;
   // check agent is esist or not

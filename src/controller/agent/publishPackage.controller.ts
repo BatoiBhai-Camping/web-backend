@@ -7,7 +7,7 @@ import { publishPackageValidator } from "../../validator/packagePublish.validato
 const publishPackage = asyncHandler(async (req: Request, res: Response) => {
   const valid = publishPackageValidator.safeParse(req.body);
   if (!valid.success) {
-    throw new ApiError(400, valid.error.message);
+    throw new ApiError(400, "Inputs are invalid", valid.error.issues);
   }
 
   const data = valid.data;

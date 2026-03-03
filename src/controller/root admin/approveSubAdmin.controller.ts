@@ -15,7 +15,8 @@ const approveSubAdmin = asyncHandler(async (req: Request, res: Response) => {
   if (!validRes.success) {
     throw new ApiError(
       400,
-      validRes.error.message || "Invalid input for admin approbal request",
+      "Invalid input for admin approbal request",
+      validRes.error.issues,
     );
   }
 

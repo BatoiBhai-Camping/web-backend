@@ -9,7 +9,8 @@ const getAgentProfile = asyncHandler(async (req: Request, res: Response) => {
   if (!validRes.success) {
     throw new ApiError(
       400,
-      validRes.error.message || "Invalid user id or user id not provided",
+      "Invalid user id or user id not provided",
+      validRes.error.issues,
     );
   }
 

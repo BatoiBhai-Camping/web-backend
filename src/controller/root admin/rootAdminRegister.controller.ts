@@ -24,10 +24,7 @@ const rootAdminRegister = asyncHandler(async (req: Request, res: Response) => {
   // validate the data
   const validRes = userRegisterValidator.safeParse(userData);
   if (!validRes.success) {
-    throw new ApiError(
-      400,
-      validRes.error.message || "Provided data are invalid",
-    );
+    throw new ApiError(400, "Provided data are invalid", validRes.error.issues);
   }
   // check if ther is any other root admin present then return error
   const rootAdmin = await db.bb_user.findFirst({

@@ -14,7 +14,7 @@ import { validENV } from "../../validator/env.validator.js";
 const agentRegister = asyncHandler(async (req: Request, res: Response) => {
   const valid = agentRegisterValidator.safeParse(req.body);
   if (!valid.success) {
-    throw new ApiError(400, valid.error.message);
+    throw new ApiError(400, "Input are invlid", valid.error.issues);
   }
 
   const data = valid.data;

@@ -12,7 +12,11 @@ const updateProfile = asyncHandler(async (req: Request, res: Response) => {
   const validatedData = updateAgentProfileSchema.safeParse(req.body);
   console.log("her is the valid response", validatedData);
   if (!validatedData.success) {
-    throw new ApiError(400, "invalid data for update the agent profile");
+    throw new ApiError(
+      400,
+      "invalid data for update the agent profile",
+      validatedData.error.issues,
+    );
   }
 
   const data = validatedData.data;

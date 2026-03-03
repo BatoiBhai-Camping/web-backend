@@ -11,6 +11,8 @@ import { rootAdminRouter } from "./routes/rootAdmin.route.js";
 import { ApiError } from "./uitls/apiError.js";
 import cors from "cors";
 import { validENV } from "./validator/env.validator.js";
+import { paymentRouter } from "./routes/payment.route.js";
+import Razorpay from "razorpay";
 
 const app = express();
 
@@ -35,6 +37,12 @@ app.use(
   }),
 );
 
+// Initialize Razorpay instance
+const razorpayInstance = new Razorpay({
+  key_id: validENV.RAZORPAY_KEY_ID,
+  key_secret: validENV.RAZORPAY_KEY_SECRET,
+});
+
 const apiVersion = "/api/v1";
 
 app.use(`${apiVersion}`, healthRoute);
@@ -43,6 +51,7 @@ app.use(`${apiVersion}/agent`, agentRouter);
 app.use(`${apiVersion}/assets`, assetsRouter);
 app.use(`${apiVersion}/root-admin`, rootAdminRouter);
 app.use(`${apiVersion}/admin`, adminRouter);
+app.use(`${apiVersion}/payment`, paymentRouter);
 app.use(`${apiVersion}`, appRoute);
 
 app.use((req: Request, res: Response) => {
@@ -52,4 +61,4 @@ app.use((req: Request, res: Response) => {
 //global error handler
 app.use(globalErrorHandler);
 
-export { app };
+export { app, razorpayInstance };

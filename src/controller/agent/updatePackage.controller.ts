@@ -8,7 +8,7 @@ import { ApiResponse } from "../../uitls/apiResponse.js";
 const updatePackage = asyncHandler(async (req: Request, res: Response) => {
   const valid = updatePackageValidator.safeParse(req.body);
   if (!valid.success) {
-    throw new ApiError(400, valid.error.message);
+    throw new ApiError(400, "Invalid input", valid.error.issues);
   }
 
   const data = valid.data;

@@ -10,7 +10,8 @@ const rejectSubAdmin = asyncHandler(async (req: Request, res: Response) => {
   if (!validRes.success) {
     throw new ApiError(
       400,
-      validRes.error.message || "Invalid input for sub admin approbal request",
+      "Invalid input for sub admin approbal request",
+      validRes.error.issues,
     );
   }
 

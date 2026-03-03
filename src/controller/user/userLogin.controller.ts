@@ -23,7 +23,8 @@ const userLogIn = asyncHandler(async (req: Request, res: Response) => {
   if (!validRes.success) {
     throw new ApiError(
       400,
-      validRes.error.message || "Provided data field are invalid",
+      "Provided data field are invalid",
+      validRes.error.issues,
     );
   }
   const data = validRes.data;

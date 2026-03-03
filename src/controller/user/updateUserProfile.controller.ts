@@ -11,7 +11,11 @@ const updateUserProfile = asyncHandler(async (req: Request, res: Response) => {
   // Validate request body
   const validatedData = updateUserProfileSchema.safeParse(req.body);
   if (!validatedData.success) {
-    throw new ApiError(400, "Invalid data for update profile");
+    throw new ApiError(
+      400,
+      "Invalid data for update profile",
+      validatedData.error.issues,
+    );
   }
 
   const data = validatedData.data;

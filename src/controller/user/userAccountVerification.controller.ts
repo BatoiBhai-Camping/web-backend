@@ -17,7 +17,11 @@ const userAccountVerification = asyncHandler(
     // check user is verifyed or not
     const validateRes = verifyAccountValidator.safeParse(req.body);
     if (!validateRes.success) {
-      throw new ApiError(400, "No verifify token is provided");
+      throw new ApiError(
+        400,
+        "No verifify token is provided",
+        validateRes.error.issues,
+      );
     }
 
     const user = await db.bb_user.findFirst({

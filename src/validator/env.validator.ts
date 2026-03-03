@@ -33,9 +33,8 @@ const envSchema = z.object({
   FRONTEND_URL_USER: z.string("frontend origin of user is required"),
   FRONTEND_URL_AGENT: z.string("frontend origin of agent is required"),
   FRONTEND_URL_ADMIN: z.string("frontend origin of admin is required"),
-  STRIPE_SECRET_KEY: z.string("stripe secret key required"),
-  STRIPE_PUBLISH_KEY: z.string("stripe publisheble key required"),
-  STRIPE_WEBHOOK_SECRET: z.string("stripe web hook secreat required"),
+  RAZORPAY_KEY_ID: z.string("Razorpay key ID is required"),
+  RAZORPAY_KEY_SECRET: z.string("Razorpay key secret is required"),
 });
 
 export const validENV = envSchema.parse(process.env);

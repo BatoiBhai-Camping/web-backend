@@ -9,7 +9,11 @@ const rejectPckage = asyncHandler(async (req: Request, res: Response) => {
   const validRes = validatePackage.safeParse(req.body);
 
   if (!validRes.success) {
-    throw new ApiError(400, "Invalid input data for package id");
+    throw new ApiError(
+      400,
+      "Invalid input data for package id",
+      validRes.error.issues,
+    );
   }
   const data = validRes.data;
 

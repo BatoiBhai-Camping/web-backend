@@ -25,10 +25,7 @@ const userRegister = asyncHandler(async (req: Request, res: Response) => {
   // validate the data
   const validRes = userRegisterValidator.safeParse(userData);
   if (!validRes.success) {
-    throw new ApiError(
-      400,
-      validRes.error.message || "Provided data are invalid",
-    );
+    throw new ApiError(400, "Provided data are invalid", validRes.error.issues);
   }
   const data = validRes.data;
   // check email exist or not
