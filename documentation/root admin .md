@@ -22,10 +22,23 @@ The RootAdmin Router handles platform-level administrative operations including 
 
 1. [Registration](#registration)
 2. [Login](#login)
-3. [Approve Sub-Admin](#approve-sub-admin)
-4. [Reject Sub-Admin](#reject-sub-admin)
-5. [Approve Agent](#approve-agent)
-6. [Delete Account](#delete-account)
+3. [Account Verification](#account-verification)
+4. [Resend Verification Link](#resend-verification-link)
+5. [Approve Sub-Admin](#approve-sub-admin)
+6. [Reject Sub-Admin](#reject-sub-admin)
+7. [Approve Agent](#approve-agent)
+8. [Approve Package](#approve-package)
+9. [Reject Package](#reject-package)
+10. [Get All Sub-Admins](#get-all-sub-admins)
+11. [Get All Agents](#get-all-agents)
+12. [Get All Users](#get-all-users)
+13. [Get All Packages](#get-all-packages)
+14. [Get Agent Packages](#get-agent-packages)
+15. [Get All Payments](#get-all-payments)
+16. [Get RootAdmin Profile](#get-rootadmin-profile)
+17. [Update Profile](#update-profile)
+18. [Logout](#logout)
+19. [Delete Account](#delete-account)
 
 ---
 
@@ -173,6 +186,92 @@ Content-Type: application/json
   "statusCode": 400,
   "data": null,
   "message": "Provided password is not match"
+}
+```
+
+---
+
+## Account Verification
+
+### Endpoint
+
+```
+POST /api/v1/root-admin/verify-account
+```
+
+### Description
+
+Verifies a RootAdmin's email account using the verification token sent during registration.
+
+**Authorization:** Requires authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "verifyToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "RootAdmin account verified successfully"
+}
+```
+
+---
+
+## Resend Verification Link
+
+### Endpoint
+
+```
+POST /api/v1/root-admin/send-verification-link
+```
+
+### Description
+
+Resends the email verification link to the RootAdmin's registered email address.
+
+**Authorization:** Requires authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+No request body required.
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Verification email sent successfully"
 }
 ```
 
@@ -651,6 +750,553 @@ UPDATE "Bb_agentProfile"
 SET status = 'APPROVED',
     "updatedAt" = NOW()
 WHERE id = 'agent_id';
+```
+
+---
+
+## Approve Package
+
+### Endpoint
+
+```
+POST /api/v1/root-admin/approve-pkg
+```
+
+### Description
+
+Approves a pending travel package submitted by an agent. Changes package status from PENDING to APPROVED, making it visible to users.
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "packageId": "clz3a2b3c4d5e6f7g8h9i0j1"
+}
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Package approved successfully"
+}
+```
+
+---
+
+## Reject Package
+
+### Endpoint
+
+```
+POST /api/v1/root-admin/reject-pkg
+```
+
+### Description
+
+Rejects a pending travel package. Changes package status from PENDING to REJECTED.
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "packageId": "clz3a2b3c4d5e6f7g8h9i0j1"
+}
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Package rejected successfully"
+}
+```
+
+---
+
+## Get All Sub-Admins
+
+### Endpoint
+
+```
+GET /api/v1/root-admin/get-all-sub-admin
+```
+
+### Description
+
+Retrieves a list of all admin accounts in the system, including their profile information and addresses.
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Cookie: accesstoken=<token>
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "clz2a2b3c4d5e6f7g8h9i0j1",
+      "fullName": "Admin Name",
+      "email": "admin@example.com",
+      "role": "ADMIN",
+      "roleStatus": "APPROVED",
+      "emailVerified": true,
+      "createdAt": "2026-02-15T10:30:00.000Z",
+      "updatedAt": "2026-02-20T14:20:00.000Z",
+      "address": [
+        {
+          "id": "clz2a2b3c4d5e6f7g8h9i0j2",
+          "addressType": "PERMANENT",
+          "country": "India",
+          "state": "Maharashtra",
+          "district": "Mumbai",
+          "pin": "400001",
+          "city": "Mumbai"
+        }
+      ],
+      "profileImage": {
+        "id": "clz2a2b3c4d5e6f7g8h9i0j3",
+        "imageUrl": "https://cloudinary.com/profile.jpg"
+      }
+    }
+  ],
+  "message": "Successfully get all the sub admins"
+}
+```
+
+---
+
+## Get All Agents
+
+### Endpoint
+
+```
+GET /api/v1/root-admin/get-all-agent
+```
+
+### Description
+
+Retrieves a list of all agent accounts in the system.
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Cookie: accesstoken=<token>
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "clz1a2b3c4d5e6f7g8h9i0j1",
+      "fullName": "Agent Name",
+      "email": "agent@example.com",
+      "role": "AGENT",
+      "roleStatus": "APPROVED",
+      "emailVerified": true,
+      "createdAt": "2026-02-10T09:15:00.000Z",
+      "updatedAt": "2026-02-15T11:45:00.000Z"
+    }
+  ],
+  "message": "Successfully get all the agents"
+}
+```
+
+---
+
+## Get All Users
+
+### Endpoint
+
+```
+GET /api/v1/root-admin/get-all-user
+```
+
+### Description
+
+Retrieves a list of all traveler accounts (users with TRAVELER role).
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Cookie: accesstoken=<token>
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "clz4a2b3c4d5e6f7g8h9i0j1",
+      "fullName": "User Name",
+      "email": "user@example.com",
+      "role": "TRAVELER",
+      "emailVerified": true,
+      "createdAt": "2026-03-01T10:30:00.000Z",
+      "updatedAt": "2026-03-02T14:20:00.000Z"
+    }
+  ],
+  "message": "Successfully get all the users"
+}
+```
+
+---
+
+## Get All Packages
+
+### Endpoint
+
+```
+GET /api/v1/root-admin/get-all-pkg
+```
+
+### Description
+
+Retrieves all travel packages in the system, regardless of status (PENDING, APPROVED, REJECTED).
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Cookie: accesstoken=<token>
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "clz3a2b3c4d5e6f7g8h9i0j1",
+      "agentId": "clz1a2b3c4d5e6f7g8h9i0j2",
+      "title": "Manali Adventure Tour",
+      "description": "Experience the breathtaking beauty of Manali",
+      "pricePerPerson": 15000,
+      "packageApprovedStatus": "APPROVED",
+      "destination": "Manali, Himachal Pradesh",
+      "durationDays": 5,
+      "isBookingActive": true,
+      "isDeleted": false,
+      "createdAt": "2026-02-15T10:30:00.000Z",
+      "updatedAt": "2026-03-01T14:20:00.000Z"
+    }
+  ],
+  "message": "Successfully get all the users"
+}
+```
+
+---
+
+## Get Agent Packages
+
+### Endpoint
+
+```
+POST /api/v1/root-admin/get-agent-pkg
+```
+
+### Description
+
+Retrieves all travel packages created by a specific agent.
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "id": "clz1a2b3c4d5e6f7g8h9i0j2"
+}
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "clz3a2b3c4d5e6f7g8h9i0j1",
+      "agentId": "clz1a2b3c4d5e6f7g8h9i0j2",
+      "title": "Manali Adventure Tour",
+      "description": "Experience the breathtaking beauty of Manali",
+      "pricePerPerson": 15000,
+      "packageApprovedStatus": "PENDING",
+      "destination": "Manali, Himachal Pradesh",
+      "durationDays": 5
+    }
+  ],
+  "message": "Successfully get all the agent packages"
+}
+```
+
+---
+
+## Get All Payments
+
+### Endpoint
+
+```
+GET /api/v1/root-admin/get-all-payments
+```
+
+### Description
+
+Retrieves all payment transactions in the system.
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Cookie: accesstoken=<token>
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "clz5a2b3c4d5e6f7g8h9i0j7",
+      "bookingId": "clz5a2b3c4d5e6f7g8h9i0j6",
+      "type": "BOOKING",
+      "status": "SUCCESS",
+      "amount": 28350,
+      "currency": "INR",
+      "provider": "RAZORPAY",
+      "providerRef": "order_NXR8J9HDk2L3Mn",
+      "isRefund": false,
+      "createdAt": "2026-03-04T10:30:00.000Z",
+      "updatedAt": "2026-03-04T10:32:15.000Z"
+    }
+  ],
+  "message": "Successfully get all the payments"
+}
+```
+
+---
+
+## Get RootAdmin Profile
+
+### Endpoint
+
+```
+GET /api/v1/root-admin/get-profile
+```
+
+### Description
+
+Retrieves the authenticated RootAdmin's profile information including addresses and profile image.
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Cookie: accesstoken=<token>
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "clz3a3b4c5d6e7f8g9h0i1j2",
+    "fullName": "RootAdmin Name",
+    "email": "rootadmin@example.com",
+    "role": "ROOTADMIN",
+    "roleStatus": "APPROVED",
+    "emailVerified": true,
+    "phone": "+919876543210",
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "updatedAt": "2026-02-15T10:45:00.000Z",
+    "address": [
+      {
+        "id": "clz3a3b4c5d6e7f8g9h0i1j3",
+        "addressType": "PERMANENT",
+        "country": "India",
+        "state": "Maharashtra",
+        "district": "Mumbai",
+        "pin": "400001",
+        "city": "Mumbai"
+      }
+    ],
+    "profileImage": {
+      "userProfile": {
+        "id": "clz3a3b4c5d6e7f8g9h0i1j4",
+        "imageUrl": "https://cloudinary.com/rootadmin-profile.jpg"
+      }
+    }
+  },
+  "message": "successfully get the root admin profile"
+}
+```
+
+---
+
+## Update Profile
+
+### Endpoint
+
+```
+POST /api/v1/root-admin/update-profile
+```
+
+### Description
+
+Updates the authenticated RootAdmin's profile information.
+
+**Authorization:** Requires RootAdmin authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Content-Type: application/json
+Cookie: accesstoken=<token>
+```
+
+### Request Body
+
+```json
+{
+  "fullName": "Updated RootAdmin Name",
+  "phone": "+919876543210"
+}
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "Profile updated successfully"
+}
+```
+
+---
+
+## Logout
+
+### Endpoint
+
+```
+DELETE /api/v1/root-admin/logout
+```
+
+### Description
+
+Logs out the authenticated RootAdmin by clearing authentication cookies and refresh token.
+
+**Authorization:** Requires authentication
+
+### Request Headers
+
+```
+Authorization: Bearer <access_token>
+Cookie: accesstoken=<token>
+```
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": null,
+  "message": "User logged out successfully"
+}
 ```
 
 ---
