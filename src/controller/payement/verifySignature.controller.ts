@@ -10,7 +10,7 @@ import crypto from "crypto";
 
 const verifyPaymetn = asyncHandler(async (req: Request, res: Response) => {
   const validRes = verifyPaymentValidator.safeParse(req.body);
-
+  console.log(validRes, validRes.data);
   if (!validRes.success) {
     throw new ApiError(
       400,
@@ -19,9 +19,14 @@ const verifyPaymetn = asyncHandler(async (req: Request, res: Response) => {
     );
   }
 
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-    validRes.data;
-  const { bookingId, paymentId } = req.query;
+  const {
+    razorpay_order_id,
+    razorpay_payment_id,
+    razorpay_signature,
+    bookingId,
+    paymentId,
+  } = validRes.data;
+
   const userId = req.userId;
 
   // Verify Razorpay signature
@@ -39,29 +44,10 @@ const verifyPaymetn = asyncHandler(async (req: Request, res: Response) => {
     ]);
   }
 
-  // Validate query parameters
-  if (!bookingId || typeof bookingId !== "string") {
-    throw new ApiError(400, "Booking ID is required", [
-      { field: "bookingId", message: "Valid booking ID must be provided" },
-    ]);
-  }
-
-  if (!paymentId || typeof paymentId !== "string") {
-    throw new ApiError(400, "Payment ID is required", [
-      { field: "paymentId", message: "Valid payment ID must be provided" },
-    ]);
-  }
-
-  if (!userId) {
-    throw new ApiError(401, "Authentication required", [
-      { field: "userId", message: "User not authenticated" },
-    ]);
-  }
-
   const result = await db.$transaction(async (tx) => {
     // Update payment status
     const updatedPayment = await tx.bb_payment.update({
-      where: { id: paymentId },
+      where: { id: paymentId as string },
       data: {
         status: PaymentStatus.SUCCESS,
       },

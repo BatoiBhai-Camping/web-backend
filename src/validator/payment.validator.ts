@@ -22,6 +22,8 @@ export const verifyPaymentValidator = z.object({
   razorpay_order_id: z.string("order id must need"),
   razorpay_payment_id: z.string("payment id is needed"),
   razorpay_signature: z.string("razorpay signature is needed"),
+  bookingId: z.string("bookin id is need"),
+  paymentId: z.string("payment id is required"),
 });
 
 export type CreateOrderInput = z.infer<typeof createOrderValidator>;
