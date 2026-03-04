@@ -18,4 +18,10 @@ export const createOrderValidator = z.object({
     .min(1, "Number of travelers must be at least 1"),
 });
 
+export const verifyPaymentValidator = z.object({
+  razorpay_order_id: z.string("order id must need"),
+  razorpay_payment_id: z.string("payment id is needed"),
+  razorpay_signature: z.string("razorpay signature is needed"),
+});
+
 export type CreateOrderInput = z.infer<typeof createOrderValidator>;
