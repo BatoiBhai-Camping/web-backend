@@ -1629,14 +1629,27 @@ ADMIN CREATION
 
 ## Summary Table
 
-| Operation         | Endpoint             | Method | Auth Required | Role            |
-| ----------------- | -------------------- | ------ | ------------- | --------------- |
-| Register Admin    | `/register`          | POST   | No            | ADMIN           |
-| Login             | `/login`             | POST   | No            | ROOTADMIN/ADMIN |
-| Approve Sub-Admin | `/approve-sub-admin` | POST   | Yes           | ROOTADMIN       |
-| Reject Sub-Admin  | `/reject-sub-admin`  | POST   | Yes           | ROOTADMIN       |
-| Approve Agent     | `/approve-agent`     | POST   | Yes           | ROOTADMIN       |
-| Delete Account    | `/delete-acc`        | DELETE | Yes           | ROOTADMIN       |
+| Operation                | Endpoint                  | Method | Auth Required | Role            |
+| ------------------------ | ------------------------- | ------ | ------------- | --------------- |
+| Register Admin           | `/register`               | POST   | No            | ADMIN           |
+| Login                    | `/login`                  | POST   | No            | ROOTADMIN/ADMIN |
+| Account Verification     | `/verify-account`         | POST   | Yes           | ROOTADMIN       |
+| Resend Verification Link | `/send-verification-link` | POST   | Yes           | ROOTADMIN       |
+| Approve Sub-Admin        | `/approve-sub-admin`      | POST   | Yes           | ROOTADMIN       |
+| Reject Sub-Admin         | `/reject-sub-admin`       | POST   | Yes           | ROOTADMIN       |
+| Approve Agent            | `/approve-agent`          | POST   | Yes           | ROOTADMIN       |
+| Approve Package          | `/approve-pkg`            | POST   | Yes           | ROOTADMIN       |
+| Reject Package           | `/reject-pkg`             | POST   | Yes           | ROOTADMIN       |
+| Get All Sub-Admins       | `/get-all-sub-admin`      | GET    | Yes           | ROOTADMIN       |
+| Get All Agents           | `/get-all-agent`          | GET    | Yes           | ROOTADMIN       |
+| Get All Users            | `/get-all-user`           | GET    | Yes           | ROOTADMIN       |
+| Get All Packages         | `/get-all-pkg`            | GET    | Yes           | ROOTADMIN       |
+| Get Agent Packages       | `/get-agent-pkg`          | POST   | Yes           | ROOTADMIN       |
+| Get All Payments         | `/get-all-payments`       | GET    | Yes           | ROOTADMIN       |
+| Get RootAdmin Profile    | `/get-profile`            | GET    | Yes           | ROOTADMIN       |
+| Update Profile           | `/update-profile`         | POST   | Yes           | ROOTADMIN       |
+| Logout                   | `/logout`                 | DELETE | Yes           | ROOTADMIN       |
+| Delete Account           | `/delete-acc`             | DELETE | Yes           | ROOTADMIN       |
 
 ---
 
