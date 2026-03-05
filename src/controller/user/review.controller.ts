@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 import {
   platformReviewValidator,
   idValidator,
+  agentReviewValidator,
 } from "../../validator/user.validator.js";
 import { ApiError } from "../../uitls/apiError.js";
 import { db } from "../../db/db.js";
@@ -10,7 +11,58 @@ import { ApiResponse } from "../../uitls/apiResponse.js";
 
 const packageReview = asyncHandler(async (req: Request, res: Response) => {});
 
-const agentReview = asyncHandler(async (req: Request, res: Response) => {});
+const agentReview = asyncHandler(async (req: Request, res: Response) => {
+  const validRes = agentReviewValidator.safeParse(req.body);
+  if (!validRes.success) {
+    throw new ApiError(400, "Invalid inputs", validRes.error.issues);
+  }
+  const { agentId, comment, rating } = validRes.data;
+  // get the agent id
+  const agentProfile = await db.bb_agentProfile.findUnique({
+    where: {
+      id: agentId,
+    },
+    select: null,
+  });
+  console.log("here is the atent profie", agentProfile);
+  if (!agentProfile) {
+    throw new ApiError(400, "Not a valid agent profile");
+  }
+  const revewRes = await db.bb_agentReview.upsert({
+    where: {
+      agentId_userId: {
+        userId: req.userId!,
+        agentId: agentId,
+      },
+    },
+    update: {
+      rating: rating,
+      comment: comment,
+    },
+    create: {
+      rating: rating,
+      comment: comment,
+      agentId: agentId,
+      userId: req.userId!,
+    },
+    select: {
+      id: true,
+      rating: true,
+      comment: true,
+    },
+  });
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      {
+        id: revewRes.id,
+        rating: revewRes.rating,
+        comment: revewRes.comment,
+      },
+      "Review successfull",
+    ),
+  );
+});
 
 const platformReview = asyncHandler(async (req: Request, res: Response) => {
   const validRes = await platformReviewValidator.safeParse(req.body);
@@ -51,6 +103,27 @@ const platformReview = asyncHandler(async (req: Request, res: Response) => {
   );
 });
 
+const deleteAgentReview = asyncHandler(async (req: Request, res: Response) => {
+  const validRes = idValidator.safeParse(req.body);
+  if (!validRes.success) {
+    throw new ApiError(400, "Invalid input", validRes.error.issues);
+  }
+  const { id } = validRes.data;
+  // delte teh review
+  const delRes = await db.bb_agentReview.delete({
+    where: {
+      id: id,
+    },
+  });
+  return res
+    .status(200)
+    .json(new ApiResponse(200, null, "Successfuly delete the review"));
+});
+
+const deletePackageReview = asyncHandler(
+  async (req: Request, res: Response) => {},
+);
+
 const deletePlatformReview = asyncHandler(
   async (req: Request, res: Response) => {
     const validRes = idValidator.safeParse(req.body);
@@ -65,7 +138,6 @@ const deletePlatformReview = asyncHandler(
         id: id,
       },
     });
-   
 
     return res
       .status(200)
@@ -73,4 +145,11 @@ const deletePlatformReview = asyncHandler(
   },
 );
 
-export { packageReview, agentReview, platformReview, deletePlatformReview };
+export {
+  packageReview,
+  agentReview,
+  platformReview,
+  deletePlatformReview,
+  deleteAgentReview,
+  deletePackageReview,
+};
