@@ -4,12 +4,64 @@ import {
   platformReviewValidator,
   idValidator,
   agentReviewValidator,
+  packageReviewValidator,
 } from "../../validator/user.validator.js";
 import { ApiError } from "../../uitls/apiError.js";
 import { db } from "../../db/db.js";
 import { ApiResponse } from "../../uitls/apiResponse.js";
 
-const packageReview = asyncHandler(async (req: Request, res: Response) => {});
+const packageReview = asyncHandler(async (req: Request, res: Response) => {
+  const validRes = packageReviewValidator.safeParse(req.body);
+  if (!validRes.success) {
+    throw new ApiError(400, "Invalid inputs", validRes.error.issues);
+  }
+  const { packageId, comment, rating } = validRes.data;
+  // get the agent id
+  const pkg = await db.bb_travelPackage.findUnique({
+    where: {
+      id: packageId,
+    },
+    select: null,
+  });
+
+  if (!pkg) {
+    throw new ApiError(400, "Not a valid Package id");
+  }
+  const revewRes = await db.bb_packageReview.upsert({
+    where: {
+      packageId_userId: {
+        userId: req.userId!,
+        packageId: packageId,
+      },
+    },
+    update: {
+      rating: rating,
+      comment: comment,
+    },
+    create: {
+      rating: rating,
+      comment: comment,
+      packageId: packageId,
+      userId: req.userId!,
+    },
+    select: {
+      id: true,
+      rating: true,
+      comment: true,
+    },
+  });
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      {
+        id: revewRes.id,
+        rating: revewRes.rating,
+        comment: revewRes.comment,
+      },
+      "Review successfull",
+    ),
+  );
+});
 
 const agentReview = asyncHandler(async (req: Request, res: Response) => {
   const validRes = agentReviewValidator.safeParse(req.body);

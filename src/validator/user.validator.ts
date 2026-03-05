@@ -41,6 +41,12 @@ const agentReviewValidator = z.object({
   comment: z.string("comment is equired"),
 });
 
+const packageReviewValidator = z.object({
+  packageId: z.string("package id is required"),
+  rating: z.number("rating is requierd").min(1).max(5),
+  comment: z.string("comment is equired"),
+});
+
 export {
   userRegisterValidator,
   userLoginValidator,
@@ -49,4 +55,5 @@ export {
   cancelBookigValidator,
   platformReviewValidator,
   agentReviewValidator,
+  packageReviewValidator,
 };
