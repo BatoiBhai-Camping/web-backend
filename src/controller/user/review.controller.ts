@@ -166,9 +166,15 @@ const deleteAgentReview = asyncHandler(async (req: Request, res: Response) => {
     where: {
       id: id,
     },
+    select: {
+      userId: true,
+    },
   });
   if (!isRevewExist) {
     throw new ApiError(400, "No revew exist with this id");
+  }
+  if (isRevewExist.userId != req.userId) {
+    throw new ApiError(400, "This review not belong to this user");
   }
   // delte teh review
   const delRes = await db.bb_agentReview.delete({
@@ -182,7 +188,37 @@ const deleteAgentReview = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const deletePackageReview = asyncHandler(
-  async (req: Request, res: Response) => {},
+  async (req: Request, res: Response) => {
+    const validRes = idValidator.safeParse(req.body);
+    if (!validRes.success) {
+      throw new ApiError(400, "Invalid input", validRes.error.issues);
+    }
+    const { id } = validRes.data;
+    // check the review is exist or not
+    const isRevewExist = await db.bb_packageReview.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        userId: true,
+      },
+    });
+    if (!isRevewExist) {
+      throw new ApiError(400, "No revew exist with this id");
+    }
+    if (isRevewExist.userId != req.userId) {
+      throw new ApiError(400, "This review not belong to this user");
+    }
+    // delte teh review
+    const delRes = await db.bb_packageReview.delete({
+      where: {
+        id: id,
+      },
+    });
+    return res
+      .status(200)
+      .json(new ApiResponse(200, null, "Successfuly delete the review"));
+  },
 );
 
 const deletePlatformReview = asyncHandler(
@@ -192,7 +228,21 @@ const deletePlatformReview = asyncHandler(
       throw new ApiError(400, "Invlid data", validRes.error.issues);
     }
     const { id } = validRes.data;
-
+    // check the platromr review exist or not
+    const isRevewExist = await db.bb_platformReview.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        userId: true,
+      },
+    });
+    if (!isRevewExist) {
+      throw new ApiError(400, "Review is not exist with this id");
+    }
+    if (isRevewExist.userId != req.userId) {
+      throw new ApiError(400, "Review is not belong th this user");
+    }
     // delete the review
     const deleteRes = await db.bb_platformReview.delete({
       where: {
