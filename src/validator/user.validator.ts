@@ -26,9 +26,14 @@ const idValidator = z.object({
   id: z.string("id is required"),
 });
 
+const cancelBookigValidator = z.object({
+  bookingId: z.string("Booking id is required"),
+});
+
 export {
   userRegisterValidator,
   userLoginValidator,
   verifyAccountValidator,
   idValidator,
+  cancelBookigValidator,
 };

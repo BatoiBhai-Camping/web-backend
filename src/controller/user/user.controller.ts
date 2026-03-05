@@ -6,6 +6,7 @@ import { logout } from "./logout.controller.js";
 import { deleteAccout } from "./DeleteAccouint.controller.js";
 import { getUserProfile } from "./getUserProfile.controller.js";
 import { updateUserProfile } from "./updateUserProfile.controller.js";
+import { getAllbookings } from "./getAllBookings.controller.js";
 export {
   sendAccountVerificationLink,
   userAccountVerification,
@@ -15,4 +16,5 @@ export {
   deleteAccout,
   getUserProfile,
   updateUserProfile,
+  getAllbookings,
 };

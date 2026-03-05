@@ -8,6 +8,7 @@ import {
   deleteAccout,
   getUserProfile,
   updateUserProfile,
+  getAllbookings,
 } from "../controller/user/user.controller.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 const userRouter = Router();
@@ -24,4 +25,5 @@ userRouter.route("/logout").delete(authMiddleware, logout);
 userRouter.route("/get-profile").get(authMiddleware, getUserProfile);
 userRouter.route("/delete-acc").delete(authMiddleware, deleteAccout);
 userRouter.route("/update-profile").post(authMiddleware, updateUserProfile);
+userRouter.route("/get-all-bookings").get(authMiddleware, getAllbookings);
 export { userRouter };
