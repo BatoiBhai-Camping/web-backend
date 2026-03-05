@@ -11,6 +11,10 @@ import {
   getAllbookings,
   platformReview,
   deletePlatformReview,
+  agentReview,
+  deleteAgentReview,
+  packageReview,
+  deletePackageReview,
 } from "../controller/user/user.controller.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 const userRouter = Router();
@@ -32,5 +36,13 @@ userRouter.route("/platform-review").post(authMiddleware, platformReview);
 userRouter
   .route("/delete-platform-review")
   .post(authMiddleware, deletePlatformReview);
+userRouter.route("/agent-review").post(authMiddleware, agentReview);
+userRouter
+  .route("/delete-agent-review")
+  .post(authMiddleware, deleteAgentReview);
+userRouter.route("/package-review").post(authMiddleware, packageReview);
+userRouter
+  .route("/delete-package-review")
+  .post(authMiddleware, deletePackageReview);
 
 export { userRouter };

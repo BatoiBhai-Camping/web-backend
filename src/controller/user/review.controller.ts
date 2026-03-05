@@ -109,6 +109,15 @@ const deleteAgentReview = asyncHandler(async (req: Request, res: Response) => {
     throw new ApiError(400, "Invalid input", validRes.error.issues);
   }
   const { id } = validRes.data;
+  // check the review is exist or not
+  const isRevewExist = await db.bb_agentReview.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  if (!isRevewExist) {
+    throw new ApiError(400, "No revew exist with this id");
+  }
   // delte teh review
   const delRes = await db.bb_agentReview.delete({
     where: {
