@@ -7,6 +7,11 @@ import { deleteAccout } from "./DeleteAccouint.controller.js";
 import { getUserProfile } from "./getUserProfile.controller.js";
 import { updateUserProfile } from "./updateUserProfile.controller.js";
 import { getAllbookings } from "./getAllBookings.controller.js";
+import {
+  agentReview,
+  platformReview,
+  packageReview,
+} from "./review.controller.js";
 export {
   sendAccountVerificationLink,
   userAccountVerification,
@@ -17,4 +22,7 @@ export {
   getUserProfile,
   updateUserProfile,
   getAllbookings,
+  agentReview,
+  packageReview,
+  platformReview,
 };

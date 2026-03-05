@@ -366,7 +366,7 @@ model Bb_booking {
 
 model Bb_payment {
   id          String        @id @default(cuid())
-  bookingId   String @unique
+  bookingId   String        @unique
   type        PaymentType
   status      PaymentStatus @default(PENDING)
   amount      Float

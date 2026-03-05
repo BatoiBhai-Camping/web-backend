@@ -30,10 +30,16 @@ const cancelBookigValidator = z.object({
   bookingId: z.string("Booking id is required"),
 });
 
+const platformReviewValidator = z.object({
+  rating: z.number("rating is requierd").min(1).max(5),
+  comment: z.string("comment is equired"),
+});
+
 export {
   userRegisterValidator,
   userLoginValidator,
   verifyAccountValidator,
   idValidator,
   cancelBookigValidator,
+  platformReviewValidator,
 };
