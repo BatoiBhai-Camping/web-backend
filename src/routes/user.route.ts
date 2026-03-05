@@ -10,6 +10,7 @@ import {
   updateUserProfile,
   getAllbookings,
   platformReview,
+  deletePlatformReview,
 } from "../controller/user/user.controller.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 const userRouter = Router();
@@ -28,4 +29,8 @@ userRouter.route("/delete-acc").delete(authMiddleware, deleteAccout);
 userRouter.route("/update-profile").post(authMiddleware, updateUserProfile);
 userRouter.route("/get-all-bookings").get(authMiddleware, getAllbookings);
 userRouter.route("/platform-review").post(authMiddleware, platformReview);
+userRouter
+  .route("/delete-platform-review")
+  .post(authMiddleware, deletePlatformReview);
+
 export { userRouter };

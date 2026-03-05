@@ -11,6 +11,7 @@ import {
   agentReview,
   platformReview,
   packageReview,
+  deletePlatformReview
 } from "./review.controller.js";
 export {
   sendAccountVerificationLink,
@@ -25,4 +26,5 @@ export {
   agentReview,
   packageReview,
   platformReview,
+  deletePlatformReview
 };

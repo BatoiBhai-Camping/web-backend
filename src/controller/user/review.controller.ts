@@ -1,6 +1,9 @@
 import { asyncHandler } from "../../uitls/asyncHandler.js";
 import type { Request, Response } from "express";
-import { platformReviewValidator } from "../../validator/user.validator.js";
+import {
+  platformReviewValidator,
+  idValidator,
+} from "../../validator/user.validator.js";
 import { ApiError } from "../../uitls/apiError.js";
 import { db } from "../../db/db.js";
 import { ApiResponse } from "../../uitls/apiResponse.js";
@@ -48,4 +51,26 @@ const platformReview = asyncHandler(async (req: Request, res: Response) => {
   );
 });
 
-export { packageReview, agentReview, platformReview };
+const deletePlatformReview = asyncHandler(
+  async (req: Request, res: Response) => {
+    const validRes = idValidator.safeParse(req.body);
+    if (!validRes.success) {
+      throw new ApiError(400, "Invlid data", validRes.error.issues);
+    }
+    const { id } = validRes.data;
+
+    // delete the review
+    const deleteRes = await db.bb_platformReview.delete({
+      where: {
+        id: id,
+      },
+    });
+   
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, null, "Review deleted successfully"));
+  },
+);
+
+export { packageReview, agentReview, platformReview, deletePlatformReview };
