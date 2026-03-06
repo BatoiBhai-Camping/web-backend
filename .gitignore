@@ -7,3 +7,5 @@ dist
 # devlopingphase
 
 
+documentation/test-result/*.txt
+documentation/test-result/

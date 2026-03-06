@@ -3,6 +3,8 @@ import {
   publishPackage,
   agentLogIn,
   getAllPackages,
+  getAllBookings,
+  getPackageBookings,
   getProfile,
   updateProfile,
   updatePackage,
@@ -34,6 +36,10 @@ agentRouter
 agentRouter.route("/publish-package").post(agentMiddleware, publishPackage);
 agentRouter.route("/delete-acc").delete(agentMiddleware, deleteAccout);
 agentRouter.route("/get-all-packages").get(agentMiddleware, getAllPackages);
+agentRouter.route("/get-all-bookings").get(agentMiddleware, getAllBookings);
+agentRouter
+  .route("/get-package-bookings")
+  .post(agentMiddleware, getPackageBookings);
 agentRouter.route("/get-profile").get(agentMiddleware, getProfile);
 agentRouter.route("/get-all-pkgs").get(agentMiddleware, getAllPackages);
 agentRouter.route("/update-profile").post(agentMiddleware, updateProfile);

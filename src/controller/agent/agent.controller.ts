@@ -5,11 +5,15 @@ import { getAllPackages } from "./getAllPackages.controller.js";
 import { getProfile } from "./getProfile.controller.js";
 import { updateProfile } from "./updateProfile.controller.js";
 import { updatePackage } from "./updatePackage.controller.js";
+import { getAllBookings } from "./getAllBooking.controller.js";
+import { getPackageBookings } from "./getApackageBookings.controller.js";
 export {
   agentRegister,
   publishPackage,
   agentLogIn,
   getAllPackages,
+  getAllBookings,
+  getPackageBookings,
   getProfile,
   updateProfile,
   updatePackage,
