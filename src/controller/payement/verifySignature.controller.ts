@@ -45,11 +45,12 @@ const verifyPaymetn = asyncHandler(async (req: Request, res: Response) => {
   }
 
   const result = await db.$transaction(async (tx) => {
-    // Update payment status
+    // Update payment status and mark as processed
     const updatedPayment = await tx.bb_payment.update({
       where: { id: paymentId as string },
       data: {
         status: PaymentStatus.SUCCESS,
+        processedAt: new Date(),
       },
     });
 
@@ -58,7 +59,6 @@ const verifyPaymetn = asyncHandler(async (req: Request, res: Response) => {
       where: { id: bookingId },
       data: {
         status: BookingStatus.CONFIRMED,
-        paymentStatus: PaymentStatus.SUCCESS,
         updatedAt: new Date(),
       },
       include: {

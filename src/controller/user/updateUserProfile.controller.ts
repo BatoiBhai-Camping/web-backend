@@ -72,48 +72,53 @@ const updateUserProfile = asyncHandler(async (req: Request, res: Response) => {
     }
   }
 
-  // Handle address updates/creation
-  if (data.addresses && data.addresses.length > 0) {
-    for (const address of data.addresses) {
-      if (address.id) {
-        // Update existing address
+  // Handle address updates/creation (one-to-one relationship)
+  if (data.address) {
+    const existingAddress = await db.bb_address.findFirst({
+      where: { userId: userId! },
+    });
+
+    if (existingAddress) {
+      // Update existing address
+      const addressUpdateData: any = {};
+      if (data.address.addressType !== undefined)
+        addressUpdateData.addressType = data.address.addressType;
+      if (data.address.country !== undefined)
+        addressUpdateData.country = data.address.country;
+      if (data.address.state !== undefined)
+        addressUpdateData.state = data.address.state;
+      if (data.address.district !== undefined)
+        addressUpdateData.district = data.address.district;
+      if (data.address.pin !== undefined)
+        addressUpdateData.pin = data.address.pin;
+      if (data.address.city !== undefined)
+        addressUpdateData.city = data.address.city;
+      if (data.address.longitude !== undefined)
+        addressUpdateData.longitude = data.address.longitude;
+      if (data.address.latitude !== undefined)
+        addressUpdateData.latitude = data.address.latitude;
+
+      if (Object.keys(addressUpdateData).length > 0) {
         await db.bb_address.update({
-          where: {
-            id: address.id,
-          },
-          data: {
-            ...(address.addressType && { addressType: address.addressType }),
-            ...(address.country !== undefined && { country: address.country }),
-            ...(address.state !== undefined && { state: address.state }),
-            ...(address.district !== undefined && {
-              district: address.district,
-            }),
-            ...(address.pin !== undefined && { pin: address.pin }),
-            ...(address.city !== undefined && { city: address.city }),
-            ...(address.longitude !== undefined && {
-              longitude: address.longitude,
-            }),
-            ...(address.latitude !== undefined && {
-              latitude: address.latitude,
-            }),
-          },
-        });
-      } else {
-        // Create new address
-        await db.bb_address.create({
-          data: {
-            userId: userId!,
-            addressType: address.addressType || "PERMANENT",
-            country: address.country!,
-            state: address.state!,
-            district: address.district!,
-            pin: address.pin!,
-            city: address.city!,
-            longitude: address.longitude!,
-            latitude: address.latitude!,
-          },
+          where: { id: existingAddress.id },
+          data: addressUpdateData,
         });
       }
+    } else {
+      // Create new address
+      await db.bb_address.create({
+        data: {
+          userId: userId!,
+          addressType: data.address.addressType || "PERMANENT",
+          country: data.address.country || "",
+          state: data.address.state || null,
+          district: data.address.district || null,
+          pin: data.address.pin || null,
+          city: data.address.city || null,
+          longitude: data.address.longitude || null,
+          latitude: data.address.latitude || null,
+        },
+      });
     }
   }
 

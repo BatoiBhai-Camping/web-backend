@@ -252,6 +252,8 @@ export type Bb_addressOrderByWithRelationInput = {
 
 export type Bb_addressWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  userId?: string
+  travelPackageId?: string
   AND?: Prisma.Bb_addressWhereInput | Prisma.Bb_addressWhereInput[]
   OR?: Prisma.Bb_addressWhereInput[]
   NOT?: Prisma.Bb_addressWhereInput | Prisma.Bb_addressWhereInput[]
@@ -263,11 +265,9 @@ export type Bb_addressWhereUniqueInput = Prisma.AtLeast<{
   city?: Prisma.StringNullableFilter<"Bb_address"> | string | null
   longitude?: Prisma.StringNullableFilter<"Bb_address"> | string | null
   latitude?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  userId?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  travelPackageId?: Prisma.StringNullableFilter<"Bb_address"> | string | null
   user?: Prisma.XOR<Prisma.Bb_userNullableScalarRelationFilter, Prisma.Bb_userWhereInput> | null
   travelPackage?: Prisma.XOR<Prisma.Bb_travelPackageNullableScalarRelationFilter, Prisma.Bb_travelPackageWhereInput> | null
-}, "id">
+}, "id" | "userId" | "travelPackageId">
 
 export type Bb_addressOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -399,14 +399,9 @@ export type Bb_addressUncheckedUpdateManyInput = {
   travelPackageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type Bb_addressListRelationFilter = {
-  every?: Prisma.Bb_addressWhereInput
-  some?: Prisma.Bb_addressWhereInput
-  none?: Prisma.Bb_addressWhereInput
-}
-
-export type Bb_addressOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type Bb_addressNullableScalarRelationFilter = {
+  is?: Prisma.Bb_addressWhereInput | null
+  isNot?: Prisma.Bb_addressWhereInput | null
 }
 
 export type Bb_addressCountOrderByAggregateInput = {
@@ -451,92 +446,72 @@ export type Bb_addressMinOrderByAggregateInput = {
   travelPackageId?: Prisma.SortOrder
 }
 
-export type Bb_addressCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput> | Prisma.Bb_addressCreateWithoutUserInput[] | Prisma.Bb_addressUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutUserInput | Prisma.Bb_addressCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.Bb_addressCreateManyUserInputEnvelope
-  connect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
+export type Bb_addressCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutUserInput
+  connect?: Prisma.Bb_addressWhereUniqueInput
 }
 
-export type Bb_addressUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput> | Prisma.Bb_addressCreateWithoutUserInput[] | Prisma.Bb_addressUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutUserInput | Prisma.Bb_addressCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.Bb_addressCreateManyUserInputEnvelope
-  connect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
+export type Bb_addressUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutUserInput
+  connect?: Prisma.Bb_addressWhereUniqueInput
 }
 
-export type Bb_addressUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput> | Prisma.Bb_addressCreateWithoutUserInput[] | Prisma.Bb_addressUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutUserInput | Prisma.Bb_addressCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.Bb_addressUpsertWithWhereUniqueWithoutUserInput | Prisma.Bb_addressUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.Bb_addressCreateManyUserInputEnvelope
-  set?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  disconnect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  delete?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  connect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  update?: Prisma.Bb_addressUpdateWithWhereUniqueWithoutUserInput | Prisma.Bb_addressUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.Bb_addressUpdateManyWithWhereWithoutUserInput | Prisma.Bb_addressUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.Bb_addressScalarWhereInput | Prisma.Bb_addressScalarWhereInput[]
+export type Bb_addressUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutUserInput
+  upsert?: Prisma.Bb_addressUpsertWithoutUserInput
+  disconnect?: Prisma.Bb_addressWhereInput | boolean
+  delete?: Prisma.Bb_addressWhereInput | boolean
+  connect?: Prisma.Bb_addressWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.Bb_addressUpdateToOneWithWhereWithoutUserInput, Prisma.Bb_addressUpdateWithoutUserInput>, Prisma.Bb_addressUncheckedUpdateWithoutUserInput>
 }
 
-export type Bb_addressUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput> | Prisma.Bb_addressCreateWithoutUserInput[] | Prisma.Bb_addressUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutUserInput | Prisma.Bb_addressCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.Bb_addressUpsertWithWhereUniqueWithoutUserInput | Prisma.Bb_addressUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.Bb_addressCreateManyUserInputEnvelope
-  set?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  disconnect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  delete?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  connect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  update?: Prisma.Bb_addressUpdateWithWhereUniqueWithoutUserInput | Prisma.Bb_addressUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.Bb_addressUpdateManyWithWhereWithoutUserInput | Prisma.Bb_addressUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.Bb_addressScalarWhereInput | Prisma.Bb_addressScalarWhereInput[]
+export type Bb_addressUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutUserInput
+  upsert?: Prisma.Bb_addressUpsertWithoutUserInput
+  disconnect?: Prisma.Bb_addressWhereInput | boolean
+  delete?: Prisma.Bb_addressWhereInput | boolean
+  connect?: Prisma.Bb_addressWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.Bb_addressUpdateToOneWithWhereWithoutUserInput, Prisma.Bb_addressUpdateWithoutUserInput>, Prisma.Bb_addressUncheckedUpdateWithoutUserInput>
 }
 
 export type EnumAddressTypeFieldUpdateOperationsInput = {
   set?: $Enums.AddressType
 }
 
-export type Bb_addressCreateNestedManyWithoutTravelPackageInput = {
-  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput> | Prisma.Bb_addressCreateWithoutTravelPackageInput[] | Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput[]
-  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput | Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput[]
-  createMany?: Prisma.Bb_addressCreateManyTravelPackageInputEnvelope
-  connect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
+export type Bb_addressCreateNestedOneWithoutTravelPackageInput = {
+  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput>
+  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput
+  connect?: Prisma.Bb_addressWhereUniqueInput
 }
 
-export type Bb_addressUncheckedCreateNestedManyWithoutTravelPackageInput = {
-  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput> | Prisma.Bb_addressCreateWithoutTravelPackageInput[] | Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput[]
-  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput | Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput[]
-  createMany?: Prisma.Bb_addressCreateManyTravelPackageInputEnvelope
-  connect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
+export type Bb_addressUncheckedCreateNestedOneWithoutTravelPackageInput = {
+  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput>
+  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput
+  connect?: Prisma.Bb_addressWhereUniqueInput
 }
 
-export type Bb_addressUpdateManyWithoutTravelPackageNestedInput = {
-  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput> | Prisma.Bb_addressCreateWithoutTravelPackageInput[] | Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput[]
-  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput | Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput[]
-  upsert?: Prisma.Bb_addressUpsertWithWhereUniqueWithoutTravelPackageInput | Prisma.Bb_addressUpsertWithWhereUniqueWithoutTravelPackageInput[]
-  createMany?: Prisma.Bb_addressCreateManyTravelPackageInputEnvelope
-  set?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  disconnect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  delete?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  connect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  update?: Prisma.Bb_addressUpdateWithWhereUniqueWithoutTravelPackageInput | Prisma.Bb_addressUpdateWithWhereUniqueWithoutTravelPackageInput[]
-  updateMany?: Prisma.Bb_addressUpdateManyWithWhereWithoutTravelPackageInput | Prisma.Bb_addressUpdateManyWithWhereWithoutTravelPackageInput[]
-  deleteMany?: Prisma.Bb_addressScalarWhereInput | Prisma.Bb_addressScalarWhereInput[]
+export type Bb_addressUpdateOneWithoutTravelPackageNestedInput = {
+  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput>
+  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput
+  upsert?: Prisma.Bb_addressUpsertWithoutTravelPackageInput
+  disconnect?: Prisma.Bb_addressWhereInput | boolean
+  delete?: Prisma.Bb_addressWhereInput | boolean
+  connect?: Prisma.Bb_addressWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.Bb_addressUpdateToOneWithWhereWithoutTravelPackageInput, Prisma.Bb_addressUpdateWithoutTravelPackageInput>, Prisma.Bb_addressUncheckedUpdateWithoutTravelPackageInput>
 }
 
-export type Bb_addressUncheckedUpdateManyWithoutTravelPackageNestedInput = {
-  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput> | Prisma.Bb_addressCreateWithoutTravelPackageInput[] | Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput[]
-  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput | Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput[]
-  upsert?: Prisma.Bb_addressUpsertWithWhereUniqueWithoutTravelPackageInput | Prisma.Bb_addressUpsertWithWhereUniqueWithoutTravelPackageInput[]
-  createMany?: Prisma.Bb_addressCreateManyTravelPackageInputEnvelope
-  set?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  disconnect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  delete?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  connect?: Prisma.Bb_addressWhereUniqueInput | Prisma.Bb_addressWhereUniqueInput[]
-  update?: Prisma.Bb_addressUpdateWithWhereUniqueWithoutTravelPackageInput | Prisma.Bb_addressUpdateWithWhereUniqueWithoutTravelPackageInput[]
-  updateMany?: Prisma.Bb_addressUpdateManyWithWhereWithoutTravelPackageInput | Prisma.Bb_addressUpdateManyWithWhereWithoutTravelPackageInput[]
-  deleteMany?: Prisma.Bb_addressScalarWhereInput | Prisma.Bb_addressScalarWhereInput[]
+export type Bb_addressUncheckedUpdateOneWithoutTravelPackageNestedInput = {
+  create?: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput>
+  connectOrCreate?: Prisma.Bb_addressCreateOrConnectWithoutTravelPackageInput
+  upsert?: Prisma.Bb_addressUpsertWithoutTravelPackageInput
+  disconnect?: Prisma.Bb_addressWhereInput | boolean
+  delete?: Prisma.Bb_addressWhereInput | boolean
+  connect?: Prisma.Bb_addressWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.Bb_addressUpdateToOneWithWhereWithoutTravelPackageInput, Prisma.Bb_addressUpdateWithoutTravelPackageInput>, Prisma.Bb_addressUncheckedUpdateWithoutTravelPackageInput>
 }
 
 export type Bb_addressCreateWithoutUserInput = {
@@ -570,42 +545,41 @@ export type Bb_addressCreateOrConnectWithoutUserInput = {
   create: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput>
 }
 
-export type Bb_addressCreateManyUserInputEnvelope = {
-  data: Prisma.Bb_addressCreateManyUserInput | Prisma.Bb_addressCreateManyUserInput[]
-  skipDuplicates?: boolean
-}
-
-export type Bb_addressUpsertWithWhereUniqueWithoutUserInput = {
-  where: Prisma.Bb_addressWhereUniqueInput
+export type Bb_addressUpsertWithoutUserInput = {
   update: Prisma.XOR<Prisma.Bb_addressUpdateWithoutUserInput, Prisma.Bb_addressUncheckedUpdateWithoutUserInput>
   create: Prisma.XOR<Prisma.Bb_addressCreateWithoutUserInput, Prisma.Bb_addressUncheckedCreateWithoutUserInput>
+  where?: Prisma.Bb_addressWhereInput
 }
 
-export type Bb_addressUpdateWithWhereUniqueWithoutUserInput = {
-  where: Prisma.Bb_addressWhereUniqueInput
+export type Bb_addressUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.Bb_addressWhereInput
   data: Prisma.XOR<Prisma.Bb_addressUpdateWithoutUserInput, Prisma.Bb_addressUncheckedUpdateWithoutUserInput>
 }
 
-export type Bb_addressUpdateManyWithWhereWithoutUserInput = {
-  where: Prisma.Bb_addressScalarWhereInput
-  data: Prisma.XOR<Prisma.Bb_addressUpdateManyMutationInput, Prisma.Bb_addressUncheckedUpdateManyWithoutUserInput>
+export type Bb_addressUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  addressType?: Prisma.EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  longitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  travelPackage?: Prisma.Bb_travelPackageUpdateOneWithoutAddressNestedInput
 }
 
-export type Bb_addressScalarWhereInput = {
-  AND?: Prisma.Bb_addressScalarWhereInput | Prisma.Bb_addressScalarWhereInput[]
-  OR?: Prisma.Bb_addressScalarWhereInput[]
-  NOT?: Prisma.Bb_addressScalarWhereInput | Prisma.Bb_addressScalarWhereInput[]
-  id?: Prisma.StringFilter<"Bb_address"> | string
-  addressType?: Prisma.EnumAddressTypeFilter<"Bb_address"> | $Enums.AddressType
-  country?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  state?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  district?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  pin?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  city?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  longitude?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  latitude?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  userId?: Prisma.StringNullableFilter<"Bb_address"> | string | null
-  travelPackageId?: Prisma.StringNullableFilter<"Bb_address"> | string | null
+export type Bb_addressUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  addressType?: Prisma.EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  longitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  travelPackageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type Bb_addressCreateWithoutTravelPackageInput = {
@@ -639,90 +613,15 @@ export type Bb_addressCreateOrConnectWithoutTravelPackageInput = {
   create: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput>
 }
 
-export type Bb_addressCreateManyTravelPackageInputEnvelope = {
-  data: Prisma.Bb_addressCreateManyTravelPackageInput | Prisma.Bb_addressCreateManyTravelPackageInput[]
-  skipDuplicates?: boolean
-}
-
-export type Bb_addressUpsertWithWhereUniqueWithoutTravelPackageInput = {
-  where: Prisma.Bb_addressWhereUniqueInput
+export type Bb_addressUpsertWithoutTravelPackageInput = {
   update: Prisma.XOR<Prisma.Bb_addressUpdateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedUpdateWithoutTravelPackageInput>
   create: Prisma.XOR<Prisma.Bb_addressCreateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedCreateWithoutTravelPackageInput>
+  where?: Prisma.Bb_addressWhereInput
 }
 
-export type Bb_addressUpdateWithWhereUniqueWithoutTravelPackageInput = {
-  where: Prisma.Bb_addressWhereUniqueInput
+export type Bb_addressUpdateToOneWithWhereWithoutTravelPackageInput = {
+  where?: Prisma.Bb_addressWhereInput
   data: Prisma.XOR<Prisma.Bb_addressUpdateWithoutTravelPackageInput, Prisma.Bb_addressUncheckedUpdateWithoutTravelPackageInput>
-}
-
-export type Bb_addressUpdateManyWithWhereWithoutTravelPackageInput = {
-  where: Prisma.Bb_addressScalarWhereInput
-  data: Prisma.XOR<Prisma.Bb_addressUpdateManyMutationInput, Prisma.Bb_addressUncheckedUpdateManyWithoutTravelPackageInput>
-}
-
-export type Bb_addressCreateManyUserInput = {
-  id?: string
-  addressType?: $Enums.AddressType
-  country?: string | null
-  state?: string | null
-  district?: string | null
-  pin?: string | null
-  city?: string | null
-  longitude?: string | null
-  latitude?: string | null
-  travelPackageId?: string | null
-}
-
-export type Bb_addressUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  addressType?: Prisma.EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
-  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  longitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  travelPackage?: Prisma.Bb_travelPackageUpdateOneWithoutAddressNestedInput
-}
-
-export type Bb_addressUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  addressType?: Prisma.EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
-  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  longitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  travelPackageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type Bb_addressUncheckedUpdateManyWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  addressType?: Prisma.EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
-  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  longitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  travelPackageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type Bb_addressCreateManyTravelPackageInput = {
-  id?: string
-  addressType?: $Enums.AddressType
-  country?: string | null
-  state?: string | null
-  district?: string | null
-  pin?: string | null
-  city?: string | null
-  longitude?: string | null
-  latitude?: string | null
-  userId?: string | null
 }
 
 export type Bb_addressUpdateWithoutTravelPackageInput = {
@@ -739,19 +638,6 @@ export type Bb_addressUpdateWithoutTravelPackageInput = {
 }
 
 export type Bb_addressUncheckedUpdateWithoutTravelPackageInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  addressType?: Prisma.EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
-  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  longitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type Bb_addressUncheckedUpdateManyWithoutTravelPackageInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   addressType?: Prisma.EnumAddressTypeFieldUpdateOperationsInput | $Enums.AddressType
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null

@@ -28,23 +28,21 @@ export type AggregateBb_travelPackage = {
 
 export type Bb_travelPackageAvgAggregateOutputType = {
   pricePerPerson: number | null
-  discountAmount: number | null
   discountPercentage: number | null
-  taxPercentage: number | null
+  gstPercentage: number | null
   totalSeats: number | null
   seatsAvailable: number | null
-  seatBooked: number | null
+  seatsBooked: number | null
   durationDays: number | null
 }
 
 export type Bb_travelPackageSumAggregateOutputType = {
   pricePerPerson: number | null
-  discountAmount: number | null
   discountPercentage: number | null
-  taxPercentage: number | null
+  gstPercentage: number | null
   totalSeats: number | null
   seatsAvailable: number | null
-  seatBooked: number | null
+  seatsBooked: number | null
   durationDays: number | null
 }
 
@@ -55,21 +53,16 @@ export type Bb_travelPackageMinAggregateOutputType = {
   description: string | null
   pricePerPerson: number | null
   packageApprovedStatus: $Enums.PackageApprovedStatus | null
-  discountAmount: number | null
   discountPercentage: number | null
-  withTax: boolean | null
-  taxPercentage: number | null
+  gstPercentage: number | null
   totalSeats: number | null
   seatsAvailable: number | null
-  seatBooked: number | null
+  seatsBooked: number | null
   destination: string | null
   durationDays: number | null
+  packageType: $Enums.PackageType | null
   startDate: Date | null
   endDate: Date | null
-  bookingActiveFrom: Date | null
-  bookingEndAt: Date | null
-  packagePolicies: string | null
-  cancellationPolicies: string | null
   packageBannerImageId: string | null
   isBookingActive: boolean | null
   isDeleted: boolean | null
@@ -84,21 +77,16 @@ export type Bb_travelPackageMaxAggregateOutputType = {
   description: string | null
   pricePerPerson: number | null
   packageApprovedStatus: $Enums.PackageApprovedStatus | null
-  discountAmount: number | null
   discountPercentage: number | null
-  withTax: boolean | null
-  taxPercentage: number | null
+  gstPercentage: number | null
   totalSeats: number | null
   seatsAvailable: number | null
-  seatBooked: number | null
+  seatsBooked: number | null
   destination: string | null
   durationDays: number | null
+  packageType: $Enums.PackageType | null
   startDate: Date | null
   endDate: Date | null
-  bookingActiveFrom: Date | null
-  bookingEndAt: Date | null
-  packagePolicies: string | null
-  cancellationPolicies: string | null
   packageBannerImageId: string | null
   isBookingActive: boolean | null
   isDeleted: boolean | null
@@ -113,21 +101,16 @@ export type Bb_travelPackageCountAggregateOutputType = {
   description: number
   pricePerPerson: number
   packageApprovedStatus: number
-  discountAmount: number
   discountPercentage: number
-  withTax: number
-  taxPercentage: number
+  gstPercentage: number
   totalSeats: number
   seatsAvailable: number
-  seatBooked: number
+  seatsBooked: number
   destination: number
   durationDays: number
+  packageType: number
   startDate: number
   endDate: number
-  bookingActiveFrom: number
-  bookingEndAt: number
-  packagePolicies: number
-  cancellationPolicies: number
   packageBannerImageId: number
   isBookingActive: number
   isDeleted: number
@@ -140,23 +123,21 @@ export type Bb_travelPackageCountAggregateOutputType = {
 
 export type Bb_travelPackageAvgAggregateInputType = {
   pricePerPerson?: true
-  discountAmount?: true
   discountPercentage?: true
-  taxPercentage?: true
+  gstPercentage?: true
   totalSeats?: true
   seatsAvailable?: true
-  seatBooked?: true
+  seatsBooked?: true
   durationDays?: true
 }
 
 export type Bb_travelPackageSumAggregateInputType = {
   pricePerPerson?: true
-  discountAmount?: true
   discountPercentage?: true
-  taxPercentage?: true
+  gstPercentage?: true
   totalSeats?: true
   seatsAvailable?: true
-  seatBooked?: true
+  seatsBooked?: true
   durationDays?: true
 }
 
@@ -167,21 +148,16 @@ export type Bb_travelPackageMinAggregateInputType = {
   description?: true
   pricePerPerson?: true
   packageApprovedStatus?: true
-  discountAmount?: true
   discountPercentage?: true
-  withTax?: true
-  taxPercentage?: true
+  gstPercentage?: true
   totalSeats?: true
   seatsAvailable?: true
-  seatBooked?: true
+  seatsBooked?: true
   destination?: true
   durationDays?: true
+  packageType?: true
   startDate?: true
   endDate?: true
-  bookingActiveFrom?: true
-  bookingEndAt?: true
-  packagePolicies?: true
-  cancellationPolicies?: true
   packageBannerImageId?: true
   isBookingActive?: true
   isDeleted?: true
@@ -196,21 +172,16 @@ export type Bb_travelPackageMaxAggregateInputType = {
   description?: true
   pricePerPerson?: true
   packageApprovedStatus?: true
-  discountAmount?: true
   discountPercentage?: true
-  withTax?: true
-  taxPercentage?: true
+  gstPercentage?: true
   totalSeats?: true
   seatsAvailable?: true
-  seatBooked?: true
+  seatsBooked?: true
   destination?: true
   durationDays?: true
+  packageType?: true
   startDate?: true
   endDate?: true
-  bookingActiveFrom?: true
-  bookingEndAt?: true
-  packagePolicies?: true
-  cancellationPolicies?: true
   packageBannerImageId?: true
   isBookingActive?: true
   isDeleted?: true
@@ -225,21 +196,16 @@ export type Bb_travelPackageCountAggregateInputType = {
   description?: true
   pricePerPerson?: true
   packageApprovedStatus?: true
-  discountAmount?: true
   discountPercentage?: true
-  withTax?: true
-  taxPercentage?: true
+  gstPercentage?: true
   totalSeats?: true
   seatsAvailable?: true
-  seatBooked?: true
+  seatsBooked?: true
   destination?: true
   durationDays?: true
+  packageType?: true
   startDate?: true
   endDate?: true
-  bookingActiveFrom?: true
-  bookingEndAt?: true
-  packagePolicies?: true
-  cancellationPolicies?: true
   packageBannerImageId?: true
   isBookingActive?: true
   isDeleted?: true
@@ -342,21 +308,16 @@ export type Bb_travelPackageGroupByOutputType = {
   description: string
   pricePerPerson: number
   packageApprovedStatus: $Enums.PackageApprovedStatus
-  discountAmount: number | null
   discountPercentage: number | null
-  withTax: boolean | null
-  taxPercentage: number | null
+  gstPercentage: number | null
   totalSeats: number
   seatsAvailable: number
-  seatBooked: number
+  seatsBooked: number
   destination: string
   durationDays: number
+  packageType: $Enums.PackageType
   startDate: Date | null
   endDate: Date | null
-  bookingActiveFrom: Date
-  bookingEndAt: Date
-  packagePolicies: string
-  cancellationPolicies: string
   packageBannerImageId: string | null
   isBookingActive: boolean
   isDeleted: boolean
@@ -395,21 +356,16 @@ export type Bb_travelPackageWhereInput = {
   description?: Prisma.StringFilter<"Bb_travelPackage"> | string
   pricePerPerson?: Prisma.FloatFilter<"Bb_travelPackage"> | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFilter<"Bb_travelPackage"> | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   discountPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
-  withTax?: Prisma.BoolNullableFilter<"Bb_travelPackage"> | boolean | null
-  taxPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
+  gstPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   totalSeats?: Prisma.IntFilter<"Bb_travelPackage"> | number
   seatsAvailable?: Prisma.IntFilter<"Bb_travelPackage"> | number
-  seatBooked?: Prisma.IntFilter<"Bb_travelPackage"> | number
+  seatsBooked?: Prisma.IntFilter<"Bb_travelPackage"> | number
   destination?: Prisma.StringFilter<"Bb_travelPackage"> | string
   durationDays?: Prisma.IntFilter<"Bb_travelPackage"> | number
+  packageType?: Prisma.EnumPackageTypeFilter<"Bb_travelPackage"> | $Enums.PackageType
   startDate?: Prisma.DateTimeNullableFilter<"Bb_travelPackage"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Bb_travelPackage"> | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFilter<"Bb_travelPackage"> | Date | string
-  bookingEndAt?: Prisma.DateTimeFilter<"Bb_travelPackage"> | Date | string
-  packagePolicies?: Prisma.StringFilter<"Bb_travelPackage"> | string
-  cancellationPolicies?: Prisma.StringFilter<"Bb_travelPackage"> | string
   packageBannerImageId?: Prisma.StringNullableFilter<"Bb_travelPackage"> | string | null
   isBookingActive?: Prisma.BoolFilter<"Bb_travelPackage"> | boolean
   isDeleted?: Prisma.BoolFilter<"Bb_travelPackage"> | boolean
@@ -418,7 +374,7 @@ export type Bb_travelPackageWhereInput = {
   tags?: Prisma.StringNullableListFilter<"Bb_travelPackage">
   agent?: Prisma.XOR<Prisma.Bb_agentProfileScalarRelationFilter, Prisma.Bb_agentProfileWhereInput>
   PackageBannerImage?: Prisma.XOR<Prisma.Bb_imageNullableScalarRelationFilter, Prisma.Bb_imageWhereInput> | null
-  address?: Prisma.Bb_addressListRelationFilter
+  address?: Prisma.XOR<Prisma.Bb_addressNullableScalarRelationFilter, Prisma.Bb_addressWhereInput> | null
   reviews?: Prisma.Bb_packageReviewListRelationFilter
   itinerary?: Prisma.Bb_itineraryDayListRelationFilter
   bookings?: Prisma.Bb_bookingListRelationFilter
@@ -432,21 +388,16 @@ export type Bb_travelPackageOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   packageApprovedStatus?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   discountPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
-  withTax?: Prisma.SortOrderInput | Prisma.SortOrder
-  taxPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   seatsAvailable?: Prisma.SortOrder
-  seatBooked?: Prisma.SortOrder
+  seatsBooked?: Prisma.SortOrder
   destination?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
-  bookingActiveFrom?: Prisma.SortOrder
-  bookingEndAt?: Prisma.SortOrder
-  packagePolicies?: Prisma.SortOrder
-  cancellationPolicies?: Prisma.SortOrder
   packageBannerImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   isBookingActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -455,7 +406,7 @@ export type Bb_travelPackageOrderByWithRelationInput = {
   tags?: Prisma.SortOrder
   agent?: Prisma.Bb_agentProfileOrderByWithRelationInput
   PackageBannerImage?: Prisma.Bb_imageOrderByWithRelationInput
-  address?: Prisma.Bb_addressOrderByRelationAggregateInput
+  address?: Prisma.Bb_addressOrderByWithRelationInput
   reviews?: Prisma.Bb_packageReviewOrderByRelationAggregateInput
   itinerary?: Prisma.Bb_itineraryDayOrderByRelationAggregateInput
   bookings?: Prisma.Bb_bookingOrderByRelationAggregateInput
@@ -473,21 +424,16 @@ export type Bb_travelPackageWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Bb_travelPackage"> | string
   pricePerPerson?: Prisma.FloatFilter<"Bb_travelPackage"> | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFilter<"Bb_travelPackage"> | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   discountPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
-  withTax?: Prisma.BoolNullableFilter<"Bb_travelPackage"> | boolean | null
-  taxPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
+  gstPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   totalSeats?: Prisma.IntFilter<"Bb_travelPackage"> | number
   seatsAvailable?: Prisma.IntFilter<"Bb_travelPackage"> | number
-  seatBooked?: Prisma.IntFilter<"Bb_travelPackage"> | number
+  seatsBooked?: Prisma.IntFilter<"Bb_travelPackage"> | number
   destination?: Prisma.StringFilter<"Bb_travelPackage"> | string
   durationDays?: Prisma.IntFilter<"Bb_travelPackage"> | number
+  packageType?: Prisma.EnumPackageTypeFilter<"Bb_travelPackage"> | $Enums.PackageType
   startDate?: Prisma.DateTimeNullableFilter<"Bb_travelPackage"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Bb_travelPackage"> | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFilter<"Bb_travelPackage"> | Date | string
-  bookingEndAt?: Prisma.DateTimeFilter<"Bb_travelPackage"> | Date | string
-  packagePolicies?: Prisma.StringFilter<"Bb_travelPackage"> | string
-  cancellationPolicies?: Prisma.StringFilter<"Bb_travelPackage"> | string
   isBookingActive?: Prisma.BoolFilter<"Bb_travelPackage"> | boolean
   isDeleted?: Prisma.BoolFilter<"Bb_travelPackage"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Bb_travelPackage"> | Date | string
@@ -495,7 +441,7 @@ export type Bb_travelPackageWhereUniqueInput = Prisma.AtLeast<{
   tags?: Prisma.StringNullableListFilter<"Bb_travelPackage">
   agent?: Prisma.XOR<Prisma.Bb_agentProfileScalarRelationFilter, Prisma.Bb_agentProfileWhereInput>
   PackageBannerImage?: Prisma.XOR<Prisma.Bb_imageNullableScalarRelationFilter, Prisma.Bb_imageWhereInput> | null
-  address?: Prisma.Bb_addressListRelationFilter
+  address?: Prisma.XOR<Prisma.Bb_addressNullableScalarRelationFilter, Prisma.Bb_addressWhereInput> | null
   reviews?: Prisma.Bb_packageReviewListRelationFilter
   itinerary?: Prisma.Bb_itineraryDayListRelationFilter
   bookings?: Prisma.Bb_bookingListRelationFilter
@@ -509,21 +455,16 @@ export type Bb_travelPackageOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   packageApprovedStatus?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   discountPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
-  withTax?: Prisma.SortOrderInput | Prisma.SortOrder
-  taxPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrderInput | Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   seatsAvailable?: Prisma.SortOrder
-  seatBooked?: Prisma.SortOrder
+  seatsBooked?: Prisma.SortOrder
   destination?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
-  bookingActiveFrom?: Prisma.SortOrder
-  bookingEndAt?: Prisma.SortOrder
-  packagePolicies?: Prisma.SortOrder
-  cancellationPolicies?: Prisma.SortOrder
   packageBannerImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   isBookingActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -547,21 +488,16 @@ export type Bb_travelPackageScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Bb_travelPackage"> | string
   pricePerPerson?: Prisma.FloatWithAggregatesFilter<"Bb_travelPackage"> | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusWithAggregatesFilter<"Bb_travelPackage"> | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.IntNullableWithAggregatesFilter<"Bb_travelPackage"> | number | null
   discountPercentage?: Prisma.IntNullableWithAggregatesFilter<"Bb_travelPackage"> | number | null
-  withTax?: Prisma.BoolNullableWithAggregatesFilter<"Bb_travelPackage"> | boolean | null
-  taxPercentage?: Prisma.IntNullableWithAggregatesFilter<"Bb_travelPackage"> | number | null
+  gstPercentage?: Prisma.IntNullableWithAggregatesFilter<"Bb_travelPackage"> | number | null
   totalSeats?: Prisma.IntWithAggregatesFilter<"Bb_travelPackage"> | number
   seatsAvailable?: Prisma.IntWithAggregatesFilter<"Bb_travelPackage"> | number
-  seatBooked?: Prisma.IntWithAggregatesFilter<"Bb_travelPackage"> | number
+  seatsBooked?: Prisma.IntWithAggregatesFilter<"Bb_travelPackage"> | number
   destination?: Prisma.StringWithAggregatesFilter<"Bb_travelPackage"> | string
   durationDays?: Prisma.IntWithAggregatesFilter<"Bb_travelPackage"> | number
+  packageType?: Prisma.EnumPackageTypeWithAggregatesFilter<"Bb_travelPackage"> | $Enums.PackageType
   startDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Bb_travelPackage"> | Date | string | null
   endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Bb_travelPackage"> | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeWithAggregatesFilter<"Bb_travelPackage"> | Date | string
-  bookingEndAt?: Prisma.DateTimeWithAggregatesFilter<"Bb_travelPackage"> | Date | string
-  packagePolicies?: Prisma.StringWithAggregatesFilter<"Bb_travelPackage"> | string
-  cancellationPolicies?: Prisma.StringWithAggregatesFilter<"Bb_travelPackage"> | string
   packageBannerImageId?: Prisma.StringNullableWithAggregatesFilter<"Bb_travelPackage"> | string | null
   isBookingActive?: Prisma.BoolWithAggregatesFilter<"Bb_travelPackage"> | boolean
   isDeleted?: Prisma.BoolWithAggregatesFilter<"Bb_travelPackage"> | boolean
@@ -576,21 +512,16 @@ export type Bb_travelPackageCreateInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
@@ -598,7 +529,7 @@ export type Bb_travelPackageCreateInput = {
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
   agent: Prisma.Bb_agentProfileCreateNestedOneWithoutPackagesInput
   PackageBannerImage?: Prisma.Bb_imageCreateNestedOneWithoutPackageBannerInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutTravelPackageInput
@@ -612,28 +543,23 @@ export type Bb_travelPackageUncheckedCreateInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   packageBannerImageId?: string | null
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewUncheckedCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutTravelPackageInput
@@ -646,21 +572,16 @@ export type Bb_travelPackageUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -668,7 +589,7 @@ export type Bb_travelPackageUpdateInput = {
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
   agent?: Prisma.Bb_agentProfileUpdateOneRequiredWithoutPackagesNestedInput
   PackageBannerImage?: Prisma.Bb_imageUpdateOneWithoutPackageBannerNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutTravelPackageNestedInput
@@ -682,28 +603,23 @@ export type Bb_travelPackageUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   packageBannerImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUncheckedUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutTravelPackageNestedInput
@@ -717,21 +633,16 @@ export type Bb_travelPackageCreateManyInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   packageBannerImageId?: string | null
   isBookingActive?: boolean
   isDeleted?: boolean
@@ -746,21 +657,16 @@ export type Bb_travelPackageUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -775,21 +681,16 @@ export type Bb_travelPackageUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   packageBannerImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -828,21 +729,16 @@ export type Bb_travelPackageCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   packageApprovedStatus?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
-  withTax?: Prisma.SortOrder
-  taxPercentage?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   seatsAvailable?: Prisma.SortOrder
-  seatBooked?: Prisma.SortOrder
+  seatsBooked?: Prisma.SortOrder
   destination?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
-  bookingActiveFrom?: Prisma.SortOrder
-  bookingEndAt?: Prisma.SortOrder
-  packagePolicies?: Prisma.SortOrder
-  cancellationPolicies?: Prisma.SortOrder
   packageBannerImageId?: Prisma.SortOrder
   isBookingActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -853,12 +749,11 @@ export type Bb_travelPackageCountOrderByAggregateInput = {
 
 export type Bb_travelPackageAvgOrderByAggregateInput = {
   pricePerPerson?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
-  taxPercentage?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   seatsAvailable?: Prisma.SortOrder
-  seatBooked?: Prisma.SortOrder
+  seatsBooked?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
 }
 
@@ -869,21 +764,16 @@ export type Bb_travelPackageMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   packageApprovedStatus?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
-  withTax?: Prisma.SortOrder
-  taxPercentage?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   seatsAvailable?: Prisma.SortOrder
-  seatBooked?: Prisma.SortOrder
+  seatsBooked?: Prisma.SortOrder
   destination?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
-  bookingActiveFrom?: Prisma.SortOrder
-  bookingEndAt?: Prisma.SortOrder
-  packagePolicies?: Prisma.SortOrder
-  cancellationPolicies?: Prisma.SortOrder
   packageBannerImageId?: Prisma.SortOrder
   isBookingActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -898,21 +788,16 @@ export type Bb_travelPackageMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   pricePerPerson?: Prisma.SortOrder
   packageApprovedStatus?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
-  withTax?: Prisma.SortOrder
-  taxPercentage?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   seatsAvailable?: Prisma.SortOrder
-  seatBooked?: Prisma.SortOrder
+  seatsBooked?: Prisma.SortOrder
   destination?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
-  bookingActiveFrom?: Prisma.SortOrder
-  bookingEndAt?: Prisma.SortOrder
-  packagePolicies?: Prisma.SortOrder
-  cancellationPolicies?: Prisma.SortOrder
   packageBannerImageId?: Prisma.SortOrder
   isBookingActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -922,12 +807,11 @@ export type Bb_travelPackageMinOrderByAggregateInput = {
 
 export type Bb_travelPackageSumOrderByAggregateInput = {
   pricePerPerson?: Prisma.SortOrder
-  discountAmount?: Prisma.SortOrder
   discountPercentage?: Prisma.SortOrder
-  taxPercentage?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   seatsAvailable?: Prisma.SortOrder
-  seatBooked?: Prisma.SortOrder
+  seatsBooked?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
 }
 
@@ -1018,16 +902,16 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableBoolFieldUpdateOperationsInput = {
-  set?: boolean | null
-}
-
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type EnumPackageTypeFieldUpdateOperationsInput = {
+  set?: $Enums.PackageType
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -1135,28 +1019,23 @@ export type Bb_travelPackageCreateWithoutAgentInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
   PackageBannerImage?: Prisma.Bb_imageCreateNestedOneWithoutPackageBannerInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutTravelPackageInput
@@ -1169,28 +1048,23 @@ export type Bb_travelPackageUncheckedCreateWithoutAgentInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   packageBannerImageId?: string | null
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewUncheckedCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutTravelPackageInput
@@ -1233,21 +1107,16 @@ export type Bb_travelPackageScalarWhereInput = {
   description?: Prisma.StringFilter<"Bb_travelPackage"> | string
   pricePerPerson?: Prisma.FloatFilter<"Bb_travelPackage"> | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFilter<"Bb_travelPackage"> | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   discountPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
-  withTax?: Prisma.BoolNullableFilter<"Bb_travelPackage"> | boolean | null
-  taxPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
+  gstPercentage?: Prisma.IntNullableFilter<"Bb_travelPackage"> | number | null
   totalSeats?: Prisma.IntFilter<"Bb_travelPackage"> | number
   seatsAvailable?: Prisma.IntFilter<"Bb_travelPackage"> | number
-  seatBooked?: Prisma.IntFilter<"Bb_travelPackage"> | number
+  seatsBooked?: Prisma.IntFilter<"Bb_travelPackage"> | number
   destination?: Prisma.StringFilter<"Bb_travelPackage"> | string
   durationDays?: Prisma.IntFilter<"Bb_travelPackage"> | number
+  packageType?: Prisma.EnumPackageTypeFilter<"Bb_travelPackage"> | $Enums.PackageType
   startDate?: Prisma.DateTimeNullableFilter<"Bb_travelPackage"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Bb_travelPackage"> | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFilter<"Bb_travelPackage"> | Date | string
-  bookingEndAt?: Prisma.DateTimeFilter<"Bb_travelPackage"> | Date | string
-  packagePolicies?: Prisma.StringFilter<"Bb_travelPackage"> | string
-  cancellationPolicies?: Prisma.StringFilter<"Bb_travelPackage"> | string
   packageBannerImageId?: Prisma.StringNullableFilter<"Bb_travelPackage"> | string | null
   isBookingActive?: Prisma.BoolFilter<"Bb_travelPackage"> | boolean
   isDeleted?: Prisma.BoolFilter<"Bb_travelPackage"> | boolean
@@ -1262,21 +1131,16 @@ export type Bb_travelPackageCreateWithoutAddressInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
@@ -1297,21 +1161,16 @@ export type Bb_travelPackageUncheckedCreateWithoutAddressInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   packageBannerImageId?: string | null
   isBookingActive?: boolean
   isDeleted?: boolean
@@ -1346,21 +1205,16 @@ export type Bb_travelPackageUpdateWithoutAddressInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1381,21 +1235,16 @@ export type Bb_travelPackageUncheckedUpdateWithoutAddressInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   packageBannerImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1414,28 +1263,23 @@ export type Bb_travelPackageCreateWithoutPackageBannerImageInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
   agent: Prisma.Bb_agentProfileCreateNestedOneWithoutPackagesInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutTravelPackageInput
@@ -1449,27 +1293,22 @@ export type Bb_travelPackageUncheckedCreateWithoutPackageBannerImageInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewUncheckedCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutTravelPackageInput
@@ -1487,21 +1326,16 @@ export type Bb_travelPackageCreateWithoutPackagesImagesInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
@@ -1509,7 +1343,7 @@ export type Bb_travelPackageCreateWithoutPackagesImagesInput = {
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
   agent: Prisma.Bb_agentProfileCreateNestedOneWithoutPackagesInput
   PackageBannerImage?: Prisma.Bb_imageCreateNestedOneWithoutPackageBannerInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutTravelPackageInput
@@ -1522,28 +1356,23 @@ export type Bb_travelPackageUncheckedCreateWithoutPackagesImagesInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   packageBannerImageId?: string | null
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewUncheckedCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutTravelPackageInput
@@ -1571,28 +1400,23 @@ export type Bb_travelPackageUpdateWithoutPackageBannerImageInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
   agent?: Prisma.Bb_agentProfileUpdateOneRequiredWithoutPackagesNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutTravelPackageNestedInput
@@ -1606,27 +1430,22 @@ export type Bb_travelPackageUncheckedUpdateWithoutPackageBannerImageInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUncheckedUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutTravelPackageNestedInput
@@ -1650,21 +1469,16 @@ export type Bb_travelPackageUpdateWithoutPackagesImagesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1672,7 +1486,7 @@ export type Bb_travelPackageUpdateWithoutPackagesImagesInput = {
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
   agent?: Prisma.Bb_agentProfileUpdateOneRequiredWithoutPackagesNestedInput
   PackageBannerImage?: Prisma.Bb_imageUpdateOneWithoutPackageBannerNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutTravelPackageNestedInput
@@ -1685,28 +1499,23 @@ export type Bb_travelPackageUncheckedUpdateWithoutPackagesImagesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   packageBannerImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUncheckedUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutTravelPackageNestedInput
@@ -1718,21 +1527,16 @@ export type Bb_travelPackageCreateWithoutItineraryInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
@@ -1740,7 +1544,7 @@ export type Bb_travelPackageCreateWithoutItineraryInput = {
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
   agent: Prisma.Bb_agentProfileCreateNestedOneWithoutPackagesInput
   PackageBannerImage?: Prisma.Bb_imageCreateNestedOneWithoutPackageBannerInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewCreateNestedManyWithoutTravelPackageInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutTravelPackageInput
   packagesImages?: Prisma.Bb_imageCreateNestedManyWithoutTravelPackageInput
@@ -1753,28 +1557,23 @@ export type Bb_travelPackageUncheckedCreateWithoutItineraryInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   packageBannerImageId?: string | null
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewUncheckedCreateNestedManyWithoutTravelPackageInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutTravelPackageInput
   packagesImages?: Prisma.Bb_imageUncheckedCreateNestedManyWithoutTravelPackageInput
@@ -1802,21 +1601,16 @@ export type Bb_travelPackageUpdateWithoutItineraryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1824,7 +1618,7 @@ export type Bb_travelPackageUpdateWithoutItineraryInput = {
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
   agent?: Prisma.Bb_agentProfileUpdateOneRequiredWithoutPackagesNestedInput
   PackageBannerImage?: Prisma.Bb_imageUpdateOneWithoutPackageBannerNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUpdateManyWithoutTravelPackageNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutTravelPackageNestedInput
   packagesImages?: Prisma.Bb_imageUpdateManyWithoutTravelPackageNestedInput
@@ -1837,28 +1631,23 @@ export type Bb_travelPackageUncheckedUpdateWithoutItineraryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   packageBannerImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUncheckedUpdateManyWithoutTravelPackageNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutTravelPackageNestedInput
   packagesImages?: Prisma.Bb_imageUncheckedUpdateManyWithoutTravelPackageNestedInput
@@ -1870,21 +1659,16 @@ export type Bb_travelPackageCreateWithoutBookingsInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
@@ -1892,7 +1676,7 @@ export type Bb_travelPackageCreateWithoutBookingsInput = {
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
   agent: Prisma.Bb_agentProfileCreateNestedOneWithoutPackagesInput
   PackageBannerImage?: Prisma.Bb_imageCreateNestedOneWithoutPackageBannerInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayCreateNestedManyWithoutPackageInput
   packagesImages?: Prisma.Bb_imageCreateNestedManyWithoutTravelPackageInput
@@ -1905,28 +1689,23 @@ export type Bb_travelPackageUncheckedCreateWithoutBookingsInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   packageBannerImageId?: string | null
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutTravelPackageInput
   reviews?: Prisma.Bb_packageReviewUncheckedCreateNestedManyWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedCreateNestedManyWithoutPackageInput
   packagesImages?: Prisma.Bb_imageUncheckedCreateNestedManyWithoutTravelPackageInput
@@ -1954,21 +1733,16 @@ export type Bb_travelPackageUpdateWithoutBookingsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1976,7 +1750,7 @@ export type Bb_travelPackageUpdateWithoutBookingsInput = {
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
   agent?: Prisma.Bb_agentProfileUpdateOneRequiredWithoutPackagesNestedInput
   PackageBannerImage?: Prisma.Bb_imageUpdateOneWithoutPackageBannerNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUpdateManyWithoutPackageNestedInput
   packagesImages?: Prisma.Bb_imageUpdateManyWithoutTravelPackageNestedInput
@@ -1989,28 +1763,23 @@ export type Bb_travelPackageUncheckedUpdateWithoutBookingsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   packageBannerImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUncheckedUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedUpdateManyWithoutPackageNestedInput
   packagesImages?: Prisma.Bb_imageUncheckedUpdateManyWithoutTravelPackageNestedInput
@@ -2022,21 +1791,16 @@ export type Bb_travelPackageCreateWithoutReviewsInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
@@ -2044,7 +1808,7 @@ export type Bb_travelPackageCreateWithoutReviewsInput = {
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
   agent: Prisma.Bb_agentProfileCreateNestedOneWithoutPackagesInput
   PackageBannerImage?: Prisma.Bb_imageCreateNestedOneWithoutPackageBannerInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutTravelPackageInput
   packagesImages?: Prisma.Bb_imageCreateNestedManyWithoutTravelPackageInput
@@ -2057,28 +1821,23 @@ export type Bb_travelPackageUncheckedCreateWithoutReviewsInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   packageBannerImageId?: string | null
   isBookingActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tags?: Prisma.Bb_travelPackageCreatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutTravelPackageInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutTravelPackageInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedCreateNestedManyWithoutPackageInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutTravelPackageInput
   packagesImages?: Prisma.Bb_imageUncheckedCreateNestedManyWithoutTravelPackageInput
@@ -2106,21 +1865,16 @@ export type Bb_travelPackageUpdateWithoutReviewsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2128,7 +1882,7 @@ export type Bb_travelPackageUpdateWithoutReviewsInput = {
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
   agent?: Prisma.Bb_agentProfileUpdateOneRequiredWithoutPackagesNestedInput
   PackageBannerImage?: Prisma.Bb_imageUpdateOneWithoutPackageBannerNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutTravelPackageNestedInput
   packagesImages?: Prisma.Bb_imageUpdateManyWithoutTravelPackageNestedInput
@@ -2141,28 +1895,23 @@ export type Bb_travelPackageUncheckedUpdateWithoutReviewsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   packageBannerImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutTravelPackageNestedInput
   packagesImages?: Prisma.Bb_imageUncheckedUpdateManyWithoutTravelPackageNestedInput
@@ -2174,21 +1923,16 @@ export type Bb_travelPackageCreateManyAgentInput = {
   description: string
   pricePerPerson: number
   packageApprovedStatus?: $Enums.PackageApprovedStatus
-  discountAmount?: number | null
   discountPercentage?: number | null
-  withTax?: boolean | null
-  taxPercentage?: number | null
+  gstPercentage?: number | null
   totalSeats?: number
   seatsAvailable?: number
-  seatBooked?: number
+  seatsBooked?: number
   destination: string
   durationDays: number
+  packageType?: $Enums.PackageType
   startDate?: Date | string | null
   endDate?: Date | string | null
-  bookingActiveFrom: Date | string
-  bookingEndAt: Date | string
-  packagePolicies?: string
-  cancellationPolicies?: string
   packageBannerImageId?: string | null
   isBookingActive?: boolean
   isDeleted?: boolean
@@ -2203,28 +1947,23 @@ export type Bb_travelPackageUpdateWithoutAgentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
   PackageBannerImage?: Prisma.Bb_imageUpdateOneWithoutPackageBannerNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutTravelPackageNestedInput
@@ -2237,28 +1976,23 @@ export type Bb_travelPackageUncheckedUpdateWithoutAgentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   packageBannerImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.Bb_travelPackageUpdatetagsInput | string[]
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutTravelPackageNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutTravelPackageNestedInput
   reviews?: Prisma.Bb_packageReviewUncheckedUpdateManyWithoutTravelPackageNestedInput
   itinerary?: Prisma.Bb_itineraryDayUncheckedUpdateManyWithoutPackageNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutTravelPackageNestedInput
@@ -2271,21 +2005,16 @@ export type Bb_travelPackageUncheckedUpdateManyWithoutAgentInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
   packageApprovedStatus?: Prisma.EnumPackageApprovedStatusFieldUpdateOperationsInput | $Enums.PackageApprovedStatus
-  discountAmount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   discountPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  withTax?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  taxPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  gstPercentage?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   seatsAvailable?: Prisma.IntFieldUpdateOperationsInput | number
-  seatBooked?: Prisma.IntFieldUpdateOperationsInput | number
+  seatsBooked?: Prisma.IntFieldUpdateOperationsInput | number
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  packageType?: Prisma.EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  bookingActiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  bookingEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packagePolicies?: Prisma.StringFieldUpdateOperationsInput | string
-  cancellationPolicies?: Prisma.StringFieldUpdateOperationsInput | string
   packageBannerImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBookingActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2300,7 +2029,6 @@ export type Bb_travelPackageUncheckedUpdateManyWithoutAgentInput = {
  */
 
 export type Bb_travelPackageCountOutputType = {
-  address: number
   reviews: number
   itinerary: number
   bookings: number
@@ -2308,7 +2036,6 @@ export type Bb_travelPackageCountOutputType = {
 }
 
 export type Bb_travelPackageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  address?: boolean | Bb_travelPackageCountOutputTypeCountAddressArgs
   reviews?: boolean | Bb_travelPackageCountOutputTypeCountReviewsArgs
   itinerary?: boolean | Bb_travelPackageCountOutputTypeCountItineraryArgs
   bookings?: boolean | Bb_travelPackageCountOutputTypeCountBookingsArgs
@@ -2323,13 +2050,6 @@ export type Bb_travelPackageCountOutputTypeDefaultArgs<ExtArgs extends runtime.T
    * Select specific fields to fetch from the Bb_travelPackageCountOutputType
    */
   select?: Prisma.Bb_travelPackageCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * Bb_travelPackageCountOutputType without action
- */
-export type Bb_travelPackageCountOutputTypeCountAddressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.Bb_addressWhereInput
 }
 
 /**
@@ -2368,21 +2088,16 @@ export type Bb_travelPackageSelect<ExtArgs extends runtime.Types.Extensions.Inte
   description?: boolean
   pricePerPerson?: boolean
   packageApprovedStatus?: boolean
-  discountAmount?: boolean
   discountPercentage?: boolean
-  withTax?: boolean
-  taxPercentage?: boolean
+  gstPercentage?: boolean
   totalSeats?: boolean
   seatsAvailable?: boolean
-  seatBooked?: boolean
+  seatsBooked?: boolean
   destination?: boolean
   durationDays?: boolean
+  packageType?: boolean
   startDate?: boolean
   endDate?: boolean
-  bookingActiveFrom?: boolean
-  bookingEndAt?: boolean
-  packagePolicies?: boolean
-  cancellationPolicies?: boolean
   packageBannerImageId?: boolean
   isBookingActive?: boolean
   isDeleted?: boolean
@@ -2406,21 +2121,16 @@ export type Bb_travelPackageSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   description?: boolean
   pricePerPerson?: boolean
   packageApprovedStatus?: boolean
-  discountAmount?: boolean
   discountPercentage?: boolean
-  withTax?: boolean
-  taxPercentage?: boolean
+  gstPercentage?: boolean
   totalSeats?: boolean
   seatsAvailable?: boolean
-  seatBooked?: boolean
+  seatsBooked?: boolean
   destination?: boolean
   durationDays?: boolean
+  packageType?: boolean
   startDate?: boolean
   endDate?: boolean
-  bookingActiveFrom?: boolean
-  bookingEndAt?: boolean
-  packagePolicies?: boolean
-  cancellationPolicies?: boolean
   packageBannerImageId?: boolean
   isBookingActive?: boolean
   isDeleted?: boolean
@@ -2438,21 +2148,16 @@ export type Bb_travelPackageSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   description?: boolean
   pricePerPerson?: boolean
   packageApprovedStatus?: boolean
-  discountAmount?: boolean
   discountPercentage?: boolean
-  withTax?: boolean
-  taxPercentage?: boolean
+  gstPercentage?: boolean
   totalSeats?: boolean
   seatsAvailable?: boolean
-  seatBooked?: boolean
+  seatsBooked?: boolean
   destination?: boolean
   durationDays?: boolean
+  packageType?: boolean
   startDate?: boolean
   endDate?: boolean
-  bookingActiveFrom?: boolean
-  bookingEndAt?: boolean
-  packagePolicies?: boolean
-  cancellationPolicies?: boolean
   packageBannerImageId?: boolean
   isBookingActive?: boolean
   isDeleted?: boolean
@@ -2470,21 +2175,16 @@ export type Bb_travelPackageSelectScalar = {
   description?: boolean
   pricePerPerson?: boolean
   packageApprovedStatus?: boolean
-  discountAmount?: boolean
   discountPercentage?: boolean
-  withTax?: boolean
-  taxPercentage?: boolean
+  gstPercentage?: boolean
   totalSeats?: boolean
   seatsAvailable?: boolean
-  seatBooked?: boolean
+  seatsBooked?: boolean
   destination?: boolean
   durationDays?: boolean
+  packageType?: boolean
   startDate?: boolean
   endDate?: boolean
-  bookingActiveFrom?: boolean
-  bookingEndAt?: boolean
-  packagePolicies?: boolean
-  cancellationPolicies?: boolean
   packageBannerImageId?: boolean
   isBookingActive?: boolean
   isDeleted?: boolean
@@ -2493,7 +2193,7 @@ export type Bb_travelPackageSelectScalar = {
   tags?: boolean
 }
 
-export type Bb_travelPackageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "agentId" | "title" | "description" | "pricePerPerson" | "packageApprovedStatus" | "discountAmount" | "discountPercentage" | "withTax" | "taxPercentage" | "totalSeats" | "seatsAvailable" | "seatBooked" | "destination" | "durationDays" | "startDate" | "endDate" | "bookingActiveFrom" | "bookingEndAt" | "packagePolicies" | "cancellationPolicies" | "packageBannerImageId" | "isBookingActive" | "isDeleted" | "createdAt" | "updatedAt" | "tags", ExtArgs["result"]["bb_travelPackage"]>
+export type Bb_travelPackageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "agentId" | "title" | "description" | "pricePerPerson" | "packageApprovedStatus" | "discountPercentage" | "gstPercentage" | "totalSeats" | "seatsAvailable" | "seatsBooked" | "destination" | "durationDays" | "packageType" | "startDate" | "endDate" | "packageBannerImageId" | "isBookingActive" | "isDeleted" | "createdAt" | "updatedAt" | "tags", ExtArgs["result"]["bb_travelPackage"]>
 export type Bb_travelPackageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   agent?: boolean | Prisma.Bb_agentProfileDefaultArgs<ExtArgs>
   PackageBannerImage?: boolean | Prisma.Bb_travelPackage$PackageBannerImageArgs<ExtArgs>
@@ -2518,7 +2218,7 @@ export type $Bb_travelPackagePayload<ExtArgs extends runtime.Types.Extensions.In
   objects: {
     agent: Prisma.$Bb_agentProfilePayload<ExtArgs>
     PackageBannerImage: Prisma.$Bb_imagePayload<ExtArgs> | null
-    address: Prisma.$Bb_addressPayload<ExtArgs>[]
+    address: Prisma.$Bb_addressPayload<ExtArgs> | null
     reviews: Prisma.$Bb_packageReviewPayload<ExtArgs>[]
     itinerary: Prisma.$Bb_itineraryDayPayload<ExtArgs>[]
     bookings: Prisma.$Bb_bookingPayload<ExtArgs>[]
@@ -2531,21 +2231,16 @@ export type $Bb_travelPackagePayload<ExtArgs extends runtime.Types.Extensions.In
     description: string
     pricePerPerson: number
     packageApprovedStatus: $Enums.PackageApprovedStatus
-    discountAmount: number | null
     discountPercentage: number | null
-    withTax: boolean | null
-    taxPercentage: number | null
+    gstPercentage: number | null
     totalSeats: number
     seatsAvailable: number
-    seatBooked: number
+    seatsBooked: number
     destination: string
     durationDays: number
+    packageType: $Enums.PackageType
     startDate: Date | null
     endDate: Date | null
-    bookingActiveFrom: Date
-    bookingEndAt: Date
-    packagePolicies: string
-    cancellationPolicies: string
     packageBannerImageId: string | null
     isBookingActive: boolean
     isDeleted: boolean
@@ -2948,7 +2643,7 @@ export interface Prisma__Bb_travelPackageClient<T, Null = never, ExtArgs extends
   readonly [Symbol.toStringTag]: "PrismaPromise"
   agent<T extends Prisma.Bb_agentProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_agentProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__Bb_agentProfileClient<runtime.Types.Result.GetResult<Prisma.$Bb_agentProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   PackageBannerImage<T extends Prisma.Bb_travelPackage$PackageBannerImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_travelPackage$PackageBannerImageArgs<ExtArgs>>): Prisma.Prisma__Bb_imageClient<runtime.Types.Result.GetResult<Prisma.$Bb_imagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  address<T extends Prisma.Bb_travelPackage$addressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_travelPackage$addressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_addressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  address<T extends Prisma.Bb_travelPackage$addressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_travelPackage$addressArgs<ExtArgs>>): Prisma.Prisma__Bb_addressClient<runtime.Types.Result.GetResult<Prisma.$Bb_addressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   reviews<T extends Prisma.Bb_travelPackage$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_travelPackage$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_packageReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   itinerary<T extends Prisma.Bb_travelPackage$itineraryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_travelPackage$itineraryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_itineraryDayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookings<T extends Prisma.Bb_travelPackage$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_travelPackage$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_bookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2988,21 +2683,16 @@ export interface Bb_travelPackageFieldRefs {
   readonly description: Prisma.FieldRef<"Bb_travelPackage", 'String'>
   readonly pricePerPerson: Prisma.FieldRef<"Bb_travelPackage", 'Float'>
   readonly packageApprovedStatus: Prisma.FieldRef<"Bb_travelPackage", 'PackageApprovedStatus'>
-  readonly discountAmount: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
   readonly discountPercentage: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
-  readonly withTax: Prisma.FieldRef<"Bb_travelPackage", 'Boolean'>
-  readonly taxPercentage: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
+  readonly gstPercentage: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
   readonly totalSeats: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
   readonly seatsAvailable: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
-  readonly seatBooked: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
+  readonly seatsBooked: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
   readonly destination: Prisma.FieldRef<"Bb_travelPackage", 'String'>
   readonly durationDays: Prisma.FieldRef<"Bb_travelPackage", 'Int'>
+  readonly packageType: Prisma.FieldRef<"Bb_travelPackage", 'PackageType'>
   readonly startDate: Prisma.FieldRef<"Bb_travelPackage", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"Bb_travelPackage", 'DateTime'>
-  readonly bookingActiveFrom: Prisma.FieldRef<"Bb_travelPackage", 'DateTime'>
-  readonly bookingEndAt: Prisma.FieldRef<"Bb_travelPackage", 'DateTime'>
-  readonly packagePolicies: Prisma.FieldRef<"Bb_travelPackage", 'String'>
-  readonly cancellationPolicies: Prisma.FieldRef<"Bb_travelPackage", 'String'>
   readonly packageBannerImageId: Prisma.FieldRef<"Bb_travelPackage", 'String'>
   readonly isBookingActive: Prisma.FieldRef<"Bb_travelPackage", 'Boolean'>
   readonly isDeleted: Prisma.FieldRef<"Bb_travelPackage", 'Boolean'>
@@ -3440,11 +3130,6 @@ export type Bb_travelPackage$addressArgs<ExtArgs extends runtime.Types.Extension
    */
   include?: Prisma.Bb_addressInclude<ExtArgs> | null
   where?: Prisma.Bb_addressWhereInput
-  orderBy?: Prisma.Bb_addressOrderByWithRelationInput | Prisma.Bb_addressOrderByWithRelationInput[]
-  cursor?: Prisma.Bb_addressWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.Bb_addressScalarFieldEnum | Prisma.Bb_addressScalarFieldEnum[]
 }
 
 /**

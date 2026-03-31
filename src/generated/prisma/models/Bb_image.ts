@@ -499,6 +499,10 @@ export type Bb_imageUncheckedUpdateManyWithoutTravelPackageNestedInput = {
   deleteMany?: Prisma.Bb_imageScalarWhereInput | Prisma.Bb_imageScalarWhereInput[]
 }
 
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
 export type Bb_imageCreateWithoutUserProfileInput = {
   id?: string
   imageUrl: string

@@ -27,7 +27,7 @@ export const updateAgentProfileSchema = z.object({
     .optional(),
   profileImageUrl: z.string().url("Invalid profile image URL").optional(),
   profileFileId: z.string().optional(),
-  addresses: z.array(addressSchema).optional(),
+  address: addressSchema.optional(),
 
   // Agent profile fields
   companyName: z

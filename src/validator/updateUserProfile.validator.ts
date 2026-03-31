@@ -26,7 +26,7 @@ export const updateUserProfileSchema = z.object({
     .optional(),
   profileImageUrl: z.string().url("Invalid profile image URL").optional(),
   profileFileId: z.string().optional(),
-  addresses: z.array(addressSchema).optional(),
+  address: addressSchema.optional(),
 });
 
 export type UpdateUserProfileInput = z.infer<typeof updateUserProfileSchema>;

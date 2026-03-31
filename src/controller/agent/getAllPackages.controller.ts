@@ -24,6 +24,12 @@ const getAllPackages = asyncHandler(async (req: Request, res: Response) => {
       isDeleted: false,
     },
     include: {
+      agent: {
+        select: {
+          id: true,
+          companyName: true,
+        },
+      },
       PackageBannerImage: true,
       packagesImages: {
         where: {
@@ -35,32 +41,10 @@ const getAllPackages = asyncHandler(async (req: Request, res: Response) => {
         orderBy: {
           dayNumber: "asc",
         },
-        include: {
-          hotelStay: true,
-          meals: {
-            include: {
-              meals: true,
-            },
-          },
-          transports: true,
-          visits: true,
-        },
-      },
-      reviews: {
-        include: {
-          user: {
-            select: {
-              id: true,
-              fullName: true,
-              profileImage: true,
-            },
-          },
-        },
       },
       _count: {
         select: {
           bookings: true,
-          reviews: true,
         },
       },
     },

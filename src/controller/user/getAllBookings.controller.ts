@@ -14,11 +14,13 @@ const getAllbookings = asyncHandler(async (req: Request, res: Response) => {
       packageId: true,
       numberOfTravelers: true,
       status: true,
-      paymentStatus: true,
-      totalAmount: true,
+      pricePerPerson: true,
+      discountPercentage: true,
+      gstPercentage: true,
       baseAmount: true,
-      taxAmount: true,
       discountAmount: true,
+      gstAmount: true,
+      totalAmount: true,
       createdAt: true,
       travelPackage: {
         select: {
@@ -29,6 +31,7 @@ const getAllbookings = asyncHandler(async (req: Request, res: Response) => {
           durationDays: true,
           startDate: true,
           endDate: true,
+          gstPercentage: true,
           PackageBannerImage: {
             select: {
               imageUrl: true,
@@ -58,6 +61,18 @@ const getAllbookings = asyncHandler(async (req: Request, res: Response) => {
               },
             },
           },
+        },
+      },
+      payments: {
+        select: {
+          id: true,
+          paymentRef: true,
+          status: true,
+          amount: true,
+          currency: true,
+          method: true,
+          processedAt: true,
+          createdAt: true,
         },
       },
     },

@@ -225,10 +225,6 @@ export type Bb_itineraryDayWhereInput = {
   packageId?: Prisma.StringFilter<"Bb_itineraryDay"> | string
   createdAt?: Prisma.DateTimeFilter<"Bb_itineraryDay"> | Date | string
   package?: Prisma.XOR<Prisma.Bb_travelPackageScalarRelationFilter, Prisma.Bb_travelPackageWhereInput>
-  hotelStay?: Prisma.XOR<Prisma.Bb_hotelStayNullableScalarRelationFilter, Prisma.Bb_hotelStayWhereInput> | null
-  meals?: Prisma.XOR<Prisma.Bb_mealPlanNullableScalarRelationFilter, Prisma.Bb_mealPlanWhereInput> | null
-  transports?: Prisma.Bb_transportListRelationFilter
-  visits?: Prisma.Bb_visitPlaceListRelationFilter
 }
 
 export type Bb_itineraryDayOrderByWithRelationInput = {
@@ -239,10 +235,6 @@ export type Bb_itineraryDayOrderByWithRelationInput = {
   packageId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   package?: Prisma.Bb_travelPackageOrderByWithRelationInput
-  hotelStay?: Prisma.Bb_hotelStayOrderByWithRelationInput
-  meals?: Prisma.Bb_mealPlanOrderByWithRelationInput
-  transports?: Prisma.Bb_transportOrderByRelationAggregateInput
-  visits?: Prisma.Bb_visitPlaceOrderByRelationAggregateInput
 }
 
 export type Bb_itineraryDayWhereUniqueInput = Prisma.AtLeast<{
@@ -257,10 +249,6 @@ export type Bb_itineraryDayWhereUniqueInput = Prisma.AtLeast<{
   packageId?: Prisma.StringFilter<"Bb_itineraryDay"> | string
   createdAt?: Prisma.DateTimeFilter<"Bb_itineraryDay"> | Date | string
   package?: Prisma.XOR<Prisma.Bb_travelPackageScalarRelationFilter, Prisma.Bb_travelPackageWhereInput>
-  hotelStay?: Prisma.XOR<Prisma.Bb_hotelStayNullableScalarRelationFilter, Prisma.Bb_hotelStayWhereInput> | null
-  meals?: Prisma.XOR<Prisma.Bb_mealPlanNullableScalarRelationFilter, Prisma.Bb_mealPlanWhereInput> | null
-  transports?: Prisma.Bb_transportListRelationFilter
-  visits?: Prisma.Bb_visitPlaceListRelationFilter
 }, "id" | "packageId_dayNumber">
 
 export type Bb_itineraryDayOrderByWithAggregationInput = {
@@ -296,10 +284,6 @@ export type Bb_itineraryDayCreateInput = {
   description?: string | null
   createdAt?: Date | string
   package: Prisma.Bb_travelPackageCreateNestedOneWithoutItineraryInput
-  hotelStay?: Prisma.Bb_hotelStayCreateNestedOneWithoutItineraryDayInput
-  meals?: Prisma.Bb_mealPlanCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportCreateNestedManyWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceCreateNestedManyWithoutItineraryDayInput
 }
 
 export type Bb_itineraryDayUncheckedCreateInput = {
@@ -309,10 +293,6 @@ export type Bb_itineraryDayUncheckedCreateInput = {
   description?: string | null
   packageId: string
   createdAt?: Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedCreateNestedOneWithoutItineraryDayInput
-  meals?: Prisma.Bb_mealPlanUncheckedCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportUncheckedCreateNestedManyWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceUncheckedCreateNestedManyWithoutItineraryDayInput
 }
 
 export type Bb_itineraryDayUpdateInput = {
@@ -322,10 +302,6 @@ export type Bb_itineraryDayUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   package?: Prisma.Bb_travelPackageUpdateOneRequiredWithoutItineraryNestedInput
-  hotelStay?: Prisma.Bb_hotelStayUpdateOneWithoutItineraryDayNestedInput
-  meals?: Prisma.Bb_mealPlanUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUpdateManyWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUpdateManyWithoutItineraryDayNestedInput
 }
 
 export type Bb_itineraryDayUncheckedUpdateInput = {
@@ -335,10 +311,6 @@ export type Bb_itineraryDayUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   packageId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedUpdateOneWithoutItineraryDayNestedInput
-  meals?: Prisma.Bb_mealPlanUncheckedUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUncheckedUpdateManyWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUncheckedUpdateManyWithoutItineraryDayNestedInput
 }
 
 export type Bb_itineraryDayCreateManyInput = {
@@ -417,11 +389,6 @@ export type Bb_itineraryDaySumOrderByAggregateInput = {
   dayNumber?: Prisma.SortOrder
 }
 
-export type Bb_itineraryDayScalarRelationFilter = {
-  is?: Prisma.Bb_itineraryDayWhereInput
-  isNot?: Prisma.Bb_itineraryDayWhereInput
-}
-
 export type Bb_itineraryDayCreateNestedManyWithoutPackageInput = {
   create?: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutPackageInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutPackageInput> | Prisma.Bb_itineraryDayCreateWithoutPackageInput[] | Prisma.Bb_itineraryDayUncheckedCreateWithoutPackageInput[]
   connectOrCreate?: Prisma.Bb_itineraryDayCreateOrConnectWithoutPackageInput | Prisma.Bb_itineraryDayCreateOrConnectWithoutPackageInput[]
@@ -464,72 +431,12 @@ export type Bb_itineraryDayUncheckedUpdateManyWithoutPackageNestedInput = {
   deleteMany?: Prisma.Bb_itineraryDayScalarWhereInput | Prisma.Bb_itineraryDayScalarWhereInput[]
 }
 
-export type Bb_itineraryDayCreateNestedOneWithoutHotelStayInput = {
-  create?: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutHotelStayInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutHotelStayInput>
-  connectOrCreate?: Prisma.Bb_itineraryDayCreateOrConnectWithoutHotelStayInput
-  connect?: Prisma.Bb_itineraryDayWhereUniqueInput
-}
-
-export type Bb_itineraryDayUpdateOneRequiredWithoutHotelStayNestedInput = {
-  create?: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutHotelStayInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutHotelStayInput>
-  connectOrCreate?: Prisma.Bb_itineraryDayCreateOrConnectWithoutHotelStayInput
-  upsert?: Prisma.Bb_itineraryDayUpsertWithoutHotelStayInput
-  connect?: Prisma.Bb_itineraryDayWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.Bb_itineraryDayUpdateToOneWithWhereWithoutHotelStayInput, Prisma.Bb_itineraryDayUpdateWithoutHotelStayInput>, Prisma.Bb_itineraryDayUncheckedUpdateWithoutHotelStayInput>
-}
-
-export type Bb_itineraryDayCreateNestedOneWithoutMealsInput = {
-  create?: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutMealsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutMealsInput>
-  connectOrCreate?: Prisma.Bb_itineraryDayCreateOrConnectWithoutMealsInput
-  connect?: Prisma.Bb_itineraryDayWhereUniqueInput
-}
-
-export type Bb_itineraryDayUpdateOneRequiredWithoutMealsNestedInput = {
-  create?: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutMealsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutMealsInput>
-  connectOrCreate?: Prisma.Bb_itineraryDayCreateOrConnectWithoutMealsInput
-  upsert?: Prisma.Bb_itineraryDayUpsertWithoutMealsInput
-  connect?: Prisma.Bb_itineraryDayWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.Bb_itineraryDayUpdateToOneWithWhereWithoutMealsInput, Prisma.Bb_itineraryDayUpdateWithoutMealsInput>, Prisma.Bb_itineraryDayUncheckedUpdateWithoutMealsInput>
-}
-
-export type Bb_itineraryDayCreateNestedOneWithoutTransportsInput = {
-  create?: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutTransportsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutTransportsInput>
-  connectOrCreate?: Prisma.Bb_itineraryDayCreateOrConnectWithoutTransportsInput
-  connect?: Prisma.Bb_itineraryDayWhereUniqueInput
-}
-
-export type Bb_itineraryDayUpdateOneRequiredWithoutTransportsNestedInput = {
-  create?: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutTransportsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutTransportsInput>
-  connectOrCreate?: Prisma.Bb_itineraryDayCreateOrConnectWithoutTransportsInput
-  upsert?: Prisma.Bb_itineraryDayUpsertWithoutTransportsInput
-  connect?: Prisma.Bb_itineraryDayWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.Bb_itineraryDayUpdateToOneWithWhereWithoutTransportsInput, Prisma.Bb_itineraryDayUpdateWithoutTransportsInput>, Prisma.Bb_itineraryDayUncheckedUpdateWithoutTransportsInput>
-}
-
-export type Bb_itineraryDayCreateNestedOneWithoutVisitsInput = {
-  create?: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutVisitsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutVisitsInput>
-  connectOrCreate?: Prisma.Bb_itineraryDayCreateOrConnectWithoutVisitsInput
-  connect?: Prisma.Bb_itineraryDayWhereUniqueInput
-}
-
-export type Bb_itineraryDayUpdateOneRequiredWithoutVisitsNestedInput = {
-  create?: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutVisitsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutVisitsInput>
-  connectOrCreate?: Prisma.Bb_itineraryDayCreateOrConnectWithoutVisitsInput
-  upsert?: Prisma.Bb_itineraryDayUpsertWithoutVisitsInput
-  connect?: Prisma.Bb_itineraryDayWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.Bb_itineraryDayUpdateToOneWithWhereWithoutVisitsInput, Prisma.Bb_itineraryDayUpdateWithoutVisitsInput>, Prisma.Bb_itineraryDayUncheckedUpdateWithoutVisitsInput>
-}
-
 export type Bb_itineraryDayCreateWithoutPackageInput = {
   id?: string
   dayNumber: number
   title: string
   description?: string | null
   createdAt?: Date | string
-  hotelStay?: Prisma.Bb_hotelStayCreateNestedOneWithoutItineraryDayInput
-  meals?: Prisma.Bb_mealPlanCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportCreateNestedManyWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceCreateNestedManyWithoutItineraryDayInput
 }
 
 export type Bb_itineraryDayUncheckedCreateWithoutPackageInput = {
@@ -538,10 +445,6 @@ export type Bb_itineraryDayUncheckedCreateWithoutPackageInput = {
   title: string
   description?: string | null
   createdAt?: Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedCreateNestedOneWithoutItineraryDayInput
-  meals?: Prisma.Bb_mealPlanUncheckedCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportUncheckedCreateNestedManyWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceUncheckedCreateNestedManyWithoutItineraryDayInput
 }
 
 export type Bb_itineraryDayCreateOrConnectWithoutPackageInput = {
@@ -582,262 +485,6 @@ export type Bb_itineraryDayScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Bb_itineraryDay"> | Date | string
 }
 
-export type Bb_itineraryDayCreateWithoutHotelStayInput = {
-  id?: string
-  dayNumber: number
-  title: string
-  description?: string | null
-  createdAt?: Date | string
-  package: Prisma.Bb_travelPackageCreateNestedOneWithoutItineraryInput
-  meals?: Prisma.Bb_mealPlanCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportCreateNestedManyWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceCreateNestedManyWithoutItineraryDayInput
-}
-
-export type Bb_itineraryDayUncheckedCreateWithoutHotelStayInput = {
-  id?: string
-  dayNumber: number
-  title: string
-  description?: string | null
-  packageId: string
-  createdAt?: Date | string
-  meals?: Prisma.Bb_mealPlanUncheckedCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportUncheckedCreateNestedManyWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceUncheckedCreateNestedManyWithoutItineraryDayInput
-}
-
-export type Bb_itineraryDayCreateOrConnectWithoutHotelStayInput = {
-  where: Prisma.Bb_itineraryDayWhereUniqueInput
-  create: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutHotelStayInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutHotelStayInput>
-}
-
-export type Bb_itineraryDayUpsertWithoutHotelStayInput = {
-  update: Prisma.XOR<Prisma.Bb_itineraryDayUpdateWithoutHotelStayInput, Prisma.Bb_itineraryDayUncheckedUpdateWithoutHotelStayInput>
-  create: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutHotelStayInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutHotelStayInput>
-  where?: Prisma.Bb_itineraryDayWhereInput
-}
-
-export type Bb_itineraryDayUpdateToOneWithWhereWithoutHotelStayInput = {
-  where?: Prisma.Bb_itineraryDayWhereInput
-  data: Prisma.XOR<Prisma.Bb_itineraryDayUpdateWithoutHotelStayInput, Prisma.Bb_itineraryDayUncheckedUpdateWithoutHotelStayInput>
-}
-
-export type Bb_itineraryDayUpdateWithoutHotelStayInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dayNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  package?: Prisma.Bb_travelPackageUpdateOneRequiredWithoutItineraryNestedInput
-  meals?: Prisma.Bb_mealPlanUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUpdateManyWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUpdateManyWithoutItineraryDayNestedInput
-}
-
-export type Bb_itineraryDayUncheckedUpdateWithoutHotelStayInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dayNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  packageId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  meals?: Prisma.Bb_mealPlanUncheckedUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUncheckedUpdateManyWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUncheckedUpdateManyWithoutItineraryDayNestedInput
-}
-
-export type Bb_itineraryDayCreateWithoutMealsInput = {
-  id?: string
-  dayNumber: number
-  title: string
-  description?: string | null
-  createdAt?: Date | string
-  package: Prisma.Bb_travelPackageCreateNestedOneWithoutItineraryInput
-  hotelStay?: Prisma.Bb_hotelStayCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportCreateNestedManyWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceCreateNestedManyWithoutItineraryDayInput
-}
-
-export type Bb_itineraryDayUncheckedCreateWithoutMealsInput = {
-  id?: string
-  dayNumber: number
-  title: string
-  description?: string | null
-  packageId: string
-  createdAt?: Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportUncheckedCreateNestedManyWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceUncheckedCreateNestedManyWithoutItineraryDayInput
-}
-
-export type Bb_itineraryDayCreateOrConnectWithoutMealsInput = {
-  where: Prisma.Bb_itineraryDayWhereUniqueInput
-  create: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutMealsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutMealsInput>
-}
-
-export type Bb_itineraryDayUpsertWithoutMealsInput = {
-  update: Prisma.XOR<Prisma.Bb_itineraryDayUpdateWithoutMealsInput, Prisma.Bb_itineraryDayUncheckedUpdateWithoutMealsInput>
-  create: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutMealsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutMealsInput>
-  where?: Prisma.Bb_itineraryDayWhereInput
-}
-
-export type Bb_itineraryDayUpdateToOneWithWhereWithoutMealsInput = {
-  where?: Prisma.Bb_itineraryDayWhereInput
-  data: Prisma.XOR<Prisma.Bb_itineraryDayUpdateWithoutMealsInput, Prisma.Bb_itineraryDayUncheckedUpdateWithoutMealsInput>
-}
-
-export type Bb_itineraryDayUpdateWithoutMealsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dayNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  package?: Prisma.Bb_travelPackageUpdateOneRequiredWithoutItineraryNestedInput
-  hotelStay?: Prisma.Bb_hotelStayUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUpdateManyWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUpdateManyWithoutItineraryDayNestedInput
-}
-
-export type Bb_itineraryDayUncheckedUpdateWithoutMealsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dayNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  packageId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUncheckedUpdateManyWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUncheckedUpdateManyWithoutItineraryDayNestedInput
-}
-
-export type Bb_itineraryDayCreateWithoutTransportsInput = {
-  id?: string
-  dayNumber: number
-  title: string
-  description?: string | null
-  createdAt?: Date | string
-  package: Prisma.Bb_travelPackageCreateNestedOneWithoutItineraryInput
-  hotelStay?: Prisma.Bb_hotelStayCreateNestedOneWithoutItineraryDayInput
-  meals?: Prisma.Bb_mealPlanCreateNestedOneWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceCreateNestedManyWithoutItineraryDayInput
-}
-
-export type Bb_itineraryDayUncheckedCreateWithoutTransportsInput = {
-  id?: string
-  dayNumber: number
-  title: string
-  description?: string | null
-  packageId: string
-  createdAt?: Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedCreateNestedOneWithoutItineraryDayInput
-  meals?: Prisma.Bb_mealPlanUncheckedCreateNestedOneWithoutItineraryDayInput
-  visits?: Prisma.Bb_visitPlaceUncheckedCreateNestedManyWithoutItineraryDayInput
-}
-
-export type Bb_itineraryDayCreateOrConnectWithoutTransportsInput = {
-  where: Prisma.Bb_itineraryDayWhereUniqueInput
-  create: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutTransportsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutTransportsInput>
-}
-
-export type Bb_itineraryDayUpsertWithoutTransportsInput = {
-  update: Prisma.XOR<Prisma.Bb_itineraryDayUpdateWithoutTransportsInput, Prisma.Bb_itineraryDayUncheckedUpdateWithoutTransportsInput>
-  create: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutTransportsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutTransportsInput>
-  where?: Prisma.Bb_itineraryDayWhereInput
-}
-
-export type Bb_itineraryDayUpdateToOneWithWhereWithoutTransportsInput = {
-  where?: Prisma.Bb_itineraryDayWhereInput
-  data: Prisma.XOR<Prisma.Bb_itineraryDayUpdateWithoutTransportsInput, Prisma.Bb_itineraryDayUncheckedUpdateWithoutTransportsInput>
-}
-
-export type Bb_itineraryDayUpdateWithoutTransportsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dayNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  package?: Prisma.Bb_travelPackageUpdateOneRequiredWithoutItineraryNestedInput
-  hotelStay?: Prisma.Bb_hotelStayUpdateOneWithoutItineraryDayNestedInput
-  meals?: Prisma.Bb_mealPlanUpdateOneWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUpdateManyWithoutItineraryDayNestedInput
-}
-
-export type Bb_itineraryDayUncheckedUpdateWithoutTransportsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dayNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  packageId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedUpdateOneWithoutItineraryDayNestedInput
-  meals?: Prisma.Bb_mealPlanUncheckedUpdateOneWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUncheckedUpdateManyWithoutItineraryDayNestedInput
-}
-
-export type Bb_itineraryDayCreateWithoutVisitsInput = {
-  id?: string
-  dayNumber: number
-  title: string
-  description?: string | null
-  createdAt?: Date | string
-  package: Prisma.Bb_travelPackageCreateNestedOneWithoutItineraryInput
-  hotelStay?: Prisma.Bb_hotelStayCreateNestedOneWithoutItineraryDayInput
-  meals?: Prisma.Bb_mealPlanCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportCreateNestedManyWithoutItineraryDayInput
-}
-
-export type Bb_itineraryDayUncheckedCreateWithoutVisitsInput = {
-  id?: string
-  dayNumber: number
-  title: string
-  description?: string | null
-  packageId: string
-  createdAt?: Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedCreateNestedOneWithoutItineraryDayInput
-  meals?: Prisma.Bb_mealPlanUncheckedCreateNestedOneWithoutItineraryDayInput
-  transports?: Prisma.Bb_transportUncheckedCreateNestedManyWithoutItineraryDayInput
-}
-
-export type Bb_itineraryDayCreateOrConnectWithoutVisitsInput = {
-  where: Prisma.Bb_itineraryDayWhereUniqueInput
-  create: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutVisitsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutVisitsInput>
-}
-
-export type Bb_itineraryDayUpsertWithoutVisitsInput = {
-  update: Prisma.XOR<Prisma.Bb_itineraryDayUpdateWithoutVisitsInput, Prisma.Bb_itineraryDayUncheckedUpdateWithoutVisitsInput>
-  create: Prisma.XOR<Prisma.Bb_itineraryDayCreateWithoutVisitsInput, Prisma.Bb_itineraryDayUncheckedCreateWithoutVisitsInput>
-  where?: Prisma.Bb_itineraryDayWhereInput
-}
-
-export type Bb_itineraryDayUpdateToOneWithWhereWithoutVisitsInput = {
-  where?: Prisma.Bb_itineraryDayWhereInput
-  data: Prisma.XOR<Prisma.Bb_itineraryDayUpdateWithoutVisitsInput, Prisma.Bb_itineraryDayUncheckedUpdateWithoutVisitsInput>
-}
-
-export type Bb_itineraryDayUpdateWithoutVisitsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dayNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  package?: Prisma.Bb_travelPackageUpdateOneRequiredWithoutItineraryNestedInput
-  hotelStay?: Prisma.Bb_hotelStayUpdateOneWithoutItineraryDayNestedInput
-  meals?: Prisma.Bb_mealPlanUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUpdateManyWithoutItineraryDayNestedInput
-}
-
-export type Bb_itineraryDayUncheckedUpdateWithoutVisitsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dayNumber?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  packageId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedUpdateOneWithoutItineraryDayNestedInput
-  meals?: Prisma.Bb_mealPlanUncheckedUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUncheckedUpdateManyWithoutItineraryDayNestedInput
-}
-
 export type Bb_itineraryDayCreateManyPackageInput = {
   id?: string
   dayNumber: number
@@ -852,10 +499,6 @@ export type Bb_itineraryDayUpdateWithoutPackageInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hotelStay?: Prisma.Bb_hotelStayUpdateOneWithoutItineraryDayNestedInput
-  meals?: Prisma.Bb_mealPlanUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUpdateManyWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUpdateManyWithoutItineraryDayNestedInput
 }
 
 export type Bb_itineraryDayUncheckedUpdateWithoutPackageInput = {
@@ -864,10 +507,6 @@ export type Bb_itineraryDayUncheckedUpdateWithoutPackageInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  hotelStay?: Prisma.Bb_hotelStayUncheckedUpdateOneWithoutItineraryDayNestedInput
-  meals?: Prisma.Bb_mealPlanUncheckedUpdateOneWithoutItineraryDayNestedInput
-  transports?: Prisma.Bb_transportUncheckedUpdateManyWithoutItineraryDayNestedInput
-  visits?: Prisma.Bb_visitPlaceUncheckedUpdateManyWithoutItineraryDayNestedInput
 }
 
 export type Bb_itineraryDayUncheckedUpdateManyWithoutPackageInput = {
@@ -879,44 +518,6 @@ export type Bb_itineraryDayUncheckedUpdateManyWithoutPackageInput = {
 }
 
 
-/**
- * Count Type Bb_itineraryDayCountOutputType
- */
-
-export type Bb_itineraryDayCountOutputType = {
-  transports: number
-  visits: number
-}
-
-export type Bb_itineraryDayCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  transports?: boolean | Bb_itineraryDayCountOutputTypeCountTransportsArgs
-  visits?: boolean | Bb_itineraryDayCountOutputTypeCountVisitsArgs
-}
-
-/**
- * Bb_itineraryDayCountOutputType without action
- */
-export type Bb_itineraryDayCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Bb_itineraryDayCountOutputType
-   */
-  select?: Prisma.Bb_itineraryDayCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * Bb_itineraryDayCountOutputType without action
- */
-export type Bb_itineraryDayCountOutputTypeCountTransportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.Bb_transportWhereInput
-}
-
-/**
- * Bb_itineraryDayCountOutputType without action
- */
-export type Bb_itineraryDayCountOutputTypeCountVisitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.Bb_visitPlaceWhereInput
-}
-
 
 export type Bb_itineraryDaySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -926,11 +527,6 @@ export type Bb_itineraryDaySelect<ExtArgs extends runtime.Types.Extensions.Inter
   packageId?: boolean
   createdAt?: boolean
   package?: boolean | Prisma.Bb_travelPackageDefaultArgs<ExtArgs>
-  hotelStay?: boolean | Prisma.Bb_itineraryDay$hotelStayArgs<ExtArgs>
-  meals?: boolean | Prisma.Bb_itineraryDay$mealsArgs<ExtArgs>
-  transports?: boolean | Prisma.Bb_itineraryDay$transportsArgs<ExtArgs>
-  visits?: boolean | Prisma.Bb_itineraryDay$visitsArgs<ExtArgs>
-  _count?: boolean | Prisma.Bb_itineraryDayCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bb_itineraryDay"]>
 
 export type Bb_itineraryDaySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -965,11 +561,6 @@ export type Bb_itineraryDaySelectScalar = {
 export type Bb_itineraryDayOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "dayNumber" | "title" | "description" | "packageId" | "createdAt", ExtArgs["result"]["bb_itineraryDay"]>
 export type Bb_itineraryDayInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   package?: boolean | Prisma.Bb_travelPackageDefaultArgs<ExtArgs>
-  hotelStay?: boolean | Prisma.Bb_itineraryDay$hotelStayArgs<ExtArgs>
-  meals?: boolean | Prisma.Bb_itineraryDay$mealsArgs<ExtArgs>
-  transports?: boolean | Prisma.Bb_itineraryDay$transportsArgs<ExtArgs>
-  visits?: boolean | Prisma.Bb_itineraryDay$visitsArgs<ExtArgs>
-  _count?: boolean | Prisma.Bb_itineraryDayCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type Bb_itineraryDayIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   package?: boolean | Prisma.Bb_travelPackageDefaultArgs<ExtArgs>
@@ -982,10 +573,6 @@ export type $Bb_itineraryDayPayload<ExtArgs extends runtime.Types.Extensions.Int
   name: "Bb_itineraryDay"
   objects: {
     package: Prisma.$Bb_travelPackagePayload<ExtArgs>
-    hotelStay: Prisma.$Bb_hotelStayPayload<ExtArgs> | null
-    meals: Prisma.$Bb_mealPlanPayload<ExtArgs> | null
-    transports: Prisma.$Bb_transportPayload<ExtArgs>[]
-    visits: Prisma.$Bb_visitPlacePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1389,10 +976,6 @@ readonly fields: Bb_itineraryDayFieldRefs;
 export interface Prisma__Bb_itineraryDayClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   package<T extends Prisma.Bb_travelPackageDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_travelPackageDefaultArgs<ExtArgs>>): Prisma.Prisma__Bb_travelPackageClient<runtime.Types.Result.GetResult<Prisma.$Bb_travelPackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  hotelStay<T extends Prisma.Bb_itineraryDay$hotelStayArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_itineraryDay$hotelStayArgs<ExtArgs>>): Prisma.Prisma__Bb_hotelStayClient<runtime.Types.Result.GetResult<Prisma.$Bb_hotelStayPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  meals<T extends Prisma.Bb_itineraryDay$mealsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_itineraryDay$mealsArgs<ExtArgs>>): Prisma.Prisma__Bb_mealPlanClient<runtime.Types.Result.GetResult<Prisma.$Bb_mealPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  transports<T extends Prisma.Bb_itineraryDay$transportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_itineraryDay$transportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_transportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  visits<T extends Prisma.Bb_itineraryDay$visitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_itineraryDay$visitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_visitPlacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1821,92 +1404,6 @@ export type Bb_itineraryDayDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Bb_itineraryDays to delete.
    */
   limit?: number
-}
-
-/**
- * Bb_itineraryDay.hotelStay
- */
-export type Bb_itineraryDay$hotelStayArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Bb_hotelStay
-   */
-  select?: Prisma.Bb_hotelStaySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Bb_hotelStay
-   */
-  omit?: Prisma.Bb_hotelStayOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.Bb_hotelStayInclude<ExtArgs> | null
-  where?: Prisma.Bb_hotelStayWhereInput
-}
-
-/**
- * Bb_itineraryDay.meals
- */
-export type Bb_itineraryDay$mealsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Bb_mealPlan
-   */
-  select?: Prisma.Bb_mealPlanSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Bb_mealPlan
-   */
-  omit?: Prisma.Bb_mealPlanOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.Bb_mealPlanInclude<ExtArgs> | null
-  where?: Prisma.Bb_mealPlanWhereInput
-}
-
-/**
- * Bb_itineraryDay.transports
- */
-export type Bb_itineraryDay$transportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Bb_transport
-   */
-  select?: Prisma.Bb_transportSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Bb_transport
-   */
-  omit?: Prisma.Bb_transportOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.Bb_transportInclude<ExtArgs> | null
-  where?: Prisma.Bb_transportWhereInput
-  orderBy?: Prisma.Bb_transportOrderByWithRelationInput | Prisma.Bb_transportOrderByWithRelationInput[]
-  cursor?: Prisma.Bb_transportWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.Bb_transportScalarFieldEnum | Prisma.Bb_transportScalarFieldEnum[]
-}
-
-/**
- * Bb_itineraryDay.visits
- */
-export type Bb_itineraryDay$visitsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Bb_visitPlace
-   */
-  select?: Prisma.Bb_visitPlaceSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Bb_visitPlace
-   */
-  omit?: Prisma.Bb_visitPlaceOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.Bb_visitPlaceInclude<ExtArgs> | null
-  where?: Prisma.Bb_visitPlaceWhereInput
-  orderBy?: Prisma.Bb_visitPlaceOrderByWithRelationInput | Prisma.Bb_visitPlaceOrderByWithRelationInput[]
-  cursor?: Prisma.Bb_visitPlaceWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.Bb_visitPlaceScalarFieldEnum | Prisma.Bb_visitPlaceScalarFieldEnum[]
 }
 
 /**

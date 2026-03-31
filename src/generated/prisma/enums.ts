@@ -141,3 +141,22 @@ export const ReviewType = {
 } as const
 
 export type ReviewType = (typeof ReviewType)[keyof typeof ReviewType]
+
+
+export const PaymentMethod = {
+  CARD: 'CARD',
+  UPI: 'UPI',
+  WALLET: 'WALLET',
+  NET_BANKING: 'NET_BANKING',
+  BANK_TRANSFER: 'BANK_TRANSFER'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const PackageType = {
+  MULTI_DAY: 'MULTI_DAY',
+  DAILY: 'DAILY'
+} as const
+
+export type PackageType = (typeof PackageType)[keyof typeof PackageType]

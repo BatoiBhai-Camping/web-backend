@@ -59,11 +59,6 @@ export const ModelName = {
   Bb_travelPackage: 'Bb_travelPackage',
   Bb_image: 'Bb_image',
   Bb_itineraryDay: 'Bb_itineraryDay',
-  Bb_hotelStay: 'Bb_hotelStay',
-  Bb_mealPlan: 'Bb_mealPlan',
-  Bb_meal: 'Bb_meal',
-  Bb_transport: 'Bb_transport',
-  Bb_visitPlace: 'Bb_visitPlace',
   Bb_booking: 'Bb_booking',
   Bb_payment: 'Bb_payment',
   Bb_packageReview: 'Bb_packageReview',
@@ -169,21 +164,16 @@ export const Bb_travelPackageScalarFieldEnum = {
   description: 'description',
   pricePerPerson: 'pricePerPerson',
   packageApprovedStatus: 'packageApprovedStatus',
-  discountAmount: 'discountAmount',
   discountPercentage: 'discountPercentage',
-  withTax: 'withTax',
-  taxPercentage: 'taxPercentage',
+  gstPercentage: 'gstPercentage',
   totalSeats: 'totalSeats',
   seatsAvailable: 'seatsAvailable',
-  seatBooked: 'seatBooked',
+  seatsBooked: 'seatsBooked',
   destination: 'destination',
   durationDays: 'durationDays',
+  packageType: 'packageType',
   startDate: 'startDate',
   endDate: 'endDate',
-  bookingActiveFrom: 'bookingActiveFrom',
-  bookingEndAt: 'bookingEndAt',
-  packagePolicies: 'packagePolicies',
-  cancellationPolicies: 'cancellationPolicies',
   packageBannerImageId: 'packageBannerImageId',
   isBookingActive: 'isBookingActive',
   isDeleted: 'isDeleted',
@@ -221,82 +211,25 @@ export const Bb_itineraryDayScalarFieldEnum = {
 export type Bb_itineraryDayScalarFieldEnum = (typeof Bb_itineraryDayScalarFieldEnum)[keyof typeof Bb_itineraryDayScalarFieldEnum]
 
 
-export const Bb_hotelStayScalarFieldEnum = {
-  id: 'id',
-  hotelName: 'hotelName',
-  checkIn: 'checkIn',
-  checkOut: 'checkOut',
-  address: 'address',
-  wifi: 'wifi',
-  tv: 'tv',
-  attachWashroom: 'attachWashroom',
-  acRoom: 'acRoom',
-  kitchen: 'kitchen',
-  itineraryDayId: 'itineraryDayId'
-} as const
-
-export type Bb_hotelStayScalarFieldEnum = (typeof Bb_hotelStayScalarFieldEnum)[keyof typeof Bb_hotelStayScalarFieldEnum]
-
-
-export const Bb_mealPlanScalarFieldEnum = {
-  id: 'id',
-  itineraryDayId: 'itineraryDayId'
-} as const
-
-export type Bb_mealPlanScalarFieldEnum = (typeof Bb_mealPlanScalarFieldEnum)[keyof typeof Bb_mealPlanScalarFieldEnum]
-
-
-export const Bb_mealScalarFieldEnum = {
-  id: 'id',
-  type: 'type',
-  mealPlanId: 'mealPlanId',
-  mealDescription: 'mealDescription'
-} as const
-
-export type Bb_mealScalarFieldEnum = (typeof Bb_mealScalarFieldEnum)[keyof typeof Bb_mealScalarFieldEnum]
-
-
-export const Bb_transportScalarFieldEnum = {
-  id: 'id',
-  fromLocation: 'fromLocation',
-  toLocation: 'toLocation',
-  mode: 'mode',
-  startTime: 'startTime',
-  endTime: 'endTime',
-  itineraryDayId: 'itineraryDayId'
-} as const
-
-export type Bb_transportScalarFieldEnum = (typeof Bb_transportScalarFieldEnum)[keyof typeof Bb_transportScalarFieldEnum]
-
-
-export const Bb_visitPlaceScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  address: 'address',
-  description: 'description',
-  visitTime: 'visitTime',
-  itineraryDayId: 'itineraryDayId'
-} as const
-
-export type Bb_visitPlaceScalarFieldEnum = (typeof Bb_visitPlaceScalarFieldEnum)[keyof typeof Bb_visitPlaceScalarFieldEnum]
-
-
 export const Bb_bookingScalarFieldEnum = {
   id: 'id',
   bookingCode: 'bookingCode',
   userId: 'userId',
   packageId: 'packageId',
   numberOfTravelers: 'numberOfTravelers',
+  visiteDate: 'visiteDate',
   status: 'status',
-  paymentStatus: 'paymentStatus',
+  pricePerPerson: 'pricePerPerson',
+  gstPercentage: 'gstPercentage',
+  discountPercentage: 'discountPercentage',
   baseAmount: 'baseAmount',
-  taxAmount: 'taxAmount',
+  gstAmount: 'gstAmount',
   discountAmount: 'discountAmount',
   totalAmount: 'totalAmount',
-  refundableAmount: 'refundableAmount',
   cancellationReason: 'cancellationReason',
   cancelledAt: 'cancelledAt',
   cancelledBy: 'cancelledBy',
+  refundableAmount: 'refundableAmount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -307,14 +240,16 @@ export type Bb_bookingScalarFieldEnum = (typeof Bb_bookingScalarFieldEnum)[keyof
 export const Bb_paymentScalarFieldEnum = {
   id: 'id',
   bookingId: 'bookingId',
-  type: 'type',
-  status: 'status',
+  paymentRef: 'paymentRef',
   amount: 'amount',
   currency: 'currency',
+  method: 'method',
   provider: 'provider',
   providerRef: 'providerRef',
-  isRefund: 'isRefund',
+  status: 'status',
+  metadata: 'metadata',
   createdAt: 'createdAt',
+  processedAt: 'processedAt',
   updatedAt: 'updatedAt'
 } as const
 
@@ -377,6 +312,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: 'DbNull',
+  JsonNull: 'JsonNull'
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -391,4 +334,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: 'DbNull',
+  JsonNull: 'JsonNull',
+  AnyNull: 'AnyNull'
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

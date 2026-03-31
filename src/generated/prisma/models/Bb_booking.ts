@@ -28,8 +28,11 @@ export type AggregateBb_booking = {
 
 export type Bb_bookingAvgAggregateOutputType = {
   numberOfTravelers: number | null
+  pricePerPerson: number | null
+  gstPercentage: number | null
+  discountPercentage: number | null
   baseAmount: number | null
-  taxAmount: number | null
+  gstAmount: number | null
   discountAmount: number | null
   totalAmount: number | null
   refundableAmount: number | null
@@ -37,8 +40,11 @@ export type Bb_bookingAvgAggregateOutputType = {
 
 export type Bb_bookingSumAggregateOutputType = {
   numberOfTravelers: number | null
+  pricePerPerson: number | null
+  gstPercentage: number | null
+  discountPercentage: number | null
   baseAmount: number | null
-  taxAmount: number | null
+  gstAmount: number | null
   discountAmount: number | null
   totalAmount: number | null
   refundableAmount: number | null
@@ -50,16 +56,19 @@ export type Bb_bookingMinAggregateOutputType = {
   userId: string | null
   packageId: string | null
   numberOfTravelers: number | null
+  visiteDate: Date | null
   status: $Enums.BookingStatus | null
-  paymentStatus: $Enums.PaymentStatus | null
+  pricePerPerson: number | null
+  gstPercentage: number | null
+  discountPercentage: number | null
   baseAmount: number | null
-  taxAmount: number | null
+  gstAmount: number | null
   discountAmount: number | null
   totalAmount: number | null
-  refundableAmount: number | null
   cancellationReason: string | null
   cancelledAt: Date | null
   cancelledBy: $Enums.CancelledBy | null
+  refundableAmount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -70,16 +79,19 @@ export type Bb_bookingMaxAggregateOutputType = {
   userId: string | null
   packageId: string | null
   numberOfTravelers: number | null
+  visiteDate: Date | null
   status: $Enums.BookingStatus | null
-  paymentStatus: $Enums.PaymentStatus | null
+  pricePerPerson: number | null
+  gstPercentage: number | null
+  discountPercentage: number | null
   baseAmount: number | null
-  taxAmount: number | null
+  gstAmount: number | null
   discountAmount: number | null
   totalAmount: number | null
-  refundableAmount: number | null
   cancellationReason: string | null
   cancelledAt: Date | null
   cancelledBy: $Enums.CancelledBy | null
+  refundableAmount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -90,16 +102,19 @@ export type Bb_bookingCountAggregateOutputType = {
   userId: number
   packageId: number
   numberOfTravelers: number
+  visiteDate: number
   status: number
-  paymentStatus: number
+  pricePerPerson: number
+  gstPercentage: number
+  discountPercentage: number
   baseAmount: number
-  taxAmount: number
+  gstAmount: number
   discountAmount: number
   totalAmount: number
-  refundableAmount: number
   cancellationReason: number
   cancelledAt: number
   cancelledBy: number
+  refundableAmount: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -108,8 +123,11 @@ export type Bb_bookingCountAggregateOutputType = {
 
 export type Bb_bookingAvgAggregateInputType = {
   numberOfTravelers?: true
+  pricePerPerson?: true
+  gstPercentage?: true
+  discountPercentage?: true
   baseAmount?: true
-  taxAmount?: true
+  gstAmount?: true
   discountAmount?: true
   totalAmount?: true
   refundableAmount?: true
@@ -117,8 +135,11 @@ export type Bb_bookingAvgAggregateInputType = {
 
 export type Bb_bookingSumAggregateInputType = {
   numberOfTravelers?: true
+  pricePerPerson?: true
+  gstPercentage?: true
+  discountPercentage?: true
   baseAmount?: true
-  taxAmount?: true
+  gstAmount?: true
   discountAmount?: true
   totalAmount?: true
   refundableAmount?: true
@@ -130,16 +151,19 @@ export type Bb_bookingMinAggregateInputType = {
   userId?: true
   packageId?: true
   numberOfTravelers?: true
+  visiteDate?: true
   status?: true
-  paymentStatus?: true
+  pricePerPerson?: true
+  gstPercentage?: true
+  discountPercentage?: true
   baseAmount?: true
-  taxAmount?: true
+  gstAmount?: true
   discountAmount?: true
   totalAmount?: true
-  refundableAmount?: true
   cancellationReason?: true
   cancelledAt?: true
   cancelledBy?: true
+  refundableAmount?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -150,16 +174,19 @@ export type Bb_bookingMaxAggregateInputType = {
   userId?: true
   packageId?: true
   numberOfTravelers?: true
+  visiteDate?: true
   status?: true
-  paymentStatus?: true
+  pricePerPerson?: true
+  gstPercentage?: true
+  discountPercentage?: true
   baseAmount?: true
-  taxAmount?: true
+  gstAmount?: true
   discountAmount?: true
   totalAmount?: true
-  refundableAmount?: true
   cancellationReason?: true
   cancelledAt?: true
   cancelledBy?: true
+  refundableAmount?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -170,16 +197,19 @@ export type Bb_bookingCountAggregateInputType = {
   userId?: true
   packageId?: true
   numberOfTravelers?: true
+  visiteDate?: true
   status?: true
-  paymentStatus?: true
+  pricePerPerson?: true
+  gstPercentage?: true
+  discountPercentage?: true
   baseAmount?: true
-  taxAmount?: true
+  gstAmount?: true
   discountAmount?: true
   totalAmount?: true
-  refundableAmount?: true
   cancellationReason?: true
   cancelledAt?: true
   cancelledBy?: true
+  refundableAmount?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -277,16 +307,19 @@ export type Bb_bookingGroupByOutputType = {
   userId: string
   packageId: string
   numberOfTravelers: number
+  visiteDate: Date | null
   status: $Enums.BookingStatus
-  paymentStatus: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage: number
+  discountPercentage: number
   baseAmount: number
-  taxAmount: number
+  gstAmount: number
   discountAmount: number
   totalAmount: number
-  refundableAmount: number | null
   cancellationReason: string | null
   cancelledAt: Date | null
   cancelledBy: $Enums.CancelledBy | null
+  refundableAmount: number | null
   createdAt: Date
   updatedAt: Date
   _count: Bb_bookingCountAggregateOutputType | null
@@ -320,21 +353,24 @@ export type Bb_bookingWhereInput = {
   userId?: Prisma.StringFilter<"Bb_booking"> | string
   packageId?: Prisma.StringFilter<"Bb_booking"> | string
   numberOfTravelers?: Prisma.IntFilter<"Bb_booking"> | number
+  visiteDate?: Prisma.DateTimeNullableFilter<"Bb_booking"> | Date | string | null
   status?: Prisma.EnumBookingStatusFilter<"Bb_booking"> | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFilter<"Bb_booking"> | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFilter<"Bb_booking"> | number
+  gstPercentage?: Prisma.IntFilter<"Bb_booking"> | number
+  discountPercentage?: Prisma.IntFilter<"Bb_booking"> | number
   baseAmount?: Prisma.FloatFilter<"Bb_booking"> | number
-  taxAmount?: Prisma.FloatFilter<"Bb_booking"> | number
+  gstAmount?: Prisma.FloatFilter<"Bb_booking"> | number
   discountAmount?: Prisma.FloatFilter<"Bb_booking"> | number
   totalAmount?: Prisma.FloatFilter<"Bb_booking"> | number
-  refundableAmount?: Prisma.FloatNullableFilter<"Bb_booking"> | number | null
   cancellationReason?: Prisma.StringNullableFilter<"Bb_booking"> | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"Bb_booking"> | Date | string | null
   cancelledBy?: Prisma.EnumCancelledByNullableFilter<"Bb_booking"> | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.FloatNullableFilter<"Bb_booking"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Bb_booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Bb_booking"> | Date | string
   user?: Prisma.XOR<Prisma.Bb_userScalarRelationFilter, Prisma.Bb_userWhereInput>
   travelPackage?: Prisma.XOR<Prisma.Bb_travelPackageScalarRelationFilter, Prisma.Bb_travelPackageWhereInput>
-  payments?: Prisma.XOR<Prisma.Bb_paymentNullableScalarRelationFilter, Prisma.Bb_paymentWhereInput> | null
+  payments?: Prisma.Bb_paymentListRelationFilter
 }
 
 export type Bb_bookingOrderByWithRelationInput = {
@@ -343,21 +379,24 @@ export type Bb_bookingOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   packageId?: Prisma.SortOrder
   numberOfTravelers?: Prisma.SortOrder
+  visiteDate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrder
+  pricePerPerson?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
+  discountPercentage?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
-  taxAmount?: Prisma.SortOrder
+  gstAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
-  refundableAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   cancellationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  refundableAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.Bb_userOrderByWithRelationInput
   travelPackage?: Prisma.Bb_travelPackageOrderByWithRelationInput
-  payments?: Prisma.Bb_paymentOrderByWithRelationInput
+  payments?: Prisma.Bb_paymentOrderByRelationAggregateInput
 }
 
 export type Bb_bookingWhereUniqueInput = Prisma.AtLeast<{
@@ -369,21 +408,24 @@ export type Bb_bookingWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Bb_booking"> | string
   packageId?: Prisma.StringFilter<"Bb_booking"> | string
   numberOfTravelers?: Prisma.IntFilter<"Bb_booking"> | number
+  visiteDate?: Prisma.DateTimeNullableFilter<"Bb_booking"> | Date | string | null
   status?: Prisma.EnumBookingStatusFilter<"Bb_booking"> | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFilter<"Bb_booking"> | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFilter<"Bb_booking"> | number
+  gstPercentage?: Prisma.IntFilter<"Bb_booking"> | number
+  discountPercentage?: Prisma.IntFilter<"Bb_booking"> | number
   baseAmount?: Prisma.FloatFilter<"Bb_booking"> | number
-  taxAmount?: Prisma.FloatFilter<"Bb_booking"> | number
+  gstAmount?: Prisma.FloatFilter<"Bb_booking"> | number
   discountAmount?: Prisma.FloatFilter<"Bb_booking"> | number
   totalAmount?: Prisma.FloatFilter<"Bb_booking"> | number
-  refundableAmount?: Prisma.FloatNullableFilter<"Bb_booking"> | number | null
   cancellationReason?: Prisma.StringNullableFilter<"Bb_booking"> | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"Bb_booking"> | Date | string | null
   cancelledBy?: Prisma.EnumCancelledByNullableFilter<"Bb_booking"> | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.FloatNullableFilter<"Bb_booking"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Bb_booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Bb_booking"> | Date | string
   user?: Prisma.XOR<Prisma.Bb_userScalarRelationFilter, Prisma.Bb_userWhereInput>
   travelPackage?: Prisma.XOR<Prisma.Bb_travelPackageScalarRelationFilter, Prisma.Bb_travelPackageWhereInput>
-  payments?: Prisma.XOR<Prisma.Bb_paymentNullableScalarRelationFilter, Prisma.Bb_paymentWhereInput> | null
+  payments?: Prisma.Bb_paymentListRelationFilter
 }, "id" | "bookingCode">
 
 export type Bb_bookingOrderByWithAggregationInput = {
@@ -392,16 +434,19 @@ export type Bb_bookingOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   packageId?: Prisma.SortOrder
   numberOfTravelers?: Prisma.SortOrder
+  visiteDate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrder
+  pricePerPerson?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
+  discountPercentage?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
-  taxAmount?: Prisma.SortOrder
+  gstAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
-  refundableAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   cancellationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   cancelledBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  refundableAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.Bb_bookingCountOrderByAggregateInput
@@ -420,16 +465,19 @@ export type Bb_bookingScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"Bb_booking"> | string
   packageId?: Prisma.StringWithAggregatesFilter<"Bb_booking"> | string
   numberOfTravelers?: Prisma.IntWithAggregatesFilter<"Bb_booking"> | number
+  visiteDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Bb_booking"> | Date | string | null
   status?: Prisma.EnumBookingStatusWithAggregatesFilter<"Bb_booking"> | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusWithAggregatesFilter<"Bb_booking"> | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatWithAggregatesFilter<"Bb_booking"> | number
+  gstPercentage?: Prisma.IntWithAggregatesFilter<"Bb_booking"> | number
+  discountPercentage?: Prisma.IntWithAggregatesFilter<"Bb_booking"> | number
   baseAmount?: Prisma.FloatWithAggregatesFilter<"Bb_booking"> | number
-  taxAmount?: Prisma.FloatWithAggregatesFilter<"Bb_booking"> | number
+  gstAmount?: Prisma.FloatWithAggregatesFilter<"Bb_booking"> | number
   discountAmount?: Prisma.FloatWithAggregatesFilter<"Bb_booking"> | number
   totalAmount?: Prisma.FloatWithAggregatesFilter<"Bb_booking"> | number
-  refundableAmount?: Prisma.FloatNullableWithAggregatesFilter<"Bb_booking"> | number | null
   cancellationReason?: Prisma.StringNullableWithAggregatesFilter<"Bb_booking"> | string | null
   cancelledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Bb_booking"> | Date | string | null
   cancelledBy?: Prisma.EnumCancelledByNullableWithAggregatesFilter<"Bb_booking"> | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.FloatNullableWithAggregatesFilter<"Bb_booking"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Bb_booking"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Bb_booking"> | Date | string
 }
@@ -438,21 +486,24 @@ export type Bb_bookingCreateInput = {
   id?: string
   bookingCode: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.Bb_userCreateNestedOneWithoutBookingsInput
   travelPackage: Prisma.Bb_travelPackageCreateNestedOneWithoutBookingsInput
-  payments?: Prisma.Bb_paymentCreateNestedOneWithoutBookingInput
+  payments?: Prisma.Bb_paymentCreateNestedManyWithoutBookingInput
 }
 
 export type Bb_bookingUncheckedCreateInput = {
@@ -461,40 +512,46 @@ export type Bb_bookingUncheckedCreateInput = {
   userId: string
   packageId: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  payments?: Prisma.Bb_paymentUncheckedCreateNestedOneWithoutBookingInput
+  payments?: Prisma.Bb_paymentUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type Bb_bookingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bookingCode?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.Bb_userUpdateOneRequiredWithoutBookingsNestedInput
   travelPackage?: Prisma.Bb_travelPackageUpdateOneRequiredWithoutBookingsNestedInput
-  payments?: Prisma.Bb_paymentUpdateOneWithoutBookingNestedInput
+  payments?: Prisma.Bb_paymentUpdateManyWithoutBookingNestedInput
 }
 
 export type Bb_bookingUncheckedUpdateInput = {
@@ -503,19 +560,22 @@ export type Bb_bookingUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   packageId?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payments?: Prisma.Bb_paymentUncheckedUpdateOneWithoutBookingNestedInput
+  payments?: Prisma.Bb_paymentUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type Bb_bookingCreateManyInput = {
@@ -524,16 +584,19 @@ export type Bb_bookingCreateManyInput = {
   userId: string
   packageId: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -542,16 +605,19 @@ export type Bb_bookingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bookingCode?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -562,16 +628,19 @@ export type Bb_bookingUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   packageId?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -592,24 +661,30 @@ export type Bb_bookingCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   packageId?: Prisma.SortOrder
   numberOfTravelers?: Prisma.SortOrder
+  visiteDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrder
+  pricePerPerson?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
+  discountPercentage?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
-  taxAmount?: Prisma.SortOrder
+  gstAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
-  refundableAmount?: Prisma.SortOrder
   cancellationReason?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   cancelledBy?: Prisma.SortOrder
+  refundableAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type Bb_bookingAvgOrderByAggregateInput = {
   numberOfTravelers?: Prisma.SortOrder
+  pricePerPerson?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
+  discountPercentage?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
-  taxAmount?: Prisma.SortOrder
+  gstAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   refundableAmount?: Prisma.SortOrder
@@ -621,16 +696,19 @@ export type Bb_bookingMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   packageId?: Prisma.SortOrder
   numberOfTravelers?: Prisma.SortOrder
+  visiteDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrder
+  pricePerPerson?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
+  discountPercentage?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
-  taxAmount?: Prisma.SortOrder
+  gstAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
-  refundableAmount?: Prisma.SortOrder
   cancellationReason?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   cancelledBy?: Prisma.SortOrder
+  refundableAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -641,32 +719,38 @@ export type Bb_bookingMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   packageId?: Prisma.SortOrder
   numberOfTravelers?: Prisma.SortOrder
+  visiteDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  paymentStatus?: Prisma.SortOrder
+  pricePerPerson?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
+  discountPercentage?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
-  taxAmount?: Prisma.SortOrder
+  gstAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
-  refundableAmount?: Prisma.SortOrder
   cancellationReason?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
   cancelledBy?: Prisma.SortOrder
+  refundableAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type Bb_bookingSumOrderByAggregateInput = {
   numberOfTravelers?: Prisma.SortOrder
+  pricePerPerson?: Prisma.SortOrder
+  gstPercentage?: Prisma.SortOrder
+  discountPercentage?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
-  taxAmount?: Prisma.SortOrder
+  gstAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   refundableAmount?: Prisma.SortOrder
 }
 
-export type Bb_bookingNullableScalarRelationFilter = {
-  is?: Prisma.Bb_bookingWhereInput | null
-  isNot?: Prisma.Bb_bookingWhereInput | null
+export type Bb_bookingScalarRelationFilter = {
+  is?: Prisma.Bb_bookingWhereInput
+  isNot?: Prisma.Bb_bookingWhereInput
 }
 
 export type Bb_bookingCreateNestedManyWithoutUserInput = {
@@ -757,8 +841,8 @@ export type EnumBookingStatusFieldUpdateOperationsInput = {
   set?: $Enums.BookingStatus
 }
 
-export type EnumPaymentStatusFieldUpdateOperationsInput = {
-  set?: $Enums.PaymentStatus
+export type NullableEnumCancelledByFieldUpdateOperationsInput = {
+  set?: $Enums.CancelledBy | null
 }
 
 export type NullableFloatFieldUpdateOperationsInput = {
@@ -769,22 +853,16 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableEnumCancelledByFieldUpdateOperationsInput = {
-  set?: $Enums.CancelledBy | null
-}
-
 export type Bb_bookingCreateNestedOneWithoutPaymentsInput = {
   create?: Prisma.XOR<Prisma.Bb_bookingCreateWithoutPaymentsInput, Prisma.Bb_bookingUncheckedCreateWithoutPaymentsInput>
   connectOrCreate?: Prisma.Bb_bookingCreateOrConnectWithoutPaymentsInput
   connect?: Prisma.Bb_bookingWhereUniqueInput
 }
 
-export type Bb_bookingUpdateOneWithoutPaymentsNestedInput = {
+export type Bb_bookingUpdateOneRequiredWithoutPaymentsNestedInput = {
   create?: Prisma.XOR<Prisma.Bb_bookingCreateWithoutPaymentsInput, Prisma.Bb_bookingUncheckedCreateWithoutPaymentsInput>
   connectOrCreate?: Prisma.Bb_bookingCreateOrConnectWithoutPaymentsInput
   upsert?: Prisma.Bb_bookingUpsertWithoutPaymentsInput
-  disconnect?: Prisma.Bb_bookingWhereInput | boolean
-  delete?: Prisma.Bb_bookingWhereInput | boolean
   connect?: Prisma.Bb_bookingWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.Bb_bookingUpdateToOneWithWhereWithoutPaymentsInput, Prisma.Bb_bookingUpdateWithoutPaymentsInput>, Prisma.Bb_bookingUncheckedUpdateWithoutPaymentsInput>
 }
@@ -793,20 +871,23 @@ export type Bb_bookingCreateWithoutUserInput = {
   id?: string
   bookingCode: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   travelPackage: Prisma.Bb_travelPackageCreateNestedOneWithoutBookingsInput
-  payments?: Prisma.Bb_paymentCreateNestedOneWithoutBookingInput
+  payments?: Prisma.Bb_paymentCreateNestedManyWithoutBookingInput
 }
 
 export type Bb_bookingUncheckedCreateWithoutUserInput = {
@@ -814,19 +895,22 @@ export type Bb_bookingUncheckedCreateWithoutUserInput = {
   bookingCode: string
   packageId: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  payments?: Prisma.Bb_paymentUncheckedCreateNestedOneWithoutBookingInput
+  payments?: Prisma.Bb_paymentUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type Bb_bookingCreateOrConnectWithoutUserInput = {
@@ -864,16 +948,19 @@ export type Bb_bookingScalarWhereInput = {
   userId?: Prisma.StringFilter<"Bb_booking"> | string
   packageId?: Prisma.StringFilter<"Bb_booking"> | string
   numberOfTravelers?: Prisma.IntFilter<"Bb_booking"> | number
+  visiteDate?: Prisma.DateTimeNullableFilter<"Bb_booking"> | Date | string | null
   status?: Prisma.EnumBookingStatusFilter<"Bb_booking"> | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFilter<"Bb_booking"> | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFilter<"Bb_booking"> | number
+  gstPercentage?: Prisma.IntFilter<"Bb_booking"> | number
+  discountPercentage?: Prisma.IntFilter<"Bb_booking"> | number
   baseAmount?: Prisma.FloatFilter<"Bb_booking"> | number
-  taxAmount?: Prisma.FloatFilter<"Bb_booking"> | number
+  gstAmount?: Prisma.FloatFilter<"Bb_booking"> | number
   discountAmount?: Prisma.FloatFilter<"Bb_booking"> | number
   totalAmount?: Prisma.FloatFilter<"Bb_booking"> | number
-  refundableAmount?: Prisma.FloatNullableFilter<"Bb_booking"> | number | null
   cancellationReason?: Prisma.StringNullableFilter<"Bb_booking"> | string | null
   cancelledAt?: Prisma.DateTimeNullableFilter<"Bb_booking"> | Date | string | null
   cancelledBy?: Prisma.EnumCancelledByNullableFilter<"Bb_booking"> | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.FloatNullableFilter<"Bb_booking"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Bb_booking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Bb_booking"> | Date | string
 }
@@ -882,20 +969,23 @@ export type Bb_bookingCreateWithoutTravelPackageInput = {
   id?: string
   bookingCode: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.Bb_userCreateNestedOneWithoutBookingsInput
-  payments?: Prisma.Bb_paymentCreateNestedOneWithoutBookingInput
+  payments?: Prisma.Bb_paymentCreateNestedManyWithoutBookingInput
 }
 
 export type Bb_bookingUncheckedCreateWithoutTravelPackageInput = {
@@ -903,19 +993,22 @@ export type Bb_bookingUncheckedCreateWithoutTravelPackageInput = {
   bookingCode: string
   userId: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  payments?: Prisma.Bb_paymentUncheckedCreateNestedOneWithoutBookingInput
+  payments?: Prisma.Bb_paymentUncheckedCreateNestedManyWithoutBookingInput
 }
 
 export type Bb_bookingCreateOrConnectWithoutTravelPackageInput = {
@@ -948,16 +1041,19 @@ export type Bb_bookingCreateWithoutPaymentsInput = {
   id?: string
   bookingCode: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.Bb_userCreateNestedOneWithoutBookingsInput
@@ -970,16 +1066,19 @@ export type Bb_bookingUncheckedCreateWithoutPaymentsInput = {
   userId: string
   packageId: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1004,16 +1103,19 @@ export type Bb_bookingUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bookingCode?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.Bb_userUpdateOneRequiredWithoutBookingsNestedInput
@@ -1026,16 +1128,19 @@ export type Bb_bookingUncheckedUpdateWithoutPaymentsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   packageId?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1045,16 +1150,19 @@ export type Bb_bookingCreateManyUserInput = {
   bookingCode: string
   packageId: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1063,20 +1171,23 @@ export type Bb_bookingUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bookingCode?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   travelPackage?: Prisma.Bb_travelPackageUpdateOneRequiredWithoutBookingsNestedInput
-  payments?: Prisma.Bb_paymentUpdateOneWithoutBookingNestedInput
+  payments?: Prisma.Bb_paymentUpdateManyWithoutBookingNestedInput
 }
 
 export type Bb_bookingUncheckedUpdateWithoutUserInput = {
@@ -1084,19 +1195,22 @@ export type Bb_bookingUncheckedUpdateWithoutUserInput = {
   bookingCode?: Prisma.StringFieldUpdateOperationsInput | string
   packageId?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payments?: Prisma.Bb_paymentUncheckedUpdateOneWithoutBookingNestedInput
+  payments?: Prisma.Bb_paymentUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type Bb_bookingUncheckedUpdateManyWithoutUserInput = {
@@ -1104,16 +1218,19 @@ export type Bb_bookingUncheckedUpdateManyWithoutUserInput = {
   bookingCode?: Prisma.StringFieldUpdateOperationsInput | string
   packageId?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1123,16 +1240,19 @@ export type Bb_bookingCreateManyTravelPackageInput = {
   bookingCode: string
   userId: string
   numberOfTravelers?: number
+  visiteDate?: Date | string | null
   status?: $Enums.BookingStatus
-  paymentStatus?: $Enums.PaymentStatus
+  pricePerPerson: number
+  gstPercentage?: number
+  discountPercentage?: number
   baseAmount: number
-  taxAmount?: number
+  gstAmount?: number
   discountAmount?: number
   totalAmount: number
-  refundableAmount?: number | null
   cancellationReason?: string | null
   cancelledAt?: Date | string | null
   cancelledBy?: $Enums.CancelledBy | null
+  refundableAmount?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1141,20 +1261,23 @@ export type Bb_bookingUpdateWithoutTravelPackageInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   bookingCode?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.Bb_userUpdateOneRequiredWithoutBookingsNestedInput
-  payments?: Prisma.Bb_paymentUpdateOneWithoutBookingNestedInput
+  payments?: Prisma.Bb_paymentUpdateManyWithoutBookingNestedInput
 }
 
 export type Bb_bookingUncheckedUpdateWithoutTravelPackageInput = {
@@ -1162,19 +1285,22 @@ export type Bb_bookingUncheckedUpdateWithoutTravelPackageInput = {
   bookingCode?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payments?: Prisma.Bb_paymentUncheckedUpdateOneWithoutBookingNestedInput
+  payments?: Prisma.Bb_paymentUncheckedUpdateManyWithoutBookingNestedInput
 }
 
 export type Bb_bookingUncheckedUpdateManyWithoutTravelPackageInput = {
@@ -1182,20 +1308,52 @@ export type Bb_bookingUncheckedUpdateManyWithoutTravelPackageInput = {
   bookingCode?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   numberOfTravelers?: Prisma.IntFieldUpdateOperationsInput | number
+  visiteDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus
-  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  pricePerPerson?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstPercentage?: Prisma.IntFieldUpdateOperationsInput | number
+  discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  taxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  gstAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cancelledBy?: Prisma.NullableEnumCancelledByFieldUpdateOperationsInput | $Enums.CancelledBy | null
+  refundableAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type Bb_bookingCountOutputType
+ */
+
+export type Bb_bookingCountOutputType = {
+  payments: number
+}
+
+export type Bb_bookingCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  payments?: boolean | Bb_bookingCountOutputTypeCountPaymentsArgs
+}
+
+/**
+ * Bb_bookingCountOutputType without action
+ */
+export type Bb_bookingCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Bb_bookingCountOutputType
+   */
+  select?: Prisma.Bb_bookingCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * Bb_bookingCountOutputType without action
+ */
+export type Bb_bookingCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.Bb_paymentWhereInput
+}
 
 
 export type Bb_bookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1204,21 +1362,25 @@ export type Bb_bookingSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   userId?: boolean
   packageId?: boolean
   numberOfTravelers?: boolean
+  visiteDate?: boolean
   status?: boolean
-  paymentStatus?: boolean
+  pricePerPerson?: boolean
+  gstPercentage?: boolean
+  discountPercentage?: boolean
   baseAmount?: boolean
-  taxAmount?: boolean
+  gstAmount?: boolean
   discountAmount?: boolean
   totalAmount?: boolean
-  refundableAmount?: boolean
   cancellationReason?: boolean
   cancelledAt?: boolean
   cancelledBy?: boolean
+  refundableAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.Bb_userDefaultArgs<ExtArgs>
   travelPackage?: boolean | Prisma.Bb_travelPackageDefaultArgs<ExtArgs>
   payments?: boolean | Prisma.Bb_booking$paymentsArgs<ExtArgs>
+  _count?: boolean | Prisma.Bb_bookingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["bb_booking"]>
 
 export type Bb_bookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1227,16 +1389,19 @@ export type Bb_bookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   userId?: boolean
   packageId?: boolean
   numberOfTravelers?: boolean
+  visiteDate?: boolean
   status?: boolean
-  paymentStatus?: boolean
+  pricePerPerson?: boolean
+  gstPercentage?: boolean
+  discountPercentage?: boolean
   baseAmount?: boolean
-  taxAmount?: boolean
+  gstAmount?: boolean
   discountAmount?: boolean
   totalAmount?: boolean
-  refundableAmount?: boolean
   cancellationReason?: boolean
   cancelledAt?: boolean
   cancelledBy?: boolean
+  refundableAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.Bb_userDefaultArgs<ExtArgs>
@@ -1249,16 +1414,19 @@ export type Bb_bookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   userId?: boolean
   packageId?: boolean
   numberOfTravelers?: boolean
+  visiteDate?: boolean
   status?: boolean
-  paymentStatus?: boolean
+  pricePerPerson?: boolean
+  gstPercentage?: boolean
+  discountPercentage?: boolean
   baseAmount?: boolean
-  taxAmount?: boolean
+  gstAmount?: boolean
   discountAmount?: boolean
   totalAmount?: boolean
-  refundableAmount?: boolean
   cancellationReason?: boolean
   cancelledAt?: boolean
   cancelledBy?: boolean
+  refundableAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.Bb_userDefaultArgs<ExtArgs>
@@ -1271,25 +1439,29 @@ export type Bb_bookingSelectScalar = {
   userId?: boolean
   packageId?: boolean
   numberOfTravelers?: boolean
+  visiteDate?: boolean
   status?: boolean
-  paymentStatus?: boolean
+  pricePerPerson?: boolean
+  gstPercentage?: boolean
+  discountPercentage?: boolean
   baseAmount?: boolean
-  taxAmount?: boolean
+  gstAmount?: boolean
   discountAmount?: boolean
   totalAmount?: boolean
-  refundableAmount?: boolean
   cancellationReason?: boolean
   cancelledAt?: boolean
   cancelledBy?: boolean
+  refundableAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type Bb_bookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "bookingCode" | "userId" | "packageId" | "numberOfTravelers" | "status" | "paymentStatus" | "baseAmount" | "taxAmount" | "discountAmount" | "totalAmount" | "refundableAmount" | "cancellationReason" | "cancelledAt" | "cancelledBy" | "createdAt" | "updatedAt", ExtArgs["result"]["bb_booking"]>
+export type Bb_bookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "bookingCode" | "userId" | "packageId" | "numberOfTravelers" | "visiteDate" | "status" | "pricePerPerson" | "gstPercentage" | "discountPercentage" | "baseAmount" | "gstAmount" | "discountAmount" | "totalAmount" | "cancellationReason" | "cancelledAt" | "cancelledBy" | "refundableAmount" | "createdAt" | "updatedAt", ExtArgs["result"]["bb_booking"]>
 export type Bb_bookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Bb_userDefaultArgs<ExtArgs>
   travelPackage?: boolean | Prisma.Bb_travelPackageDefaultArgs<ExtArgs>
   payments?: boolean | Prisma.Bb_booking$paymentsArgs<ExtArgs>
+  _count?: boolean | Prisma.Bb_bookingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type Bb_bookingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Bb_userDefaultArgs<ExtArgs>
@@ -1305,7 +1477,7 @@ export type $Bb_bookingPayload<ExtArgs extends runtime.Types.Extensions.Internal
   objects: {
     user: Prisma.$Bb_userPayload<ExtArgs>
     travelPackage: Prisma.$Bb_travelPackagePayload<ExtArgs>
-    payments: Prisma.$Bb_paymentPayload<ExtArgs> | null
+    payments: Prisma.$Bb_paymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1313,16 +1485,19 @@ export type $Bb_bookingPayload<ExtArgs extends runtime.Types.Extensions.Internal
     userId: string
     packageId: string
     numberOfTravelers: number
+    visiteDate: Date | null
     status: $Enums.BookingStatus
-    paymentStatus: $Enums.PaymentStatus
+    pricePerPerson: number
+    gstPercentage: number
+    discountPercentage: number
     baseAmount: number
-    taxAmount: number
+    gstAmount: number
     discountAmount: number
     totalAmount: number
-    refundableAmount: number | null
     cancellationReason: string | null
     cancelledAt: Date | null
     cancelledBy: $Enums.CancelledBy | null
+    refundableAmount: number | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["bb_booking"]>
@@ -1721,7 +1896,7 @@ export interface Prisma__Bb_bookingClient<T, Null = never, ExtArgs extends runti
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.Bb_userDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_userDefaultArgs<ExtArgs>>): Prisma.Prisma__Bb_userClient<runtime.Types.Result.GetResult<Prisma.$Bb_userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   travelPackage<T extends Prisma.Bb_travelPackageDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_travelPackageDefaultArgs<ExtArgs>>): Prisma.Prisma__Bb_travelPackageClient<runtime.Types.Result.GetResult<Prisma.$Bb_travelPackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  payments<T extends Prisma.Bb_booking$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_booking$paymentsArgs<ExtArgs>>): Prisma.Prisma__Bb_paymentClient<runtime.Types.Result.GetResult<Prisma.$Bb_paymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  payments<T extends Prisma.Bb_booking$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_booking$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_paymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1756,16 +1931,19 @@ export interface Bb_bookingFieldRefs {
   readonly userId: Prisma.FieldRef<"Bb_booking", 'String'>
   readonly packageId: Prisma.FieldRef<"Bb_booking", 'String'>
   readonly numberOfTravelers: Prisma.FieldRef<"Bb_booking", 'Int'>
+  readonly visiteDate: Prisma.FieldRef<"Bb_booking", 'DateTime'>
   readonly status: Prisma.FieldRef<"Bb_booking", 'BookingStatus'>
-  readonly paymentStatus: Prisma.FieldRef<"Bb_booking", 'PaymentStatus'>
+  readonly pricePerPerson: Prisma.FieldRef<"Bb_booking", 'Float'>
+  readonly gstPercentage: Prisma.FieldRef<"Bb_booking", 'Int'>
+  readonly discountPercentage: Prisma.FieldRef<"Bb_booking", 'Int'>
   readonly baseAmount: Prisma.FieldRef<"Bb_booking", 'Float'>
-  readonly taxAmount: Prisma.FieldRef<"Bb_booking", 'Float'>
+  readonly gstAmount: Prisma.FieldRef<"Bb_booking", 'Float'>
   readonly discountAmount: Prisma.FieldRef<"Bb_booking", 'Float'>
   readonly totalAmount: Prisma.FieldRef<"Bb_booking", 'Float'>
-  readonly refundableAmount: Prisma.FieldRef<"Bb_booking", 'Float'>
   readonly cancellationReason: Prisma.FieldRef<"Bb_booking", 'String'>
   readonly cancelledAt: Prisma.FieldRef<"Bb_booking", 'DateTime'>
   readonly cancelledBy: Prisma.FieldRef<"Bb_booking", 'CancelledBy'>
+  readonly refundableAmount: Prisma.FieldRef<"Bb_booking", 'Float'>
   readonly createdAt: Prisma.FieldRef<"Bb_booking", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Bb_booking", 'DateTime'>
 }
@@ -2180,6 +2358,11 @@ export type Bb_booking$paymentsArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.Bb_paymentInclude<ExtArgs> | null
   where?: Prisma.Bb_paymentWhereInput
+  orderBy?: Prisma.Bb_paymentOrderByWithRelationInput | Prisma.Bb_paymentOrderByWithRelationInput[]
+  cursor?: Prisma.Bb_paymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Bb_paymentScalarFieldEnum | Prisma.Bb_paymentScalarFieldEnum[]
 }
 
 /**

@@ -23,6 +23,24 @@ const publishPackage = asyncHandler(async (req: Request, res: Response) => {
       select: { id: true },
     });
 
+    // Create package address if provided
+    let addressId: string | undefined;
+    if (data.packageAddress) {
+      const address = await tx.bb_address.create({
+        data: {
+          country: data.packageAddress.country!,
+          state: data.packageAddress.state!,
+          district: data.packageAddress.district!,
+          pin: data.packageAddress.pin!,
+          city: data.packageAddress.city!,
+          longitude: data.packageAddress.longitude!,
+          latitude: data.packageAddress.latitude!,
+        },
+        select: { id: true },
+      });
+      addressId = address.id;
+    }
+
     // Create main package
     const pkg = await tx.bb_travelPackage.create({
       data: {
@@ -33,25 +51,18 @@ const publishPackage = asyncHandler(async (req: Request, res: Response) => {
 
         totalSeats: data.totalSeats,
         seatsAvailable: data.totalSeats,
-        seatBooked: 0,
+        seatsBooked: 0,
 
-        discountAmount: data.discountAmount ?? 0,
         discountPercentage: data.discountPercentage ?? 0,
-        withTax: data.withTax ?? false,
-        taxPercentage: data.taxPercentage ?? 0,
+        gstPercentage: data.gstPercentage ?? 0,
 
         destination: data.destination,
         durationDays: data.durationDays,
         startDate: data.startDate ? new Date(data.startDate) : null,
         endDate: data.endDate ? new Date(data.endDate) : null,
 
-        bookingActiveFrom: new Date(data.bookingActiveFrom),
-        bookingEndAt: new Date(data.bookingEndAt),
-
-        packagePolicies: data.packagePolicies ?? "NA",
-        cancellationPolicies: data.cancellationPolicies ?? "NA",
-
         packageBannerImageId: bannerImage.id,
+        ...(addressId && { address: { connect: { id: addressId } } }),
       },
       select: { id: true },
     });
@@ -69,86 +80,16 @@ const publishPackage = asyncHandler(async (req: Request, res: Response) => {
       }
     }
 
-    // Create itinerary days
+    // Create itinerary days (simplified - no nested hotel, transport, visit, meal data)
     for (const day of data.itineraryDays) {
-      const itinerary = await tx.bb_itineraryDay.create({
+      await tx.bb_itineraryDay.create({
         data: {
           dayNumber: day.dayNumber,
           title: day.title,
           description: day.description ?? null,
           packageId: pkg.id,
         },
-        select: { id: true },
       });
-
-      // Create hotel stay if provided
-      if (day.hotelStay) {
-        await tx.bb_hotelStay.create({
-          data: {
-            itineraryDayId: itinerary.id,
-            hotelName: day.hotelStay.hotelName,
-            checkIn: day.hotelStay.checkIn
-              ? new Date(day.hotelStay.checkIn)
-              : null,
-            checkOut: day.hotelStay.checkOut
-              ? new Date(day.hotelStay.checkOut)
-              : null,
-            address: day.hotelStay.address ?? null,
-            wifi: day.hotelStay.wifi ?? false,
-            tv: day.hotelStay.tv ?? false,
-            attachWashroom: day.hotelStay.attachWashroom ?? false,
-            acRoom: day.hotelStay.acRoom ?? false,
-            kitchen: day.hotelStay.kitchen ?? false,
-          },
-        });
-      }
-
-      // Create transports
-      for (const t of day.transports) {
-        await tx.bb_transport.create({
-          data: {
-            itineraryDayId: itinerary.id,
-            fromLocation: t.fromLocation,
-            toLocation: t.toLocation,
-            mode: t.mode,
-            startTime: new Date(t.startTime),
-            endTime: new Date(t.endTime),
-          },
-        });
-      }
-
-      // Create visiting places
-      for (const v of day.visits) {
-        await tx.bb_visitPlace.create({
-          data: {
-            itineraryDayId: itinerary.id,
-            name: v.name,
-            address: v.address ?? null,
-            description: v.description ?? null,
-            visitTime: v.visitTime ?? null,
-          },
-        });
-      }
-
-      // Create meal plan if meals are provided
-      if (day.meals?.length) {
-        const mealPlan = await tx.bb_mealPlan.create({
-          data: {
-            itineraryDayId: itinerary.id,
-          },
-          select: { id: true },
-        });
-
-        for (const m of day.meals) {
-          await tx.bb_meal.create({
-            data: {
-              mealPlanId: mealPlan.id,
-              type: m.type,
-              mealDescription: m.mealDescription ?? null,
-            },
-          });
-        }
-      }
     }
 
     return { pkg };

@@ -31,15 +31,13 @@ const getAllBookings = asyncHandler(async (req: Request, res: Response) => {
       userId: true,
       numberOfTravelers: true,
       status: true,
-      paymentStatus: true,
-      totalAmount: true,
+      pricePerPerson: true,
+      discountPercentage: true,
+      gstPercentage: true,
       baseAmount: true,
-      taxAmount: true,
       discountAmount: true,
-      refundableAmount: true,
-      cancellationReason: true,
-      cancelledAt: true,
-      cancelledBy: true,
+      gstAmount: true,
+      totalAmount: true,
       createdAt: true,
       travelPackage: {
         select: {
@@ -73,18 +71,19 @@ const getAllBookings = asyncHandler(async (req: Request, res: Response) => {
       payments: {
         select: {
           id: true,
-          type: true,
+          paymentRef: true,
           status: true,
           amount: true,
           currency: true,
-          provider: true,
-          providerRef: true,
-          isRefund: true,
+          method: true,
+          processedAt: true,
           createdAt: true,
         },
       },
     },
-   
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return res

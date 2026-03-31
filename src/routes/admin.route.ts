@@ -27,9 +27,7 @@ import {
 const adminRouter = Router();
 
 adminRouter.route("/register").post(adminRegister);
-adminRouter
-  .route("/verify-account")
-  .post(authMiddleware, userAccountVerification);
+adminRouter.route("/verify-account").post(userAccountVerification);
 adminRouter
   .route("/send-verification-link")
   .post(authMiddleware, sendAccountVerificationLink);
@@ -47,7 +45,7 @@ adminRouter
   .route("/get-all-payments")
   .get(adminMiddlewareOperation, getAllPayments);
 adminRouter.route("/get-all-user").get(adminMiddlewareOperation, getAllUser);
-adminRouter.route("/get-all-pkg").get(adminMiddlewareOperation, getAllPkg);
+adminRouter.route("/get-all-pkg").get(adminMiddlewareOperation,getAllPkg );
 adminRouter
   .route("/get-agent-pkg")
   .post(adminMiddlewareOperation, getAllPkgOfAgent);

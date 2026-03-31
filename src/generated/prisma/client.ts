@@ -80,31 +80,6 @@ export type Bb_image = Prisma.Bb_imageModel
  */
 export type Bb_itineraryDay = Prisma.Bb_itineraryDayModel
 /**
- * Model Bb_hotelStay
- * 
- */
-export type Bb_hotelStay = Prisma.Bb_hotelStayModel
-/**
- * Model Bb_mealPlan
- * 
- */
-export type Bb_mealPlan = Prisma.Bb_mealPlanModel
-/**
- * Model Bb_meal
- * 
- */
-export type Bb_meal = Prisma.Bb_mealModel
-/**
- * Model Bb_transport
- * 
- */
-export type Bb_transport = Prisma.Bb_transportModel
-/**
- * Model Bb_visitPlace
- * 
- */
-export type Bb_visitPlace = Prisma.Bb_visitPlaceModel
-/**
  * Model Bb_booking
  * 
  */

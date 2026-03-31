@@ -20,9 +20,7 @@ import { authMiddleware } from "../middleware/auth.middleware.js";
 const userRouter = Router();
 
 userRouter.route("/register").post(userRegister);
-userRouter
-  .route("/verify-account")
-  .post(authMiddleware, userAccountVerification);
+userRouter.route("/verify-account").post(userAccountVerification);
 userRouter
   .route("/send-verification-link")
   .post(authMiddleware, sendAccountVerificationLink);

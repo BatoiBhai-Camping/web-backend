@@ -61,7 +61,7 @@ const updateProfile = asyncHandler(async (req: Request, res: Response) => {
     profileFileId,
     bannerImageUrl,
     bannerFileId,
-    addresses,
+    address,
     ...agentFields
   } = data;
 
@@ -116,77 +116,51 @@ const updateProfile = asyncHandler(async (req: Request, res: Response) => {
       }
     }
 
-    // Handle address updates/creation
-    if (addresses && addresses.length > 0) {
-      for (const address of addresses) {
-        if (address.id) {
-          // Verify the address exists and belongs to the user before updating
-          const existingAddress = await tx.bb_address.findFirst({
-            where: {
-              id: address.id,
-              userId: userId!,
-            },
-          });
+    // Handle address updates/creation (one-to-one relationship)
+    if (address) {
+      const existingAddress = await tx.bb_address.findFirst({
+        where: { userId: userId! },
+      });
 
-          if (existingAddress) {
-            // Update existing address
-            await tx.bb_address.update({
-              where: {
-                id: address.id,
-              },
-              data: {
-                ...(address.addressType && {
-                  addressType: address.addressType,
-                }),
-                ...(address.country !== undefined && {
-                  country: address.country,
-                }),
-                ...(address.state !== undefined && { state: address.state }),
-                ...(address.district !== undefined && {
-                  district: address.district,
-                }),
-                ...(address.pin !== undefined && { pin: address.pin }),
-                ...(address.city !== undefined && { city: address.city }),
-                ...(address.longitude !== undefined && {
-                  longitude: address.longitude,
-                }),
-                ...(address.latitude !== undefined && {
-                  latitude: address.latitude,
-                }),
-              },
-            });
-          } else {
-            // Address ID provided but doesn't exist for this user - create new
-            await tx.bb_address.create({
-              data: {
-                userId: userId!,
-                addressType: address.addressType || "PERMANENT",
-                country: address.country!,
-                state: address.state!,
-                district: address.district!,
-                pin: address.pin!,
-                city: address.city!,
-                longitude: address.longitude!,
-                latitude: address.latitude!,
-              },
-            });
-          }
-        } else {
-          // Create new address
-          await tx.bb_address.create({
-            data: {
-              userId: userId!,
-              addressType: address.addressType || "PERMANENT",
-              country: address.country!,
-              state: address.state!,
-              district: address.district!,
-              pin: address.pin!,
-              city: address.city!,
-              longitude: address.longitude!,
-              latitude: address.latitude!,
-            },
+      if (existingAddress) {
+        // Update existing address
+        const addressUpdateData: any = {};
+        if (address.addressType !== undefined)
+          addressUpdateData.addressType = address.addressType;
+        if (address.country !== undefined)
+          addressUpdateData.country = address.country;
+        if (address.state !== undefined)
+          addressUpdateData.state = address.state;
+        if (address.district !== undefined)
+          addressUpdateData.district = address.district;
+        if (address.pin !== undefined) addressUpdateData.pin = address.pin;
+        if (address.city !== undefined) addressUpdateData.city = address.city;
+        if (address.longitude !== undefined)
+          addressUpdateData.longitude = address.longitude;
+        if (address.latitude !== undefined)
+          addressUpdateData.latitude = address.latitude;
+
+        if (Object.keys(addressUpdateData).length > 0) {
+          await tx.bb_address.update({
+            where: { id: existingAddress.id },
+            data: addressUpdateData,
           });
         }
+      } else {
+        // Create new address
+        await tx.bb_address.create({
+          data: {
+            userId: userId!,
+            addressType: address.addressType || "PERMANENT",
+            country: address.country || "",
+            state: address.state || null,
+            district: address.district || null,
+            pin: address.pin || null,
+            city: address.city || null,
+            longitude: address.longitude || null,
+            latitude: address.latitude || null,
+          },
+        });
       }
     }
 

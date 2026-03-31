@@ -24,9 +24,21 @@ const userAccountVerification = asyncHandler(
       );
     }
 
+    const verifyToken = validateRes.data.verifyToken;
+    // verify the token
+    const tokenData = jwt.verify(
+      verifyToken,
+      validENV.VERIFICATION_TOKEN_SECRET,
+    ) as VerificationPayload;
+
     const user = await db.bb_user.findFirst({
       where: {
-        id: req.userId as string,
+        email: tokenData.email,
+      },
+      select: {
+        emailVerified: true,
+        id: true,
+        email: true,
       },
     });
 
@@ -38,25 +50,9 @@ const userAccountVerification = asyncHandler(
       throw new ApiError(400, "User is already verified");
     }
 
-    const verifyToken = validateRes.data.verifyToken;
-    // verify the token
-    const tokenData = jwt.verify(
-      verifyToken,
-      validENV.VERIFICATION_TOKEN_SECRET,
-    ) as VerificationPayload;
-    const email = req.userEmail;
-    if (!(email === tokenData.email)) {
-      throw new ApiError(
-        400,
-        "Invalid verification token, token payload doesnot match",
-      );
-    }
-
-    //update the db
-
     const updateUser = await db.bb_user.update({
       where: {
-        id: req.userId as string,
+        id: user.id,
       },
       data: {
         emailVerified: true,

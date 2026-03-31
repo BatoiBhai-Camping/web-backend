@@ -105,6 +105,18 @@ enum ReviewType {
   PLATFORM
 }
 
+enum PaymentMethod {
+  CARD
+  UPI
+  WALLET
+  NET_BANKING
+  BANK_TRANSFER
+}
+enum PackageType {
+  MULTI_DAY
+  DAILY
+}
+
 model Bb_user {
   id            String      @id @default(cuid())
   fullName      String
@@ -125,7 +137,7 @@ model Bb_user {
   verifyToken   String?
   optionalPhone Bb_optionalPhone[]
 
-  address Bb_address[] @relation("UserAddressRelation")
+  address Bb_address? @relation("UserAddressRelation")
 
   agentProfile Bb_agentProfile?
   bookings     Bb_booking[]
@@ -190,10 +202,10 @@ model Bb_address {
   longitude   String?
   latitude    String?
 
-  userId String?
+  userId String?  @unique
   user   Bb_user? @relation("UserAddressRelation", fields: [userId], references: [id])
 
-  travelPackageId String?
+  travelPackageId String?           @unique
   travelPackage   Bb_travelPackage? @relation("PackageAddressRelation", fields: [travelPackageId], references: [id])
 }
 
@@ -205,23 +217,17 @@ model Bb_travelPackage {
   pricePerPerson        Float
   packageApprovedStatus PackageApprovedStatus @default(PENDING)
 
-  discountAmount     Int? @default(0)
   discountPercentage Int? @default(0)
-
-  withTax       Boolean? @default(false)
-  taxPercentage Int?     @default(0)
+  gstPercentage      Int? @default(0)
 
   totalSeats           Int             @default(0)
   seatsAvailable       Int             @default(0)
-  seatBooked           Int             @default(0)
+  seatsBooked          Int             @default(0)
   destination          String
   durationDays         Int
+  packageType PackageType @default(DAILY)
   startDate            DateTime?
   endDate              DateTime?
-  bookingActiveFrom    DateTime
-  bookingEndAt         DateTime
-  packagePolicies      String          @default("NA")
-  cancellationPolicies String          @default("NA")
   agent                Bb_agentProfile @relation(fields: [agentId], references: [id], onDelete: Cascade)
   packageBannerImageId String?         @unique
   PackageBannerImage   Bb_image?       @relation("PackageBannerImage", fields: [packageBannerImageId], references: [id])
@@ -231,7 +237,7 @@ model Bb_travelPackage {
   updatedAt            DateTime        @updatedAt
   tags                 String[]
 
-  address Bb_address[] @relation("PackageAddressRelation")
+  address Bb_address? @relation("PackageAddressRelation")
 
   reviews        Bb_packageReview[]
   itinerary      Bb_itineraryDay[]
@@ -263,72 +269,11 @@ model Bb_itineraryDay {
   description String?
   packageId   String
 
-  package    Bb_travelPackage @relation(fields: [packageId], references: [id])
-  hotelStay  Bb_hotelStay?
-  meals      Bb_mealPlan?
-  transports Bb_transport[]
-  visits     Bb_visitPlace[]
+  package Bb_travelPackage @relation(fields: [packageId], references: [id])
 
   createdAt DateTime @default(now())
 
   @@unique([packageId, dayNumber])
-}
-
-model Bb_hotelStay {
-  id             String          @id @default(cuid())
-  hotelName      String
-  checkIn        DateTime?
-  checkOut       DateTime?
-  address        String?
-  wifi           Boolean?
-  tv             Boolean?
-  attachWashroom Boolean?
-  acRoom         Boolean?
-  kitchen        Boolean?
-  itineraryDayId String          @unique
-  itineraryDay   Bb_itineraryDay @relation(fields: [itineraryDayId], references: [id])
-}
-
-model Bb_mealPlan {
-  id             String @id @default(cuid())
-  itineraryDayId String @unique
-
-  meals Bb_meal[] // 3 meals: breakfast, lunch, dinner
-
-  itineraryDay Bb_itineraryDay @relation(fields: [itineraryDayId], references: [id])
-}
-
-model Bb_meal {
-  id              String      @id @default(cuid())
-  type            MealType
-  mealPlanId      String
-  mealDescription String?
-  mealPlan        Bb_mealPlan @relation(fields: [mealPlanId], references: [id])
-
-  @@unique([mealPlanId, type])
-}
-
-model Bb_transport {
-  id           String        @id @default(cuid())
-  fromLocation String
-  toLocation   String
-  mode         TransportMode // e.g., BUS, TRAIN, CAR
-  startTime    DateTime
-  endTime      DateTime
-
-  itineraryDayId String
-  itineraryDay   Bb_itineraryDay @relation(fields: [itineraryDayId], references: [id])
-}
-
-model Bb_visitPlace {
-  id             String  @id @default(cuid())
-  name           String
-  address        String?
-  description    String?
-  visitTime      String?
-  itineraryDayId String
-
-  itineraryDay Bb_itineraryDay @relation(fields: [itineraryDayId], references: [id])
 }
 
 model Bb_booking {
@@ -339,46 +284,65 @@ model Bb_booking {
   packageId String
 
   numberOfTravelers Int @default(1)
+  visiteDate DateTime?
 
-  status        BookingStatus @default(PENDING)
-  paymentStatus PaymentStatus @default(PENDING)
+  // Booking status lifecycle
+  status BookingStatus @default(PENDING)
 
-  baseAmount     Float //travel package per person amount      
-  taxAmount      Float @default(0) //if tax is provided by the agent apply
-  discountAmount Float @default(0) //if discount is provided by the agent apply
+  // Pricing snapshot from package at booking time
+  pricePerPerson     Float // snapshot of package price
+  gstPercentage      Int   @default(0) // snapshot of package GST%
+  discountPercentage Int   @default(0) // snapshot of package discount%
 
-  totalAmount Float
+  // Calculated amounts
+  baseAmount     Float // numberOfTravelers × pricePerPerson
+  gstAmount      Float @default(0) // baseAmount × (gstPercentage / 100)
+  discountAmount Float @default(0) // baseAmount × (discountPercentage / 100)
+  totalAmount    Float // baseAmount + gstAmount - discountAmount
 
-  // cancellation refund fields
-  refundableAmount   Float? // computed at cancellation time
+  // Cancellation info
   cancellationReason String?
   cancelledAt        DateTime?
   cancelledBy        CancelledBy?
+  refundableAmount   Float? // computed at cancellation (totalAmount - cancellation fee)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   user          Bb_user          @relation(fields: [userId], references: [id])
   travelPackage Bb_travelPackage @relation(fields: [packageId], references: [id])
-
-  payments Bb_payment? // one-to-one, a single booking have a single payment
+  payments      Bb_payment[] // one-to-many: supports retries, refunds, partial payments
 }
 
 model Bb_payment {
-  id          String        @id @default(cuid())
-  bookingId   String        @unique
-  type        PaymentType
-  status      PaymentStatus @default(PENDING)
-  amount      Float
-  currency    String        @default("INR")
+  id         String @id @default(cuid())
+  bookingId  String
+  paymentRef String @unique // unique reference for each payment attempt
+
+  // Payment amount & currency
+  amount   Float
+  currency String @default("INR")
+
+  // Payment method & provider
+  method      PaymentMethod @default(CARD)
   provider    ProviderType? @default(OTHER)
-  providerRef String?
-  isRefund    Boolean?      @default(false)
+  providerRef String? // reference from payment provider (transaction ID, etc.)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  // Payment status
+  status PaymentStatus @default(PENDING)
 
-  booking Bb_booking? @relation(fields: [bookingId], references: [id])
+  // Payment metadata for flexibility
+  metadata Json? // store additional data (response from payment gateway, etc.)
+
+  // Timestamps
+  createdAt   DateTime  @default(now())
+  processedAt DateTime? // when payment was processed
+  updatedAt   DateTime  @updatedAt
+
+  booking Bb_booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@index([status])
 }
 
 model Bb_packageReview {

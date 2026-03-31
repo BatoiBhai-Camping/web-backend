@@ -392,11 +392,6 @@ export const ModelName = {
   Bb_travelPackage: 'Bb_travelPackage',
   Bb_image: 'Bb_image',
   Bb_itineraryDay: 'Bb_itineraryDay',
-  Bb_hotelStay: 'Bb_hotelStay',
-  Bb_mealPlan: 'Bb_mealPlan',
-  Bb_meal: 'Bb_meal',
-  Bb_transport: 'Bb_transport',
-  Bb_visitPlace: 'Bb_visitPlace',
   Bb_booking: 'Bb_booking',
   Bb_payment: 'Bb_payment',
   Bb_packageReview: 'Bb_packageReview',
@@ -418,7 +413,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "bb_user" | "bb_optionalPhone" | "bb_agentProfile" | "bb_document" | "bb_address" | "bb_travelPackage" | "bb_image" | "bb_itineraryDay" | "bb_hotelStay" | "bb_mealPlan" | "bb_meal" | "bb_transport" | "bb_visitPlace" | "bb_booking" | "bb_payment" | "bb_packageReview" | "bb_agentReview" | "bb_platformReview" | "bb_notification"
+    modelProps: "bb_user" | "bb_optionalPhone" | "bb_agentProfile" | "bb_document" | "bb_address" | "bb_travelPackage" | "bb_image" | "bb_itineraryDay" | "bb_booking" | "bb_payment" | "bb_packageReview" | "bb_agentReview" | "bb_platformReview" | "bb_notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1014,376 +1009,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Bb_hotelStay: {
-      payload: Prisma.$Bb_hotelStayPayload<ExtArgs>
-      fields: Prisma.Bb_hotelStayFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.Bb_hotelStayFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.Bb_hotelStayFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload>
-        }
-        findFirst: {
-          args: Prisma.Bb_hotelStayFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.Bb_hotelStayFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload>
-        }
-        findMany: {
-          args: Prisma.Bb_hotelStayFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload>[]
-        }
-        create: {
-          args: Prisma.Bb_hotelStayCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload>
-        }
-        createMany: {
-          args: Prisma.Bb_hotelStayCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.Bb_hotelStayCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload>[]
-        }
-        delete: {
-          args: Prisma.Bb_hotelStayDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload>
-        }
-        update: {
-          args: Prisma.Bb_hotelStayUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload>
-        }
-        deleteMany: {
-          args: Prisma.Bb_hotelStayDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.Bb_hotelStayUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.Bb_hotelStayUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload>[]
-        }
-        upsert: {
-          args: Prisma.Bb_hotelStayUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_hotelStayPayload>
-        }
-        aggregate: {
-          args: Prisma.Bb_hotelStayAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateBb_hotelStay>
-        }
-        groupBy: {
-          args: Prisma.Bb_hotelStayGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_hotelStayGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.Bb_hotelStayCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_hotelStayCountAggregateOutputType> | number
-        }
-      }
-    }
-    Bb_mealPlan: {
-      payload: Prisma.$Bb_mealPlanPayload<ExtArgs>
-      fields: Prisma.Bb_mealPlanFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.Bb_mealPlanFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.Bb_mealPlanFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload>
-        }
-        findFirst: {
-          args: Prisma.Bb_mealPlanFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.Bb_mealPlanFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload>
-        }
-        findMany: {
-          args: Prisma.Bb_mealPlanFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload>[]
-        }
-        create: {
-          args: Prisma.Bb_mealPlanCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload>
-        }
-        createMany: {
-          args: Prisma.Bb_mealPlanCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.Bb_mealPlanCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload>[]
-        }
-        delete: {
-          args: Prisma.Bb_mealPlanDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload>
-        }
-        update: {
-          args: Prisma.Bb_mealPlanUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload>
-        }
-        deleteMany: {
-          args: Prisma.Bb_mealPlanDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.Bb_mealPlanUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.Bb_mealPlanUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload>[]
-        }
-        upsert: {
-          args: Prisma.Bb_mealPlanUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPlanPayload>
-        }
-        aggregate: {
-          args: Prisma.Bb_mealPlanAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateBb_mealPlan>
-        }
-        groupBy: {
-          args: Prisma.Bb_mealPlanGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_mealPlanGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.Bb_mealPlanCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_mealPlanCountAggregateOutputType> | number
-        }
-      }
-    }
-    Bb_meal: {
-      payload: Prisma.$Bb_mealPayload<ExtArgs>
-      fields: Prisma.Bb_mealFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.Bb_mealFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.Bb_mealFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload>
-        }
-        findFirst: {
-          args: Prisma.Bb_mealFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.Bb_mealFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload>
-        }
-        findMany: {
-          args: Prisma.Bb_mealFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload>[]
-        }
-        create: {
-          args: Prisma.Bb_mealCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload>
-        }
-        createMany: {
-          args: Prisma.Bb_mealCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.Bb_mealCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload>[]
-        }
-        delete: {
-          args: Prisma.Bb_mealDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload>
-        }
-        update: {
-          args: Prisma.Bb_mealUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload>
-        }
-        deleteMany: {
-          args: Prisma.Bb_mealDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.Bb_mealUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.Bb_mealUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload>[]
-        }
-        upsert: {
-          args: Prisma.Bb_mealUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_mealPayload>
-        }
-        aggregate: {
-          args: Prisma.Bb_mealAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateBb_meal>
-        }
-        groupBy: {
-          args: Prisma.Bb_mealGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_mealGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.Bb_mealCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_mealCountAggregateOutputType> | number
-        }
-      }
-    }
-    Bb_transport: {
-      payload: Prisma.$Bb_transportPayload<ExtArgs>
-      fields: Prisma.Bb_transportFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.Bb_transportFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.Bb_transportFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload>
-        }
-        findFirst: {
-          args: Prisma.Bb_transportFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.Bb_transportFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload>
-        }
-        findMany: {
-          args: Prisma.Bb_transportFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload>[]
-        }
-        create: {
-          args: Prisma.Bb_transportCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload>
-        }
-        createMany: {
-          args: Prisma.Bb_transportCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.Bb_transportCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload>[]
-        }
-        delete: {
-          args: Prisma.Bb_transportDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload>
-        }
-        update: {
-          args: Prisma.Bb_transportUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload>
-        }
-        deleteMany: {
-          args: Prisma.Bb_transportDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.Bb_transportUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.Bb_transportUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload>[]
-        }
-        upsert: {
-          args: Prisma.Bb_transportUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_transportPayload>
-        }
-        aggregate: {
-          args: Prisma.Bb_transportAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateBb_transport>
-        }
-        groupBy: {
-          args: Prisma.Bb_transportGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_transportGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.Bb_transportCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_transportCountAggregateOutputType> | number
-        }
-      }
-    }
-    Bb_visitPlace: {
-      payload: Prisma.$Bb_visitPlacePayload<ExtArgs>
-      fields: Prisma.Bb_visitPlaceFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.Bb_visitPlaceFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.Bb_visitPlaceFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload>
-        }
-        findFirst: {
-          args: Prisma.Bb_visitPlaceFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.Bb_visitPlaceFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload>
-        }
-        findMany: {
-          args: Prisma.Bb_visitPlaceFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload>[]
-        }
-        create: {
-          args: Prisma.Bb_visitPlaceCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload>
-        }
-        createMany: {
-          args: Prisma.Bb_visitPlaceCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.Bb_visitPlaceCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload>[]
-        }
-        delete: {
-          args: Prisma.Bb_visitPlaceDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload>
-        }
-        update: {
-          args: Prisma.Bb_visitPlaceUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload>
-        }
-        deleteMany: {
-          args: Prisma.Bb_visitPlaceDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.Bb_visitPlaceUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.Bb_visitPlaceUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload>[]
-        }
-        upsert: {
-          args: Prisma.Bb_visitPlaceUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$Bb_visitPlacePayload>
-        }
-        aggregate: {
-          args: Prisma.Bb_visitPlaceAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateBb_visitPlace>
-        }
-        groupBy: {
-          args: Prisma.Bb_visitPlaceGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_visitPlaceGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.Bb_visitPlaceCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Bb_visitPlaceCountAggregateOutputType> | number
-        }
-      }
-    }
     Bb_booking: {
       payload: Prisma.$Bb_bookingPayload<ExtArgs>
       fields: Prisma.Bb_bookingFieldRefs
@@ -1948,21 +1573,16 @@ export const Bb_travelPackageScalarFieldEnum = {
   description: 'description',
   pricePerPerson: 'pricePerPerson',
   packageApprovedStatus: 'packageApprovedStatus',
-  discountAmount: 'discountAmount',
   discountPercentage: 'discountPercentage',
-  withTax: 'withTax',
-  taxPercentage: 'taxPercentage',
+  gstPercentage: 'gstPercentage',
   totalSeats: 'totalSeats',
   seatsAvailable: 'seatsAvailable',
-  seatBooked: 'seatBooked',
+  seatsBooked: 'seatsBooked',
   destination: 'destination',
   durationDays: 'durationDays',
+  packageType: 'packageType',
   startDate: 'startDate',
   endDate: 'endDate',
-  bookingActiveFrom: 'bookingActiveFrom',
-  bookingEndAt: 'bookingEndAt',
-  packagePolicies: 'packagePolicies',
-  cancellationPolicies: 'cancellationPolicies',
   packageBannerImageId: 'packageBannerImageId',
   isBookingActive: 'isBookingActive',
   isDeleted: 'isDeleted',
@@ -2000,82 +1620,25 @@ export const Bb_itineraryDayScalarFieldEnum = {
 export type Bb_itineraryDayScalarFieldEnum = (typeof Bb_itineraryDayScalarFieldEnum)[keyof typeof Bb_itineraryDayScalarFieldEnum]
 
 
-export const Bb_hotelStayScalarFieldEnum = {
-  id: 'id',
-  hotelName: 'hotelName',
-  checkIn: 'checkIn',
-  checkOut: 'checkOut',
-  address: 'address',
-  wifi: 'wifi',
-  tv: 'tv',
-  attachWashroom: 'attachWashroom',
-  acRoom: 'acRoom',
-  kitchen: 'kitchen',
-  itineraryDayId: 'itineraryDayId'
-} as const
-
-export type Bb_hotelStayScalarFieldEnum = (typeof Bb_hotelStayScalarFieldEnum)[keyof typeof Bb_hotelStayScalarFieldEnum]
-
-
-export const Bb_mealPlanScalarFieldEnum = {
-  id: 'id',
-  itineraryDayId: 'itineraryDayId'
-} as const
-
-export type Bb_mealPlanScalarFieldEnum = (typeof Bb_mealPlanScalarFieldEnum)[keyof typeof Bb_mealPlanScalarFieldEnum]
-
-
-export const Bb_mealScalarFieldEnum = {
-  id: 'id',
-  type: 'type',
-  mealPlanId: 'mealPlanId',
-  mealDescription: 'mealDescription'
-} as const
-
-export type Bb_mealScalarFieldEnum = (typeof Bb_mealScalarFieldEnum)[keyof typeof Bb_mealScalarFieldEnum]
-
-
-export const Bb_transportScalarFieldEnum = {
-  id: 'id',
-  fromLocation: 'fromLocation',
-  toLocation: 'toLocation',
-  mode: 'mode',
-  startTime: 'startTime',
-  endTime: 'endTime',
-  itineraryDayId: 'itineraryDayId'
-} as const
-
-export type Bb_transportScalarFieldEnum = (typeof Bb_transportScalarFieldEnum)[keyof typeof Bb_transportScalarFieldEnum]
-
-
-export const Bb_visitPlaceScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  address: 'address',
-  description: 'description',
-  visitTime: 'visitTime',
-  itineraryDayId: 'itineraryDayId'
-} as const
-
-export type Bb_visitPlaceScalarFieldEnum = (typeof Bb_visitPlaceScalarFieldEnum)[keyof typeof Bb_visitPlaceScalarFieldEnum]
-
-
 export const Bb_bookingScalarFieldEnum = {
   id: 'id',
   bookingCode: 'bookingCode',
   userId: 'userId',
   packageId: 'packageId',
   numberOfTravelers: 'numberOfTravelers',
+  visiteDate: 'visiteDate',
   status: 'status',
-  paymentStatus: 'paymentStatus',
+  pricePerPerson: 'pricePerPerson',
+  gstPercentage: 'gstPercentage',
+  discountPercentage: 'discountPercentage',
   baseAmount: 'baseAmount',
-  taxAmount: 'taxAmount',
+  gstAmount: 'gstAmount',
   discountAmount: 'discountAmount',
   totalAmount: 'totalAmount',
-  refundableAmount: 'refundableAmount',
   cancellationReason: 'cancellationReason',
   cancelledAt: 'cancelledAt',
   cancelledBy: 'cancelledBy',
+  refundableAmount: 'refundableAmount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2086,14 +1649,16 @@ export type Bb_bookingScalarFieldEnum = (typeof Bb_bookingScalarFieldEnum)[keyof
 export const Bb_paymentScalarFieldEnum = {
   id: 'id',
   bookingId: 'bookingId',
-  type: 'type',
-  status: 'status',
+  paymentRef: 'paymentRef',
   amount: 'amount',
   currency: 'currency',
+  method: 'method',
   provider: 'provider',
   providerRef: 'providerRef',
-  isRefund: 'isRefund',
+  status: 'status',
+  metadata: 'metadata',
   createdAt: 'createdAt',
+  processedAt: 'processedAt',
   updatedAt: 'updatedAt'
 } as const
 
@@ -2156,6 +1721,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -2170,6 +1743,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -2312,30 +1894,16 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'MealType'
+ * Reference to a field of type 'PackageType'
  */
-export type EnumMealTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MealType'>
+export type EnumPackageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PackageType'>
     
 
 
 /**
- * Reference to a field of type 'MealType[]'
+ * Reference to a field of type 'PackageType[]'
  */
-export type ListEnumMealTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MealType[]'>
-    
-
-
-/**
- * Reference to a field of type 'TransportMode'
- */
-export type EnumTransportModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransportMode'>
-    
-
-
-/**
- * Reference to a field of type 'TransportMode[]'
- */
-export type ListEnumTransportModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransportMode[]'>
+export type ListEnumPackageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PackageType[]'>
     
 
 
@@ -2354,20 +1922,6 @@ export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
- * Reference to a field of type 'PaymentStatus'
- */
-export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus'>
-    
-
-
-/**
- * Reference to a field of type 'PaymentStatus[]'
- */
-export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'CancelledBy'
  */
 export type EnumCancelledByFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CancelledBy'>
@@ -2382,16 +1936,16 @@ export type ListEnumCancelledByFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
- * Reference to a field of type 'PaymentType'
+ * Reference to a field of type 'PaymentMethod'
  */
-export type EnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType'>
+export type EnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod'>
     
 
 
 /**
- * Reference to a field of type 'PaymentType[]'
+ * Reference to a field of type 'PaymentMethod[]'
  */
-export type ListEnumPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentType[]'>
+export type ListEnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod[]'>
     
 
 
@@ -2406,6 +1960,34 @@ export type EnumProviderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'ProviderType[]'
  */
 export type ListEnumProviderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProviderType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PaymentStatus'
+ */
+export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PaymentStatus[]'
+ */
+export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -2509,11 +2091,6 @@ export type GlobalOmitConfig = {
   bb_travelPackage?: Prisma.Bb_travelPackageOmit
   bb_image?: Prisma.Bb_imageOmit
   bb_itineraryDay?: Prisma.Bb_itineraryDayOmit
-  bb_hotelStay?: Prisma.Bb_hotelStayOmit
-  bb_mealPlan?: Prisma.Bb_mealPlanOmit
-  bb_meal?: Prisma.Bb_mealOmit
-  bb_transport?: Prisma.Bb_transportOmit
-  bb_visitPlace?: Prisma.Bb_visitPlaceOmit
   bb_booking?: Prisma.Bb_bookingOmit
   bb_payment?: Prisma.Bb_paymentOmit
   bb_packageReview?: Prisma.Bb_packageReviewOmit

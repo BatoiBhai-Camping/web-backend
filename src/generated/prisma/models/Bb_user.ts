@@ -256,7 +256,7 @@ export type Bb_userWhereInput = {
   verifyToken?: Prisma.StringNullableFilter<"Bb_user"> | string | null
   profileImage?: Prisma.XOR<Prisma.Bb_imageNullableScalarRelationFilter, Prisma.Bb_imageWhereInput> | null
   optionalPhone?: Prisma.Bb_optionalPhoneListRelationFilter
-  address?: Prisma.Bb_addressListRelationFilter
+  address?: Prisma.XOR<Prisma.Bb_addressNullableScalarRelationFilter, Prisma.Bb_addressWhereInput> | null
   agentProfile?: Prisma.XOR<Prisma.Bb_agentProfileNullableScalarRelationFilter, Prisma.Bb_agentProfileWhereInput> | null
   bookings?: Prisma.Bb_bookingListRelationFilter
   platformReviews?: Prisma.Bb_platformReviewListRelationFilter
@@ -282,7 +282,7 @@ export type Bb_userOrderByWithRelationInput = {
   verifyToken?: Prisma.SortOrderInput | Prisma.SortOrder
   profileImage?: Prisma.Bb_imageOrderByWithRelationInput
   optionalPhone?: Prisma.Bb_optionalPhoneOrderByRelationAggregateInput
-  address?: Prisma.Bb_addressOrderByRelationAggregateInput
+  address?: Prisma.Bb_addressOrderByWithRelationInput
   agentProfile?: Prisma.Bb_agentProfileOrderByWithRelationInput
   bookings?: Prisma.Bb_bookingOrderByRelationAggregateInput
   platformReviews?: Prisma.Bb_platformReviewOrderByRelationAggregateInput
@@ -311,7 +311,7 @@ export type Bb_userWhereUniqueInput = Prisma.AtLeast<{
   verifyToken?: Prisma.StringNullableFilter<"Bb_user"> | string | null
   profileImage?: Prisma.XOR<Prisma.Bb_imageNullableScalarRelationFilter, Prisma.Bb_imageWhereInput> | null
   optionalPhone?: Prisma.Bb_optionalPhoneListRelationFilter
-  address?: Prisma.Bb_addressListRelationFilter
+  address?: Prisma.XOR<Prisma.Bb_addressNullableScalarRelationFilter, Prisma.Bb_addressWhereInput> | null
   agentProfile?: Prisma.XOR<Prisma.Bb_agentProfileNullableScalarRelationFilter, Prisma.Bb_agentProfileWhereInput> | null
   bookings?: Prisma.Bb_bookingListRelationFilter
   platformReviews?: Prisma.Bb_platformReviewListRelationFilter
@@ -376,7 +376,7 @@ export type Bb_userCreateInput = {
   verifyToken?: string | null
   profileImage?: Prisma.Bb_imageCreateNestedOneWithoutUserProfileInput
   optionalPhone?: Prisma.Bb_optionalPhoneCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewCreateNestedManyWithoutUserInput
@@ -401,7 +401,7 @@ export type Bb_userUncheckedCreateInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedCreateNestedManyWithoutUserInput
@@ -426,7 +426,7 @@ export type Bb_userUpdateInput = {
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.Bb_imageUpdateOneWithoutUserProfileNestedInput
   optionalPhone?: Prisma.Bb_optionalPhoneUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUpdateManyWithoutUserNestedInput
@@ -451,7 +451,7 @@ export type Bb_userUncheckedUpdateInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -756,7 +756,7 @@ export type Bb_userCreateWithoutOptionalPhoneInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   profileImage?: Prisma.Bb_imageCreateNestedOneWithoutUserProfileInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewCreateNestedManyWithoutUserInput
@@ -780,7 +780,7 @@ export type Bb_userUncheckedCreateWithoutOptionalPhoneInput = {
   profileImageId?: string | null
   refreshToken?: string | null
   verifyToken?: string | null
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedCreateNestedManyWithoutUserInput
@@ -820,7 +820,7 @@ export type Bb_userUpdateWithoutOptionalPhoneInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.Bb_imageUpdateOneWithoutUserProfileNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUpdateManyWithoutUserNestedInput
@@ -844,7 +844,7 @@ export type Bb_userUncheckedUpdateWithoutOptionalPhoneInput = {
   profileImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -869,7 +869,7 @@ export type Bb_userCreateWithoutAgentProfileInput = {
   verifyToken?: string | null
   profileImage?: Prisma.Bb_imageCreateNestedOneWithoutUserProfileInput
   optionalPhone?: Prisma.Bb_optionalPhoneCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewCreateNestedManyWithoutUserInput
   agentReviews?: Prisma.Bb_agentReviewCreateNestedManyWithoutUserInput
@@ -893,7 +893,7 @@ export type Bb_userUncheckedCreateWithoutAgentProfileInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedCreateNestedManyWithoutUserInput
   agentReviews?: Prisma.Bb_agentReviewUncheckedCreateNestedManyWithoutUserInput
@@ -933,7 +933,7 @@ export type Bb_userUpdateWithoutAgentProfileInput = {
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.Bb_imageUpdateOneWithoutUserProfileNestedInput
   optionalPhone?: Prisma.Bb_optionalPhoneUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUpdateManyWithoutUserNestedInput
   agentReviews?: Prisma.Bb_agentReviewUpdateManyWithoutUserNestedInput
@@ -957,7 +957,7 @@ export type Bb_userUncheckedUpdateWithoutAgentProfileInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedUpdateManyWithoutUserNestedInput
   agentReviews?: Prisma.Bb_agentReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -1092,7 +1092,7 @@ export type Bb_userCreateWithoutProfileImageInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   optionalPhone?: Prisma.Bb_optionalPhoneCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewCreateNestedManyWithoutUserInput
@@ -1116,7 +1116,7 @@ export type Bb_userUncheckedCreateWithoutProfileImageInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedCreateNestedManyWithoutUserInput
@@ -1156,7 +1156,7 @@ export type Bb_userUpdateWithoutProfileImageInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUpdateManyWithoutUserNestedInput
@@ -1180,7 +1180,7 @@ export type Bb_userUncheckedUpdateWithoutProfileImageInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -1205,7 +1205,7 @@ export type Bb_userCreateWithoutBookingsInput = {
   verifyToken?: string | null
   profileImage?: Prisma.Bb_imageCreateNestedOneWithoutUserProfileInput
   optionalPhone?: Prisma.Bb_optionalPhoneCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileCreateNestedOneWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewCreateNestedManyWithoutUserInput
   agentReviews?: Prisma.Bb_agentReviewCreateNestedManyWithoutUserInput
@@ -1229,7 +1229,7 @@ export type Bb_userUncheckedCreateWithoutBookingsInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedCreateNestedOneWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedCreateNestedManyWithoutUserInput
   agentReviews?: Prisma.Bb_agentReviewUncheckedCreateNestedManyWithoutUserInput
@@ -1269,7 +1269,7 @@ export type Bb_userUpdateWithoutBookingsInput = {
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.Bb_imageUpdateOneWithoutUserProfileNestedInput
   optionalPhone?: Prisma.Bb_optionalPhoneUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUpdateOneWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUpdateManyWithoutUserNestedInput
   agentReviews?: Prisma.Bb_agentReviewUpdateManyWithoutUserNestedInput
@@ -1293,7 +1293,7 @@ export type Bb_userUncheckedUpdateWithoutBookingsInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedUpdateOneWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedUpdateManyWithoutUserNestedInput
   agentReviews?: Prisma.Bb_agentReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -1317,7 +1317,7 @@ export type Bb_userCreateWithoutPackageReviewsInput = {
   verifyToken?: string | null
   profileImage?: Prisma.Bb_imageCreateNestedOneWithoutUserProfileInput
   optionalPhone?: Prisma.Bb_optionalPhoneCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewCreateNestedManyWithoutUserInput
@@ -1341,7 +1341,7 @@ export type Bb_userUncheckedCreateWithoutPackageReviewsInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedCreateNestedManyWithoutUserInput
@@ -1381,7 +1381,7 @@ export type Bb_userUpdateWithoutPackageReviewsInput = {
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.Bb_imageUpdateOneWithoutUserProfileNestedInput
   optionalPhone?: Prisma.Bb_optionalPhoneUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUpdateManyWithoutUserNestedInput
@@ -1405,7 +1405,7 @@ export type Bb_userUncheckedUpdateWithoutPackageReviewsInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -1429,7 +1429,7 @@ export type Bb_userCreateWithoutAgentReviewsInput = {
   verifyToken?: string | null
   profileImage?: Prisma.Bb_imageCreateNestedOneWithoutUserProfileInput
   optionalPhone?: Prisma.Bb_optionalPhoneCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewCreateNestedManyWithoutUserInput
@@ -1453,7 +1453,7 @@ export type Bb_userUncheckedCreateWithoutAgentReviewsInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedCreateNestedManyWithoutUserInput
@@ -1493,7 +1493,7 @@ export type Bb_userUpdateWithoutAgentReviewsInput = {
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.Bb_imageUpdateOneWithoutUserProfileNestedInput
   optionalPhone?: Prisma.Bb_optionalPhoneUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUpdateManyWithoutUserNestedInput
@@ -1517,7 +1517,7 @@ export type Bb_userUncheckedUpdateWithoutAgentReviewsInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -1541,7 +1541,7 @@ export type Bb_userCreateWithoutPlatformReviewsInput = {
   verifyToken?: string | null
   profileImage?: Prisma.Bb_imageCreateNestedOneWithoutUserProfileInput
   optionalPhone?: Prisma.Bb_optionalPhoneCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutUserInput
   agentReviews?: Prisma.Bb_agentReviewCreateNestedManyWithoutUserInput
@@ -1565,7 +1565,7 @@ export type Bb_userUncheckedCreateWithoutPlatformReviewsInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutUserInput
   agentReviews?: Prisma.Bb_agentReviewUncheckedCreateNestedManyWithoutUserInput
@@ -1605,7 +1605,7 @@ export type Bb_userUpdateWithoutPlatformReviewsInput = {
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.Bb_imageUpdateOneWithoutUserProfileNestedInput
   optionalPhone?: Prisma.Bb_optionalPhoneUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutUserNestedInput
   agentReviews?: Prisma.Bb_agentReviewUpdateManyWithoutUserNestedInput
@@ -1629,7 +1629,7 @@ export type Bb_userUncheckedUpdateWithoutPlatformReviewsInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutUserNestedInput
   agentReviews?: Prisma.Bb_agentReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -1653,7 +1653,7 @@ export type Bb_userCreateWithoutNotificationsInput = {
   verifyToken?: string | null
   profileImage?: Prisma.Bb_imageCreateNestedOneWithoutUserProfileInput
   optionalPhone?: Prisma.Bb_optionalPhoneCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewCreateNestedManyWithoutUserInput
@@ -1677,7 +1677,7 @@ export type Bb_userUncheckedCreateWithoutNotificationsInput = {
   refreshToken?: string | null
   verifyToken?: string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedCreateNestedManyWithoutUserInput
-  address?: Prisma.Bb_addressUncheckedCreateNestedManyWithoutUserInput
+  address?: Prisma.Bb_addressUncheckedCreateNestedOneWithoutUserInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedCreateNestedOneWithoutUserInput
   bookings?: Prisma.Bb_bookingUncheckedCreateNestedManyWithoutUserInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedCreateNestedManyWithoutUserInput
@@ -1717,7 +1717,7 @@ export type Bb_userUpdateWithoutNotificationsInput = {
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profileImage?: Prisma.Bb_imageUpdateOneWithoutUserProfileNestedInput
   optionalPhone?: Prisma.Bb_optionalPhoneUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUpdateManyWithoutUserNestedInput
@@ -1741,7 +1741,7 @@ export type Bb_userUncheckedUpdateWithoutNotificationsInput = {
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verifyToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   optionalPhone?: Prisma.Bb_optionalPhoneUncheckedUpdateManyWithoutUserNestedInput
-  address?: Prisma.Bb_addressUncheckedUpdateManyWithoutUserNestedInput
+  address?: Prisma.Bb_addressUncheckedUpdateOneWithoutUserNestedInput
   agentProfile?: Prisma.Bb_agentProfileUncheckedUpdateOneWithoutUserNestedInput
   bookings?: Prisma.Bb_bookingUncheckedUpdateManyWithoutUserNestedInput
   platformReviews?: Prisma.Bb_platformReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -1756,7 +1756,6 @@ export type Bb_userUncheckedUpdateWithoutNotificationsInput = {
 
 export type Bb_userCountOutputType = {
   optionalPhone: number
-  address: number
   bookings: number
   platformReviews: number
   agentReviews: number
@@ -1766,7 +1765,6 @@ export type Bb_userCountOutputType = {
 
 export type Bb_userCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   optionalPhone?: boolean | Bb_userCountOutputTypeCountOptionalPhoneArgs
-  address?: boolean | Bb_userCountOutputTypeCountAddressArgs
   bookings?: boolean | Bb_userCountOutputTypeCountBookingsArgs
   platformReviews?: boolean | Bb_userCountOutputTypeCountPlatformReviewsArgs
   agentReviews?: boolean | Bb_userCountOutputTypeCountAgentReviewsArgs
@@ -1789,13 +1787,6 @@ export type Bb_userCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
  */
 export type Bb_userCountOutputTypeCountOptionalPhoneArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.Bb_optionalPhoneWhereInput
-}
-
-/**
- * Bb_userCountOutputType without action
- */
-export type Bb_userCountOutputTypeCountAddressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.Bb_addressWhereInput
 }
 
 /**
@@ -1939,7 +1930,7 @@ export type $Bb_userPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     profileImage: Prisma.$Bb_imagePayload<ExtArgs> | null
     optionalPhone: Prisma.$Bb_optionalPhonePayload<ExtArgs>[]
-    address: Prisma.$Bb_addressPayload<ExtArgs>[]
+    address: Prisma.$Bb_addressPayload<ExtArgs> | null
     agentProfile: Prisma.$Bb_agentProfilePayload<ExtArgs> | null
     bookings: Prisma.$Bb_bookingPayload<ExtArgs>[]
     platformReviews: Prisma.$Bb_platformReviewPayload<ExtArgs>[]
@@ -2358,7 +2349,7 @@ export interface Prisma__Bb_userClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   profileImage<T extends Prisma.Bb_user$profileImageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_user$profileImageArgs<ExtArgs>>): Prisma.Prisma__Bb_imageClient<runtime.Types.Result.GetResult<Prisma.$Bb_imagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   optionalPhone<T extends Prisma.Bb_user$optionalPhoneArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_user$optionalPhoneArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_optionalPhonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  address<T extends Prisma.Bb_user$addressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_user$addressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_addressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  address<T extends Prisma.Bb_user$addressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_user$addressArgs<ExtArgs>>): Prisma.Prisma__Bb_addressClient<runtime.Types.Result.GetResult<Prisma.$Bb_addressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   agentProfile<T extends Prisma.Bb_user$agentProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_user$agentProfileArgs<ExtArgs>>): Prisma.Prisma__Bb_agentProfileClient<runtime.Types.Result.GetResult<Prisma.$Bb_agentProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   bookings<T extends Prisma.Bb_user$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_user$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_bookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   platformReviews<T extends Prisma.Bb_user$platformReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bb_user$platformReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$Bb_platformReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2863,11 +2854,6 @@ export type Bb_user$addressArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   include?: Prisma.Bb_addressInclude<ExtArgs> | null
   where?: Prisma.Bb_addressWhereInput
-  orderBy?: Prisma.Bb_addressOrderByWithRelationInput | Prisma.Bb_addressOrderByWithRelationInput[]
-  cursor?: Prisma.Bb_addressWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.Bb_addressScalarFieldEnum | Prisma.Bb_addressScalarFieldEnum[]
 }
 
 /**

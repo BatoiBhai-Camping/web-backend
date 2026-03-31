@@ -72,13 +72,14 @@ const agentMiddleware = asyncHandler(
         id: verifyAccessToken.userId,
         email: verifyAccessToken.email,
         isDeleted: false,
-        emailVerified: true,
+
         role: "AGENT",
-        roleStatus: "APPROVED",
       },
       select: {
         id: true,
         email: true,
+        emailVerified: true,
+        roleStatus: true,
       },
     });
 
@@ -91,6 +92,32 @@ const agentMiddleware = asyncHandler(
             field: "Invalid user token",
             message:
               "Provided token data is not found in db with the constrains, id, email , emailVerified, role, rolestatus",
+          },
+        ],
+      );
+    }
+    if (!dbUser.emailVerified) {
+      throw new ApiError(
+        400,
+        "Access denied, authenication required as  agent",
+        [
+          {
+            field: "Email is not verifyed",
+            message: "Email is not verifyed kindly verify the email",
+          },
+        ],
+      );
+    }
+
+    if (dbUser.roleStatus != "APPROVED") {
+      throw new ApiError(
+        400,
+        "Access denied, authenication required as  agent",
+        [
+          {
+            field: "Account not approved",
+            message:
+              "Account is not approved by admin, kindly contact the admin",
           },
         ],
       );

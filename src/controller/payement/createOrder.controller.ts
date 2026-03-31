@@ -9,8 +9,7 @@ import { createOrderValidator } from "../../validator/payment.validator.js";
 import {
   BookingStatus,
   PaymentStatus,
-  PaymentType,
-  ProviderType,
+  PaymentMethod,
 } from "../../generated/prisma/client.js";
 
 const createOrder = asyncHandler(async (req: Request, res: Response) => {
@@ -37,14 +36,10 @@ const createOrder = asyncHandler(async (req: Request, res: Response) => {
       id: true,
       title: true,
       pricePerPerson: true,
-      discountAmount: true,
       discountPercentage: true,
-      withTax: true,
-      taxPercentage: true,
+      gstPercentage: true,
       seatsAvailable: true,
       isBookingActive: true,
-      bookingActiveFrom: true,
-      bookingEndAt: true,
     },
   });
 
@@ -67,26 +62,6 @@ const createOrder = asyncHandler(async (req: Request, res: Response) => {
     ]);
   }
 
-  // Check booking date validity
-  const now = new Date();
-  if (travelPackage.bookingActiveFrom > now) {
-    throw new ApiError(400, "Booking has not started yet", [
-      {
-        field: "bookingActiveFrom",
-        message: `Booking opens on ${travelPackage.bookingActiveFrom.toISOString()}`,
-      },
-    ]);
-  }
-
-  if (travelPackage.bookingEndAt < now) {
-    throw new ApiError(400, "Booking period has ended", [
-      {
-        field: "bookingEndAt",
-        message: "This package is no longer accepting bookings",
-      },
-    ]);
-  }
-
   // Check seat availability
   if (travelPackage.seatsAvailable < numberOfTravelers) {
     throw new ApiError(400, "Insufficient seats available", [
@@ -97,33 +72,22 @@ const createOrder = asyncHandler(async (req: Request, res: Response) => {
     ]);
   }
 
-  // Calculate amounts
+  // Calculate amounts based on pricing snapshot
   const baseAmount = travelPackage.pricePerPerson * numberOfTravelers;
 
   // Calculate discount
-  let discountAmount = 0;
-  if (
-    travelPackage.discountPercentage &&
-    travelPackage.discountPercentage > 0
-  ) {
-    discountAmount = (baseAmount * travelPackage.discountPercentage) / 100;
-  } else if (travelPackage.discountAmount && travelPackage.discountAmount > 0) {
-    discountAmount = travelPackage.discountAmount * numberOfTravelers;
-  }
+  const discountAmount = travelPackage.discountPercentage
+    ? Math.round((baseAmount * travelPackage.discountPercentage) / 100)
+    : 0;
 
   const amountAfterDiscount = baseAmount - discountAmount;
 
-  // Calculate tax
-  let taxAmount = 0;
-  if (
-    travelPackage.withTax &&
-    travelPackage.taxPercentage &&
-    travelPackage.taxPercentage > 0
-  ) {
-    taxAmount = (amountAfterDiscount * travelPackage.taxPercentage) / 100;
-  }
+  // Calculate GST
+  const gstAmount = travelPackage.gstPercentage
+    ? Math.round((amountAfterDiscount * travelPackage.gstPercentage) / 100)
+    : 0;
 
-  const totalAmount = amountAfterDiscount + taxAmount;
+  const totalAmount = amountAfterDiscount + gstAmount;
 
   // Generate unique booking code
   const bookingCode = `BK${Date.now()}${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
@@ -144,7 +108,7 @@ const createOrder = asyncHandler(async (req: Request, res: Response) => {
 
   // Create booking and payment records in a transaction
   const result = await db.$transaction(async (tx) => {
-    // Create booking record
+    // Create booking record with pricing snapshot
     const booking = await tx.bb_booking.create({
       data: {
         bookingCode,
@@ -152,10 +116,14 @@ const createOrder = asyncHandler(async (req: Request, res: Response) => {
         packageId,
         numberOfTravelers,
         status: BookingStatus.PENDING,
-        paymentStatus: PaymentStatus.PENDING,
+        // Pricing snapshots
+        pricePerPerson: travelPackage.pricePerPerson,
+        discountPercentage: travelPackage.discountPercentage || 0,
+        gstPercentage: travelPackage.gstPercentage || 0,
+        // Calculated amounts
         baseAmount,
-        taxAmount,
         discountAmount,
+        gstAmount,
         totalAmount,
       },
     });
@@ -167,7 +135,7 @@ const createOrder = asyncHandler(async (req: Request, res: Response) => {
         seatsAvailable: {
           decrement: numberOfTravelers,
         },
-        seatBooked: {
+        seatsBooked: {
           increment: numberOfTravelers,
         },
       },
@@ -177,13 +145,14 @@ const createOrder = asyncHandler(async (req: Request, res: Response) => {
     const payment = await tx.bb_payment.create({
       data: {
         bookingId: booking.id,
-        type: PaymentType.BOOKING,
         status: PaymentStatus.PENDING,
         amount: totalAmount,
         currency: "INR",
-        provider: ProviderType.RAZORPAY,
-        providerRef: razorpayOrder.id,
-        isRefund: false,
+        paymentRef: razorpayOrder.id,
+        method: PaymentMethod.CARD,
+        metadata: {
+          razorpayOrderId: razorpayOrder.id,
+        },
       },
     });
 
@@ -206,7 +175,7 @@ const createOrder = asyncHandler(async (req: Request, res: Response) => {
         breakdown: {
           baseAmount,
           discountAmount,
-          taxAmount,
+          gstAmount,
           totalAmount,
         },
         razorpayKeyId: validENV.RAZORPAY_KEY_ID, // Frontend needs this to initialize Razorpay

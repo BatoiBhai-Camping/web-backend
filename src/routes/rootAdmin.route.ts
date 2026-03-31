@@ -32,9 +32,7 @@ import {
 const rootAdminRouter = Router();
 
 rootAdminRouter.route("/register").post(rootAdminRegister);
-rootAdminRouter
-  .route("/verify-account")
-  .post(authMiddleware, userAccountVerification);
+rootAdminRouter.route("/verify-account").post(userAccountVerification);
 rootAdminRouter.route("/login").post(rootAdminLogin);
 rootAdminRouter.route("/logout").delete(authMiddleware, logout);
 rootAdminRouter
